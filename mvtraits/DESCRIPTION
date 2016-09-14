@@ -17,4 +17,4 @@ Depends:
     tidyr,
     combinat
 License: FreeBSD
-
+RoxygenNote: 5.0.1

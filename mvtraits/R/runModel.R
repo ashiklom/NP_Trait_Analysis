@@ -1,5 +1,6 @@
 runModel <- function(model_type, try_data, pft_number,  n.chains = 3,
                      tau_obvs_miss = 0.01, tau_obvs_pres = 1000){
+    library(data.table)
     if (!model_type %in% c("uni", "multi", "hier")) {
         stop("Invalid model type. Must be 'uni', 'multi', or 'hier'")
     }
