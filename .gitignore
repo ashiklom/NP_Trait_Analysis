@@ -4,6 +4,7 @@
 .Ruserdata
 *.Rproj
 *.Rapp.history
+*.rds
 
 # old work
 old*
