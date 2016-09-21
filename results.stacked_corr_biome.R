@@ -62,7 +62,7 @@ r <- textGrob("")
 txt <- lapply(traits_nolog, textGrob,
               gp = gpar(cex = 1.5))
 names(txt) <- traits_nolog
-p <- arrangeGrob(
+plt <- arrangeGrob(
         txt$LL, r, r, r, r, 
         p$LL$LMA, txt$LMA, r, r, r,
         p$LL$Nmass, p$LMA$Nmass, txt$Nmass, r, r,
@@ -71,7 +71,8 @@ p <- arrangeGrob(
                  ncol = 5,
                  heights = c(0.15, 1, 1, 1, 1),
                  widths = c(1, 1, 1, 1, 0.5))
-g <- ggplotGrob(p1 + global_theme + theme(legend.position="right"))$grobs
+legplot <- p$LL$LMA + global_theme + theme(legend.position = "right")
+g <- ggplotGrob(legplot)$grobs
 legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
 lheight <- sum(legend$height)
 lwidth <- sum(legend$width)
@@ -79,7 +80,7 @@ dev.off()
 png(filename = sprintf("figures/stacked.cor.biome.png"), 
     height = 7, width=9, units = "in", res = 300)
 grid.newpage() 
-grid.draw(arrangeGrob(p, legend, nrow = 2,
+grid.draw(arrangeGrob(plt, legend, nrow = 2,
                       heights = unit.c(unit(1, "npc") - lheight,
                                        lheight)))
 dev.off()
