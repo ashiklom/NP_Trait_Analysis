@@ -36,12 +36,29 @@ names(Type.colors) <- rnames
 cor.anova.plot <- ggplot(cor.plot.dat) + 
   aes(x = Trait, fill = Type) + 
   geom_bar(stat="identity") + 
-  scale_fill_manual(values = Type.colors) 
+  scale_fill_manual(values = Type.colors) +
+  theme_bw() + 
+  theme(text = element_text(size = 24),
+        axis.title.y = element_text(size = rel(1), 
+                                    margin = margin(0, 10, 0, 0)),
+        axis.title.x = element_blank(),
+        axis.text.y = element_text(size = rel(0.8)),
+        axis.text.x = element_text(size = rel(1), 
+                                   angle = 90, 
+                                   vjust = 0.5,
+                                   hjust = 1, 
+                                   margin = margin(10, 0, 0, 0)),
+        legend.title = element_blank(),
+        legend.text = element_text(size = rel(0.8)),
+        legend.key.height = unit(2, "line"))
+
 
 mypng("figures/pft.cor.anova.scaled.png")
-plot(cor.anova.plot + aes(y = scaledValue))
+plot(cor.anova.plot + aes(y = scaledValue) +
+     ylab("Scaled sum of squares"))
 dev.off()
 
 mypng("figures/pft.cor.anova.png")
-plot(cor.anova.plot + aes(y = Value))
+plot(cor.anova.plot + aes(y = Value) + 
+     ylab("Sum of squares"))
 dev.off()
