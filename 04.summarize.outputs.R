@@ -13,3 +13,4 @@ for (f in all_files) {
 }
 summarydat <- rbindlist(datlist)
 saveRDS(summarydat, file = file.path(storage_dir, "summary.rds"))
+warnings()
