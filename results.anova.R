@@ -52,13 +52,33 @@ cor.anova.plot <- ggplot(cor.plot.dat) +
         legend.text = element_text(size = rel(0.8)),
         legend.key.height = unit(2, "line"))
 
-
-mypng("figures/pft.cor.anova.scaled.png")
-plot(cor.anova.plot + aes(y = scaledValue) +
-     ylab("Scaled sum of squares"))
+library(gridExtra)
+graphic("figures/fig3", width = 1600, height = 800)
+grid.arrange(cor.anova.plot + 
+                aes(y = Value) + 
+                ylab("Sum of squares") +
+                guides(fill = FALSE),
+             cor.anova.plot + 
+                aes(y = scaledValue) +
+                ylab("Scaled sum of squares"),
+              ncol = 2, 
+              nrow = 1, 
+              widths = c(0.8, 1))
 dev.off()
 
-mypng("figures/pft.cor.anova.png")
+
+graphic("figures/pft.cor.anova.scaled")
+plot(cor.anova.plot + aes(y = scaledValue) +
+     ylab("Scaled sum of squares") +
+     guides(fill = FALSE))
+dev.off()
+
+graphic("figures/pft.cor.anova")
 plot(cor.anova.plot + aes(y = Value) + 
      ylab("Sum of squares"))
 dev.off()
+
+system2("gm", args = c("montage", "-tile 2x1", "-geometry 100%",
+                       "figures/pft.cor.anova.tiff", 
+                       "figures/pft.cor.anova.scaled.tiff",
+                       "figures/fig3.tiff"))

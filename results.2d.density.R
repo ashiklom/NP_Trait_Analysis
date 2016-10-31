@@ -32,7 +32,7 @@ obs.means.global <- try_data[, lapply(.SD, mean, na.rm=TRUE),
 pairs_path <- "figures/alexey_pairs"
 dir.create(pairs_path)
 message("Creating global figure...")
-mypng(file.path(pairs_path, "00.global.png"))
+graphic(file.path(pairs_path, "00.global"))
 pairs_density_settings(uni.all.global$mu, 
               multi.all.global$mu, 
               hier.all$mu_global, 
@@ -53,9 +53,20 @@ for(i in 1:npft){
                           lapply(.SD, mean, na.rm=TRUE),
                           .SDcols = traits] %>% c() %>% unlist()
 
-    mypng(file.path(pairs_path, sprintf("%02d.pft.png", i)))
+    graphic(file.path(pairs_path, sprintf("%02d.pft", i)))
     pairs_density_settings(uni.mus, multi.mus, hier.mus, 
                            obs.means, 
                            main=paste(i, pft.names[i]))
     dev.off()
 }
+
+# Create combined graphic
+main_figs <- sprintf("%s/%02d.%s.tiff", 
+                     pairs_path, 
+                     c(0, 1, 13, 30),
+                     c("global", rep("pft", 3)))
+system2("gm", args = c("montage",
+                       "-tile 2x2",
+                       "-geometry 100%",
+                       main_figs,
+                       "figures/fig1.tiff"))

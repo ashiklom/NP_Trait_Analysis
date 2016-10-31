@@ -17,22 +17,25 @@ cov.plt <- ggplot(cov.dat) +
     geom_pointrange() + 
     geom_hline(yintercept = 0) + 
     facet_grid(trait ~ Biome, scales="free") +
-    theme(axis.text.x = element_blank(), 
+    theme_bw() + 
+    theme(text = element_text(size = 15),
+          axis.title = element_text(size = rel(1.5)),
+          strip.text = element_text(size = rel(1.2)),
+          strip.text.y = element_text(angle = 0),
+          legend.text = element_text(size = rel(1.2)),
+          axis.text.x = element_blank(), 
           axis.ticks.x = element_blank(),
           legend.position = "bottom") +
     ylab("Covariance") + xlab("PFT")
 
-mypng <- function(filename){
-    png(filename, width=1000, height=700)
-}
+print("Generating correlation plot...")
+graphic("figures/pft.cor.plot", height = 800, width = 1600)
+plot(cov.plt %+% cor.dat + ylab("Correlation"))
+dev.off()
 
 print("Generating covariance plot...")
-mypng("figures/pft.cov.plot.png")
+graphic("figures/pft.cov.plot")
 plot(cov.plt)
 dev.off()
 
-print("Generating correlation plot...")
-mypng("figures/pft.cor.plot.png")
-plot(cov.plt %+% cor.dat + ylab("Correlation"))
-dev.off()
 

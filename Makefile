@@ -71,31 +71,31 @@ summary: install
 # Generate figures 
 ############################################################
 
-figures: figures/cor.global.hierarchical.png\
-    figures/cor.global.multi.png \
-    figures/pft.cor.anova.png \
-    figures/pft.cor.anova.scaled.png \
-    figures/pft.cor.plot.png \
+figures: figures/cor.global.hierarchical.tiff\
+    figures/cor.global.multi.tiff \
+    figures/pft.cor.anova.tiff \
+    figures/pft.cor.anova.scaled.tiff \
+    figures/pft.cor.plot.tiff \
     figures/pft.corrs.gif \
-    figures/pft.cov.plot.png \
-    figures/stacked.cor.biome.png \
+    figures/pft.cov.plot.tiff \
+    figures/stacked.cor.biome.tiff \
     figures/tot.var.table.txt
 
-figures/cor.global.hierarchical.png figures/cor.global.multi.png figures/pft.cor.anova.png figures/pft.cor.anova.scaled.png figures/pft.cor.plot.png figures/pft.corrs.gif figures/pft.cov.plot.png figures/stacked.cor.biome.png figures/tot.var.table.txt :  processed_output/*
+figures/cor.global.hierarchical.tiff figures/cor.global.multi.tiff figures/pft.cor.anova.tiff figures/pft.cor.anova.scaled.tiff figures/pft.cor.plot.tiff figures/pft.corrs.gif figures/pft.cov.plot.tiff figures/stacked.cor.biome.tiff figures/tot.var.table.txt :  processed_output/*
 
-figures/cor.global.hierarchical.png figures/cor.global.multi.png : results.hier_vs_multi.covar.R
+figures/cor.global.hierarchical.tiff figures/cor.global.multi.tiff : results.hier_vs_multi.covar.R
 	Rscript results.hier_vs_multi.covar.R
 
-figures/pft.cor.anova.png figures/pft.cor.anova.scaled.png figures/tot.var.table.txt: results.anova.R
+figures/pft.cor.anova.tiff figures/pft.cor.anova.scaled.tiff figures/tot.var.table.txt: results.anova.R
 	Rscript results.anova.R
 
 figures/pft.corrs.gif : results.pftcorrgif.R
 	Rscript results.pftcorrgif.R
 
-figures/stacked.cor.biome.png: results.stacked_corr_biome.R
+figures/stacked.cor.biome.tiff: results.stacked_corr_biome.R
 	Rscript results.stacked_corr_biome.R
 
-figures/pft.cov.plot.png figures/pft.cor.plot.png: results.covcor_facet.R
+figures/pft.cov.plot.tiff figures/pft.cor.plot.tiff: results.covcor_facet.R
 	Rscript results.covcor_facet.R
 
 

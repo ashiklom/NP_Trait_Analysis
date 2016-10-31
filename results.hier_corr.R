@@ -39,7 +39,7 @@ legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
 lheight <- sum(legend$height)
 lwidth <- sum(legend$width)
 dev.off()
-png(filename = sprintf("figures/hier_corr.png"), 
+graphic(sprintf("figures/hier_corr"), 
     height = 7, width=9, units = "in", res = 300)
 grid.newpage() 
 grid.draw(arrangeGrob(plt, legend, nrow = 2,

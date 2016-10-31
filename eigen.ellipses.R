@@ -147,16 +147,6 @@ eigenEllipses <- function(model.type, sigma.name, mu.name){
       add_xlim + add_ylim +
       global_theme + theme(legend.position="none")
     
-    #png(filename = sprintf("figures/%s.cov.eigen.ellipse.%s.%s.png",
-                           #model.type,trait.pairs[1,i], trait.pairs[2,i]))
-    #plot(p[[trait.pairs[1,i]]][[trait.pairs[2,i]]] +
-            #labs(title = sprintf("%s vs %s",
-                                 #trait.pairs[1,i],
-                                 #trait.pairs[2,i]),
-                 #x = trait.pairs[1,i],
-                 #y = trait.pairs[2,i]))
-    #dev.off()
-    
   } # End loop over trait pairs
 
   return(p)
