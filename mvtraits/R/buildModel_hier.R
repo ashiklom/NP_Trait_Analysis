@@ -196,7 +196,7 @@ model {
         icol <- dat_pres_uniq[[x]]
         if (length(irow) == 1) drp <- FALSE
         if (length(icol) == 1) drp <- TRUE
-        d <- dat[irow, icol, drop = drp]
+        d <- datnp[irow, icol, drop = drp]
         if (length(d) == 1) d <- array(d, 1)
         return(d)
     }
