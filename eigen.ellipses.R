@@ -1,4 +1,7 @@
-eigenEllipses <- function(model.type, sigma.name, mu.name){
+eigenEllipses <- function(model.type, sigma.name, mu.name, 
+                          line_size = 0.5, line_alpha = 0.6,
+                          point_size = 2,
+                          center_point_size = 1){
   # Two setups: 
   # eigen.ellipses("multi","Sigma","mu")
   # eigen.ellipses("hier","Sigma_pft","mu_pft")
@@ -105,7 +108,7 @@ eigenEllipses <- function(model.type, sigma.name, mu.name){
     # Create ggplot elements
     add_centers <- lapply(setdiff(pfts,"global"), function(pft){
       geom_point(data = ctrs[pft,1:2], aes_q(x=as.name("x"),y=as.name("y"), colour=pft), 
-                 shape=ctrs[pft,3], size=1)
+                 shape=ctrs[pft,3], size=center_point_size)
     } )
     add_ellipses <- lapply(setdiff(pfts,"global"), function(pft){
       geom_polygon(data = ells.list[[pft]], aes_q(x=as.name("x"),y=as.name("y"), colour = pft), fill = NA)
@@ -117,20 +120,25 @@ eigenEllipses <- function(model.type, sigma.name, mu.name){
     add_global_eig <- list(
       geom_line(data = eigs.list[["global"]],
                 aes(x = x1, y = y1, colour = "global"), 
-                size = 0.5, 
-                alpha = 0.6),
+                # line_size
+                size = line_size, 
+                # line_alpha
+                alpha = line_alpha),
       geom_point(data = ctrs["global", 1:2],
                  aes(x = x, y = y,colour ="global"), 
                  shape = ctrs["global", 3],
-                 size = 2)
+                 # point_size
+                 size = point_size)
     )
     add_eig1 <- lapply(setdiff(pfts,"global"), function(pft){
       geom_line(data = eigs.list[[pft]],
-                aes_q(x=as.name("x1"),y=as.name("y1"), colour = pft), size=.5, alpha=.6)
+                aes_q(x=as.name("x1"),y=as.name("y1"), colour = pft), 
+                size = line_size, alpha = line_alpha)
     })
     add_eig2 <- lapply(setdiff(pfts,"global"), function(pft){
       geom_line(data = eigs.list[[pft]],
-                aes_q(x=as.name("x2"),y=as.name("y2"), colour = pft), size=.5)
+                aes_q(x=as.name("x2"),y=as.name("y2"), colour = pft),
+                size=line_size)
     })
     add_xlim <- xlim(lims[[trait.pairs[1,i]]][1],lims[[trait.pairs[1,i]]][2])
     add_ylim <- ylim(lims[[trait.pairs[2,i]]][1],lims[[trait.pairs[2,i]]][2])
