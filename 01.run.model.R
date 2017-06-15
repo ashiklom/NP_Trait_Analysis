@@ -53,8 +53,12 @@ for (model_arg in model.args){
     model_type <- arg[1]
     if (model_type %in% c('uni', 'multi')) {
         pft_number <- as.numeric(arg[2])
-        stopifnot(pft_number <= max(data_groups))
-        dat <- data_mat[data_groups == pft_number,]
+        if (is.na(pft_number)) {
+            stopifnot(pft_number <= max(data_groups))
+            dat <- data_mat[data_groups == pft_number,]
+        } else {
+            dat <- data_mat
+        }
         groups <- NA
         model_name <- sprintf('%s_%s_%s', area_mass, model_type, pft_number)
     } else if (model_type == 'hier') {

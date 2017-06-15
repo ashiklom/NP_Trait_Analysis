@@ -11,18 +11,19 @@ n.chains <- 5
 
 bash_header <- "#!/bin/bash -l"
 
-qsub_pattern <- "qsub -N %1$s -pe omp %2$d -v OMP_NUM_THREADS=%2$d run.rscript.sh 01.run.model.R %1$s n.chains=%2$d"
+qsub_pattern <- "qsub -N %2$s -pe omp %3$d -v OMP_NUM_THREADS=%3$d run.rscript.sh 01.run.model.R %1$s %2$s n.chains=%3$d"
 
 pft_numbers <- seq_len(npfts)
 uni_models <- c("uni", sprintf("uni_%02d", pft_numbers))
 multi_models <- c("multi", sprintf("multi_%02d", pft_numbers))
 
-uni_string <- sprintf(qsub_pattern, uni_models, n.chains)
-multi_string <- sprintf(qsub_pattern, multi_models, n.chains)
-hier_string <- sprintf(qsub_pattern, "hier", n.chains)
-
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) == 0) args <- c("uni", "multi", "hier")
+if(length(args) == 0) args <- c('area', "uni", "multi", "hier")
+stopifnot(args[1] %in% c('mass', 'area'))
+
+uni_string <- sprintf(qsub_pattern, args[1], uni_models, n.chains)
+multi_string <- sprintf(qsub_pattern, args[1], multi_models, n.chains)
+hier_string <- sprintf(qsub_pattern, args[1], "hier", n.chains)
 
 out_file <- bash_header
 if("uni" %in% args) out_file <- c(out_file, uni_string)
