@@ -1,4 +1,6 @@
 library(mvtraits)
+try_data <- readRDS('traits_analysis.rds')
+npfts <- max(as.integer(pull(try_data, pft)))
 
 ########################################
 # Write qsub submission script
@@ -7,11 +9,11 @@ library(mvtraits)
 out_fname <- "submit.all.sh"
 n.chains <- 5
 
-bash_header <- "#!/bin/bash"
+bash_header <- "#!/bin/bash -l"
 
 qsub_pattern <- "qsub -N %1$s -pe omp %2$d -v OMP_NUM_THREADS=%2$d run.rscript.sh 01.run.model.R %1$s n.chains=%2$d"
 
-pft_numbers <- 1:npft
+pft_numbers <- seq_len(npfts)
 uni_models <- c("uni", sprintf("uni_%02d", pft_numbers))
 multi_models <- c("multi", sprintf("multi_%02d", pft_numbers))
 
@@ -33,6 +35,6 @@ write(out_file, file = out_fname)
 # Change permissions and run submission script
 ########################################
 
-system(paste("chmod +x", out_fname))
-system(paste0("./", out_fname))
-file.remove(out_fname)
+#system(paste("chmod +x", out_fname))
+#system(paste0("./", out_fname))
+#file.remove(out_fname)
