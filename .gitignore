@@ -42,3 +42,4 @@ qstat.txt
 
 backup_samples/
 mvtraits/tests/testthat/*.rds
+.deprecated
