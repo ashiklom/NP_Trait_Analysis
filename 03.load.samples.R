@@ -2,7 +2,7 @@ library(mvtraits)
 
 storage_dir <- "processed_output"
 dir.create(storage_dir, showWarnings = FALSE)
-output_dir <- "output_selected"
+output_dir <- "output_fixed"
 
 # Isolate samples of the mean
 vars_uni <- c("mu", "sigma2")
