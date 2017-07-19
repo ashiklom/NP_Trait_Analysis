@@ -5,7 +5,7 @@ library(tidyverse)
 try_data <- readRDS('traits_analysis.rds')
 
 nowdate <- strftime(Sys.time(), "%Y_%m_%d")
-out_dir <- "output"
+out_dir <- "output_fixed"
 dir.create(out_dir, showWarnings = FALSE)
 
 if(!exists("cmdargs")) cmdargs <- commandArgs(trailingOnly=TRUE)
@@ -31,7 +31,7 @@ data_df <- try_data %>%
     dplyr::select(pft, matches(use_rxp)) %>% 
     dplyr::filter_at(dplyr::vars(matches(use_rxp)), dplyr::any_vars(!is.na(.)))
 
-data_mat <- data_df %>% dplyr::select(-pft) %>% as.matrix()
+data_mat <- data_df %>% dplyr::select(-pft) %>% as.matrix() %>% log10()
 data_groups <- data_df %>% dplyr::pull(pft) %>% as.integer()
 
 # Get number of chains from arguments
@@ -53,7 +53,7 @@ for (model_arg in model.args){
     model_type <- arg[1]
     if (model_type %in% c('uni', 'multi')) {
         pft_number <- as.numeric(arg[2])
-        if (is.na(pft_number)) {
+        if (!is.na(pft_number)) {
             stopifnot(pft_number <= max(data_groups))
             dat <- data_mat[data_groups == pft_number,]
         } else {
@@ -76,7 +76,7 @@ for (model_arg in model.args){
                     iter = 10000, 
                     save_each = FALSE)
     if(!all(is.error(out))){
-        save(out, file = sprintf("%s/%s.%s.Rdata", out_dir, model_arg, nowdate))
+        save(out, file = sprintf("%s/%s.%s.%s.Rdata", out_dir, area_mass, model_arg, nowdate))
     } else {
         warning(paste("Error running", model_arg))
         errors <- c(errors, arg)
