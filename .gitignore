@@ -6,6 +6,14 @@
 *.Rapp.history
 *.rds
 
+# Automatically-created submission files
+array_submit.sh
+submit_df.dat
+
+# Sampling outputs
+progress/
+output/
+
 # old work
 old*
 *_old

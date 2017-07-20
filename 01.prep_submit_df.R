@@ -1,13 +1,16 @@
-library(mvtraits)
+#!/usr/bin/env Rscript
 library(tidyverse)
 library(glue)
 library(magrittr)
+
+submit_tab_fname <- 'submit_df.dat'
+array_submit_fname <- 'array_submit.sh'
+
 try_data <- readRDS('traits_analysis.rds')
 
 pft_classes <- try_data %>% select_if(is.factor) %>% colnames
 model_types <- c('multi', 'hier')
 data_types <- c('mass', 'area')
-pfts <- map(pft_classes, get_pfts)
 
 get_pfts <- function(pft_class) {
     try_data %>% select(one_of(pft_class)) %>% pull %>% levels %>% c('', .)
@@ -19,21 +22,24 @@ submit_df <- expand.grid(pft_class = pft_classes, model_type = model_types, data
     mutate(pft = map(pft_class, get_pfts)) %>% 
     mutate(pft = case_when(.$model_type == 'hier' ~ list(''), TRUE ~ .$pft)) %>% 
     unnest() %>% 
-    mutate(run_name = paste(model_type, data_type, pft_class, pft, sep = '.'))
+    select(model_type, data_type, pft_class, pft)
+
+message('Writing submission arguments to: ', submit_tab_fname)
+write.table(submit_df, file = submit_tab_fname, quote = FALSE, 
+            row.names = FALSE, col.names = FALSE)
 
 ########################################
 # Write qsub submission script
 ########################################
-
-out_fname <- "submit_all.sh"
 nchains <- 4
-
-bash_header <- "#!/bin/bash -l"
-
-glue_string <- paste("qsub -N {run_name}",
-                     "-pe omp {nchains} -v OMP_NUM_THREADS={nchains}", 
-                     "run.rscript.sh 01.run.model.R {model_type} {data_type} {pft_class} {pft}")
-
-submit_string <- c(bash_header, glue_data(submit_df, glue_string))
-
-write(submit_string, file = out_fname)
+script <- c('#!/bin/bash -l',
+            '#$ -j y',
+            '#$ -o logs/',
+            '#$ -q "geo*"',
+            paste('#$ -pe omp', nchains),
+            paste0('#$ -t 1-', nrow(submit_df)),
+            'Rscript run_model.R $(head -n ${SGE_TASK_ID} submit_df.dat | tail -n 1)'
+            )
+message('Writing array submission script to: ', array_submit_fname)
+write(script, file = array_submit_fname)
+Sys.chmod(array_submit_fname, '0744')

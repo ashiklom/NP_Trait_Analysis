@@ -71,11 +71,11 @@ file_tag <- paste(model_type, data_type, pft_type, pft, date_format, 'rds', sep 
 data_mat <- data_df %>% dplyr::select(-!!pft_type_q) %>% as.matrix() %>% log10()
 message('Data contains ', nrow(data_mat), ' rows and ', ncol(data_mat), ' columns')
 
-niter <- 300
+niter <- 1000
 nchains <- 4
 parallel <- TRUE
 autofit <- TRUE
-max_attempts <- 2
+max_attempts <- 200
 
 progress_dir <- 'progress'
 dir.create(progress_dir, showWarnings = FALSE)
