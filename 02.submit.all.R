@@ -1,41 +1,39 @@
 library(mvtraits)
+library(tidyverse)
+library(glue)
+library(magrittr)
 try_data <- readRDS('traits_analysis.rds')
-npfts <- max(as.integer(pull(try_data, pft)))
+
+pft_classes <- try_data %>% select_if(is.factor) %>% colnames
+model_types <- c('multi', 'hier')
+data_types <- c('mass', 'area')
+pfts <- map(pft_classes, get_pfts)
+
+get_pfts <- function(pft_class) {
+    try_data %>% select(one_of(pft_class)) %>% pull %>% levels %>% c('', .)
+}
+
+submit_df <- expand.grid(pft_class = pft_classes, model_type = model_types, data_type = data_types,
+                         stringsAsFactors = FALSE) %>% 
+    as_tibble() %>% 
+    mutate(pft = map(pft_class, get_pfts)) %>% 
+    mutate(pft = case_when(.$model_type == 'hier' ~ list(''), TRUE ~ .$pft)) %>% 
+    unnest() %>% 
+    mutate(run_name = paste(model_type, data_type, pft_class, pft, sep = '.'))
 
 ########################################
 # Write qsub submission script
 ########################################
 
-out_fname <- "submit.all.sh"
-n.chains <- 5
+out_fname <- "submit_all.sh"
+nchains <- 4
 
 bash_header <- "#!/bin/bash -l"
 
-qsub_pattern <- "qsub -N %2$s -pe omp %3$d -v OMP_NUM_THREADS=%3$d run.rscript.sh 01.run.model.R %1$s %2$s n.chains=%3$d"
+glue_string <- paste("qsub -N {run_name}",
+                     "-pe omp {nchains} -v OMP_NUM_THREADS={nchains}", 
+                     "run.rscript.sh 01.run.model.R {model_type} {data_type} {pft_class} {pft}")
 
-pft_numbers <- seq_len(npfts)
-uni_models <- c("uni", sprintf("uni_%02d", pft_numbers))
-multi_models <- c("multi", sprintf("multi_%02d", pft_numbers))
+submit_string <- c(bash_header, glue_data(submit_df, glue_string))
 
-args <- commandArgs(trailingOnly = TRUE)
-if(length(args) == 0) args <- c('area', "uni", "multi", "hier")
-stopifnot(args[1] %in% c('mass', 'area'))
-
-uni_string <- sprintf(qsub_pattern, args[1], uni_models, n.chains)
-multi_string <- sprintf(qsub_pattern, args[1], multi_models, n.chains)
-hier_string <- sprintf(qsub_pattern, args[1], "hier", n.chains)
-
-out_file <- bash_header
-if("uni" %in% args) out_file <- c(out_file, uni_string)
-if("multi" %in% args) out_file <- c(out_file, multi_string)
-if("hier" %in% args) out_file <- c(out_file, hier_string)
-
-write(out_file, file = out_fname)
-
-########################################
-# Change permissions and run submission script
-########################################
-
-#system(paste("chmod +x", out_fname))
-#system(paste0("./", out_fname))
-#file.remove(out_fname)
+write(submit_string, file = out_fname)
