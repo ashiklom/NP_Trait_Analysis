@@ -75,7 +75,7 @@ niter <- 1000
 nchains <- 4
 parallel <- TRUE
 autofit <- TRUE
-max_attempts <- 200
+max_attempts <- 1000
 
 progress_dir <- 'progress'
 dir.create(progress_dir, showWarnings = FALSE)
