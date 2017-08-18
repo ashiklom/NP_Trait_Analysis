@@ -1,35 +1,27 @@
 library(mvtraits)
 library(tidyverse)
 
-all_summaries <- readRDS('results/summaries.rds')
+all_summaries <- readRDS('results/summaries_processed.rds')
 
 mass_params <- c('leaf_lifespan', 'SLA', 'Nmass', 'Pmass', 'Rdmass', 'Vcmax_mass', 'Jmax_mass')
 area_params <- gsub('mass$', 'area', mass_params)
 
-proc <- function(dat, area_mass) {
-  params <- switch(area_mass, 'mass' = mass_params, 'area' = area_params)
+barplot_prep <- function(dat, area_mass) {
+  param_levels <- switch(as.character(area_mass), area = area_params, mass = mass_params)
   dat %>%
-    select(-rowname) %>%
-    rearrange_df(params)
+    mutate(
+      pft = factor(pft) %>% forcats::fct_relevel("global"),
+      param = factor(param, param_levels),
+      xparam = factor(xparam, param_levels[-1]),
+      yparam = factor(yparam, param_levels[-length(param_levels)])
+      )
 }
 
 plots <- all_summaries %>%
-  group_by(model_type, area_mass, pft_scheme, pft, fname) %>%
-  nest()
+  filter(model_type == 'hier') %>%
+  group_by(model_type, area_mass, pft_scheme, run_pft) %>%
+  nest() %>%
+  mutate(data = map2(data, area_mass, barplot_prep),
+         bar_plot = map(data, summary_barplot, varname = 'Corr'))
 
-for (i in 1:nrow(plots)) {
-  print(i)
-  sdat <- plots[i, ]
-  print(sdat)
-  params <- switch(sdat[['area_mass']], 'mass' = mass_params, 'area' = area_params)
-  sdat[[1, 'data']] %>%
-    select(-rowname) %>%
-    rearrange_df(params) %>%
-    rename(pft = group) %>%
-    summary_barplot('Corr') %>%
-    print()
-}
-
-dat %>% distinct(variable)
-
-summary_barplot(dat, 'Corr', aes_list = list(x = 'group', fill = 'group'))
+walk(plots[['bar_plot']], print)

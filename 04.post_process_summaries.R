@@ -10,6 +10,10 @@ pft_levels <- list(jules1 = levels(try_data[['jules1']]),
                    custom = levels(try_data[['custom']])) %>%
   lapply(function(x) c('global', x))
 
+pft_scheme_levels <- c('jules1', 'jules2', 'clm45', 'custom')
+area_mass_levels <- c('area', 'mass')
+model_type_levels <- c('multi', 'hier')
+
 mass_params <- c('leaf_lifespan', 'SLA', 'Nmass', 'Pmass', 'Rdmass', 'Vcmax_mass', 'Jmax_mass')
 area_params <- gsub('mass$', 'area', mass_params)
 
@@ -21,7 +25,10 @@ summaries_proc1 <- all_summaries %>%
                         .$model_type == 'multi' & .$run_pft == 'NA' ~ 'global',
                         TRUE ~ .$run_pft),
     group = case_when(!is.na(.$group) ~ .$group,
-                    is.na(.$group) ~ .$run_pft)
+                    is.na(.$group) ~ .$run_pft),
+    pft_scheme = factor(pft_scheme, pft_scheme_levels),
+    area_mass = factor(area_mass, area_mass_levels),
+    model_type = factor(model_type, model_type_levels)
   ) %>%
   group_by(model_type, area_mass, pft_scheme, run_pft) %>%
   nest()
