@@ -1,17 +1,13 @@
 library(tidyverse)
 
-all_summaries <- readRDS('results/summaries.rds')
-
-pft_scheme_levels <- c('jules1', 'jules2', 'clm45', 'custom')
+all_summaries <- readRDS('results/summaries_processed.rds')
 
 global_means <- all_summaries %>%
   filter(
     variable == 'mu',
-    group %in% c('global', 'FALSE'),
-    !(model_type == 'multi' & pft != 'NA')
+    run_pft %in% c('hier', 'global')
   ) %>%
-  select(model_type, area_mass, pft_scheme, index, Mean, `2.5%`, `97.5%`) %>%
-  mutate(pft_scheme = factor(pft_scheme, pft_scheme_levels))
+  select(model_type, area_mass, pft_scheme, param, Mean:`97.5%`)
 
 ggplot(global_means) +
   aes(x = interaction(pft_scheme, model_type), y = Mean, ymin = `2.5%`, ymax = `97.5%`) +
