@@ -21,8 +21,8 @@ if(!exists("cmdargs")) cmdargs <- commandArgs(trailingOnly=TRUE)
 #   1. Model type. Must be either 'multi' or 'hier'
 #   2. Data type. Must be either 'area' or 'mass'
 #   3. PFT type. Must be one of the PFT types in the TRY data.
-#   4. PFT. If 'hier', this argument must be empty. If multi and empty, fit to 
-#   all TRY data. If multi and present, fit to subset of TRY data corresponding 
+#   4. PFT. If 'hier', this argument must be empty. If multi and empty, fit to
+#   all TRY data. If multi and present, fit to subset of TRY data corresponding
 #   to provided PFT.
 stopifnot(length(cmdargs) >= 3)
 model_type <- cmdargs[1]
@@ -52,8 +52,8 @@ area_rxp <- 'leaf_lifespan|SLA|area'
 mass_rxp <- 'leaf_lifespan|SLA|mass'
 use_rxp <- switch(data_type, area = area_rxp, mass = mass_rxp)
 
-data_df_all <- try_data %>% 
-    dplyr::select(one_of(pft_type), matches(use_rxp)) %>% 
+data_df_all <- try_data %>%
+    dplyr::select(one_of(pft_type), matches(use_rxp)) %>%
     dplyr::filter_at(dplyr::vars(matches(use_rxp)), dplyr::any_vars(!is.na(.)))
 
 pft_type_q <- rlang::sym(pft_type)
@@ -87,24 +87,27 @@ message('Saving final run results in directory: ', results_dir)
 
 if (model_type == 'hier') {
     data_groups <- data_df %>% dplyr::pull(!!pft_type_q) %>% as.integer()
+    source('informative_prior.R')
     message('Starting hierarchical model run...')
-    raw_fit <- fit_mvnorm_hier(dat = data_mat, 
-                               groups = data_groups, 
+    raw_fit <- fit_mvnorm_hier(dat = data_mat,
+                               groups = data_groups,
                                niter = niter,
-                               nchains = nchains, 
+                               nchains = nchains,
                                parallel = parallel,
-                               autofit = autofit, 
-                               max_attempts = max_attempts, 
+                               autofit = autofit,
+                               priors = prior,
+                               max_attempts = max_attempts,
                                save_progress = file.path(progress_dir, file_tag))
 
 } else if (model_type == 'multi') {
+    source('informative_prior.R')
     message('Starting multivariate model run...')
-    raw_fit <- fit_mvnorm(dat = data_mat, 
+    raw_fit <- fit_mvnorm(dat = data_mat,
                           niter = niter,
-                          nchains = nchains, 
+                          nchains = nchains,
                           parallel = parallel,
-                          autofit = autofit, 
-                          max_attempts = max_attempts, 
+                          autofit = autofit,
+                          max_attempts = max_attempts,
                           save_progress = file.path(progress_dir, file_tag))
 }
 
