@@ -21,11 +21,15 @@ summaries_proc1 <- all_summaries %>%
   select(-fname, -rowname, -`Naive SE`, -`Time-series SE`, -`25%`, -`75%`) %>%
   rename(run_pft = pft) %>%
   mutate(
-    run_pft = case_when(.$model_type == 'hier' ~ 'hier',
-                        .$model_type == 'multi' & .$run_pft == 'NA' ~ 'global',
-                        TRUE ~ .$run_pft),
-    group = case_when(!is.na(.$group) ~ .$group,
-                    is.na(.$group) ~ .$run_pft),
+    run_pft = case_when(
+      .$model_type == 'hier' ~ 'hier',
+      .$model_type == 'multi' & .$run_pft == 'NA' ~ 'global',
+      TRUE ~ .$run_pft
+    ),
+    group = case_when(
+      .$group == 'FALSE' ~ .$run_pft,
+      TRUE ~ .$group
+    ),
     pft_scheme = factor(pft_scheme, pft_scheme_levels),
     area_mass = factor(area_mass, area_mass_levels),
     model_type = factor(model_type, model_type_levels)
@@ -45,7 +49,12 @@ process_df <- function(dat, area_mass, pft_scheme) {
 summaries_proc2 <- summaries_proc1 %>%
   mutate(data = pmap(list(data, area_mass, pft_scheme), process_df))
 
-summaries_proc3 <- unnest(summaries_proc2) %>%
+summaries_proc3 <- summaries_proc2 %>%
+  unnest() %>%
+  mutate(pft = case_when(
+    .$model_type == 'multi' ~ .$run_pft,
+    TRUE ~ .$pft)
+  ) %>%
   select(model_type:pft, param:yparam, Mean:`97.5%`)
 
 saveRDS(summaries_proc3, 'results/summaries_processed.rds')
