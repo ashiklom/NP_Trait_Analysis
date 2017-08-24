@@ -37,6 +37,7 @@ script <- c('#!/bin/bash -l',
             '#$ -o logs/',
             '#$ -q "geo*"',
             '#$ -l mem_total=94G',
+            '#$ -l h_rt=11:59:00',
             paste('#$ -pe omp', nchains),
             paste0('#$ -t 1-', nrow(submit_df)),
             'Rscript run_model.R $(head -n ${SGE_TASK_ID} submit_df.dat | tail -n 1)'

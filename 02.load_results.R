@@ -3,10 +3,10 @@ library(magrittr)
 output_dir <- "output"
 summary_dir <- "summaries"
 dir.create(summary_dir, showWarnings = FALSE)
-outputs <- list.files(output_dir)
+outputs <- list.files(output_dir, recursive = TRUE)
 nfiles <- length(outputs)
 
-for (out_file in outputs) {
+for (out_file in outputs[-1:-6]) {
     message('Processing file: ', out_file)
     nth_file <- grep(out_file, outputs)
     message('File ', nth_file, ' of ', nfiles)
@@ -15,8 +15,12 @@ for (out_file in outputs) {
     
     message('Reading file...')
     raw_output <- readRDS(fname)
+    if (is.null(raw_output)) {
+        message('File ', fname, ' has NULL output. Moving on.')
+        next
+    }
     
-    model_type <- gsub('^(multi|hier).*', '\\1', out_file)
+    model_type <- gsub('^(from_progress/)?(multi|hier).*', '\\2', out_file)
     is_hier <- model_type == 'hier'
     if (is_hier) {
         nparam <- ncol(raw_output[[1]]$mu_global)
@@ -44,6 +48,6 @@ for (out_file in outputs) {
     
     message('Calculating summary...')
     out_summary <- summary_df(raw_mcmc, is_hier)
-    saveRDS(out_summary, file.path(summary_dir, out_file))
+    saveRDS(out_summary, file.path(summary_dir, basename(out_file)))
     rm(raw_mcmc); gc()
 }

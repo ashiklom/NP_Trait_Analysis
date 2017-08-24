@@ -22,6 +22,4 @@ fix_groups <- function(dat) {
 summary_file_fixed <- summary_file_full %>% 
     mutate(data = map(data, fix_groups))
 
-all_summaries <- unnest(summary_file_fixed)
-
-saveRDS(all_summaries, file = file.path(results_dir, 'summaries.rds'))
+saveRDS(summary_file_fixed, file = file.path(results_dir, 'summaries.rds'))

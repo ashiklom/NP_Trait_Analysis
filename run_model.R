@@ -8,11 +8,10 @@ try_data <- readRDS('traits_analysis.rds')
 if (FALSE) {
     # For testing
     cmdargs <- c('multi', 'area', 'clm45', 'shrub_evergreen')
-    cmdargs <- c('hier', 'mass', 'jules1')
+    cmdargs <- c('hier', 'mass', 'jules2')
     cmdargs <- c('multi', 'area', 'jules1')
 }
 
-nowdate <- strftime(Sys.time(), "%Y_%m_%d")
 out_dir <- "output"
 dir.create(out_dir, showWarnings = FALSE)
 
@@ -65,17 +64,17 @@ if (!is.na(pft)) {
 }
 stopifnot(nrow(data_df) > 0)
 
-date_format <- strftime(Sys.time(), '%Y-%M-%d-%H%M')
+date_format <- strftime(Sys.time(), '%Y-%m-%d-%H%M')
 file_tag <- paste(model_type, data_type, pft_type, pft, date_format, 'rds', sep = '.')
 
 data_mat <- data_df %>% dplyr::select(-!!pft_type_q) %>% as.matrix() %>% log10()
 message('Data contains ', nrow(data_mat), ' rows and ', ncol(data_mat), ' columns')
 
-niter <- 1000
+niter <- 2500
 nchains <- 4
 parallel <- TRUE
 autofit <- TRUE
-max_attempts <- 1000
+max_attempts <- 400
 
 progress_dir <- 'progress'
 dir.create(progress_dir, showWarnings = FALSE)

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+grep -L "Model run complete" logs/array_submit.sh.o*
