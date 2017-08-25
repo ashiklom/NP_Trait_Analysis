@@ -18,7 +18,7 @@ mass_params <- c('leaf_lifespan', 'SLA', 'Nmass', 'Pmass', 'Rdmass', 'Vcmax_mass
 area_params <- gsub('mass$', 'area', mass_params)
 
 summaries_proc1 <- all_summaries %>%
-  select(-fname, -rowname, -`Naive SE`, -`Time-series SE`, -`25%`, -`75%`) %>%
+  select(-fname) %>%
   rename(run_pft = pft) %>%
   mutate(
     run_pft = case_when(
@@ -26,35 +26,35 @@ summaries_proc1 <- all_summaries %>%
       .$model_type == 'multi' & .$run_pft == 'NA' ~ 'global',
       TRUE ~ .$run_pft
     ),
-    group = case_when(
-      .$group == 'FALSE' ~ .$run_pft,
-      TRUE ~ .$group
-    ),
     pft_scheme = factor(pft_scheme, pft_scheme_levels),
     area_mass = factor(area_mass, area_mass_levels),
     model_type = factor(model_type, model_type_levels)
-  ) %>%
-  group_by(model_type, area_mass, pft_scheme, run_pft) %>%
-  nest()
+  )
 
-process_df <- function(dat, area_mass, pft_scheme) {
+cleanup_data <- function(dat, model_type, area_mass, pft_scheme, run_pft) {
+  pft_lvl <- pft_levels[[pft_scheme]]
   dat %>%
+    select(-rowname, -`Naive SE`, -`Time-series SE`) %>%
     mutate(
-      group = factor(group) %>% 'levels<-'(pft_levels[[pft_scheme]])
+      group = factor(group) %>% 'levels<-'(pft_lvl)
     ) %>%
     rearrange_df(switch(area_mass, area = area_params, mass = mass_params)) %>%
-    rename(pft = group)
+    mutate(
+      pft = if (model_type == "multi") factor(group, pft_lvl) else group
+    ) %>%
+    select(-group)
 }
 
-summaries_proc2 <- summaries_proc1 %>%
-  mutate(data = pmap(list(data, area_mass, pft_scheme), process_df))
+summaries_cleaned <- summaries_proc1 %>%
+  mutate(data = pmap(
+    list(
+      dat = data,
+      model_type = as.character(model_type),
+      area_mass = as.character(area_mass),
+      pft_scheme = as.character(pft_scheme),
+      run_pft = as.character(run_pft)
+    ),
+    cleanup_data
+  ))
 
-summaries_proc3 <- summaries_proc2 %>%
-  unnest() %>%
-  mutate(pft = case_when(
-    .$model_type == 'multi' ~ .$run_pft,
-    TRUE ~ .$pft)
-  ) %>%
-  select(model_type:pft, param:yparam, Mean:`97.5%`)
-
-saveRDS(summaries_proc3, 'results/summaries_processed.rds')
+saveRDS(summaries_cleaned, "results/summaries_processed.rds")
