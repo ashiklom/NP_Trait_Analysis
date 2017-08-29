@@ -1,5 +1,4 @@
-library(tidyverse)
-library(mvtraits)
+library(nptraits)
 
 all_summaries <- readRDS('results/summaries.rds')
 try_data <- readRDS('traits_analysis.rds')

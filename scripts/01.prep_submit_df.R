@@ -1,7 +1,5 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
-library(glue)
-library(magrittr)
+library(nptraits)
 
 submit_tab_fname <- 'submit_df.dat'
 array_submit_fname <- 'array_submit.sh'
@@ -17,15 +15,15 @@ get_pfts <- function(pft_class) {
 }
 
 submit_df <- expand.grid(pft_class = pft_classes, model_type = model_types, data_type = data_types,
-                         stringsAsFactors = FALSE) %>% 
-    as_tibble() %>% 
-    mutate(pft = map(pft_class, get_pfts)) %>% 
-    mutate(pft = case_when(.$model_type == 'hier' ~ list(''), TRUE ~ .$pft)) %>% 
-    unnest() %>% 
+                         stringsAsFactors = FALSE) %>%
+    as_tibble() %>%
+    mutate(pft = map(pft_class, get_pfts)) %>%
+    mutate(pft = case_when(.$model_type == 'hier' ~ list(''), TRUE ~ .$pft)) %>%
+    unnest() %>%
     select(model_type, data_type, pft_class, pft)
 
 message('Writing submission arguments to: ', submit_tab_fname)
-write.table(submit_df, file = submit_tab_fname, quote = FALSE, 
+write.table(submit_df, file = submit_tab_fname, quote = FALSE,
             row.names = FALSE, col.names = FALSE)
 
 ########################################
