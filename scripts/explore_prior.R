@@ -27,7 +27,7 @@ try_long <- try_data %>%
   filter(!is.na(value), key != 'LMA') %>%
   mutate(value = log10(value))
 
-source('informative_prior.R')
+source('scripts/informative_prior.R')
 
 prior_long <- prior_df %>%
   mutate(samples = map2(mean, stdev, ~rnorm(5000, .x, .y))) %>%

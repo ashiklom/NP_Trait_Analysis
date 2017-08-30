@@ -99,7 +99,7 @@ if (model_type == 'hier') {
                                save_progress = file.path(progress_dir, file_tag))
 
 } else if (model_type == 'multi') {
-    source('informative_prior.R')
+    source('scripts/informative_prior.R')
     message('Starting multivariate model run...')
     raw_fit <- fit_mvnorm(dat = data_mat,
                           niter = niter,
