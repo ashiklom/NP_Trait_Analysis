@@ -86,7 +86,7 @@ message('Saving final run results in directory: ', results_dir)
 
 if (model_type == 'hier') {
     data_groups <- data_df %>% dplyr::pull(!!pft_type_q) %>% as.integer()
-    source('informative_prior.R')
+    source('scripts/informative_prior.R')
     message('Starting hierarchical model run...')
     raw_fit <- fit_mvnorm_hier(dat = data_mat,
                                groups = data_groups,
