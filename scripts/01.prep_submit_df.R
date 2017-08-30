@@ -4,7 +4,7 @@ library(nptraits)
 submit_tab_fname <- 'submit_df.dat'
 array_submit_fname <- 'array_submit.sh'
 
-try_data <- readRDS('traits_analysis.rds')
+try_data <- readRDS('extdata/traits_analysis.rds')
 
 pft_classes <- try_data %>% select_if(is.factor) %>% colnames
 model_types <- c('multi', 'hier')

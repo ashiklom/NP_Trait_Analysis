@@ -1,7 +1,7 @@
 library(mvtraits)
 library(tidyverse)
 
-try_data <- readRDS('traits_analysis.rds')
+try_data <- readRDS('extdata/traits_analysis.rds')
 
 # try_data %>%
 #   mutate_at(

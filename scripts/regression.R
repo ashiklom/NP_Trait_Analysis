@@ -1,7 +1,7 @@
 library(tidyverse)
 
-try_data <- readRDS('traits_analysis.rds')
-pft_data <- readRDS('~/Projects/new-phytologist-traits/preprocess-try/pfts_species/all_pfts.rds')
+try_data <- readRDS('extdata/traits_analysis.rds')
+pft_data <- readRDS('extdata/all_pfts.rds')
 
 pft_sub <- pft_data %>%
   select(AccSpeciesID:climate_zone)

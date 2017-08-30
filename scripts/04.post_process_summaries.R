@@ -1,7 +1,7 @@
 library(nptraits)
 
 all_summaries <- readRDS('results/summaries.rds')
-try_data <- readRDS('traits_analysis.rds')
+try_data <- readRDS('extdata/traits_analysis.rds')
 
 pft_levels <- list(jules1 = levels(try_data[['jules1']]),
                    jules2 = levels(try_data[['jules2']]),
