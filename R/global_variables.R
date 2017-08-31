@@ -11,52 +11,52 @@ model_types <- c('multi', 'hier')
 #' @export
 pft_levels <- list(
     jules1 = c(
-        "global",
-        "broadleaf",
-        "needleleaf",
-        "shrub",
-        "c3_grass",
-        "c4_grass"
+        GLOB = "global",
+        Bl = "broadleaf",
+        Nl = "needleleaf",
+        Sh = "shrub",
+        C3G = "c3_grass",
+        C4G = "c4_grass"
     ),
     jules2 = c(
-        "global",
-        "broadleaf_evergreen_tropical",
-        "broadleaf_evergreen_temperate",
-        "broadleaf_deciduous",
-        "needleleaf_evergreen",
-        "needleleaf_deciduous",
-        "shrub_evergreen",
-        "shrub_deciduous",
-        "c3_grass",
-        "c4_grass"
+        GLOB = "global",
+        BlETr = "broadleaf_evergreen_tropical",
+        BlETe = "broadleaf_evergreen_temperate",
+        BlD = "broadleaf_deciduous",
+        NlE = "needleleaf_evergreen",
+        NlD = "needleleaf_deciduous",
+        ShE = "shrub_evergreen",
+        ShD = "shrub_deciduous",
+        C3G = "c3_grass",
+        C4G = "c4_grass"
     ),
     clm45 = c(
-        "global",
-        "broadleaf_evergreen_tropical",
-        "broadleaf_evergreen_temperate",
-        "broadleaf_deciduous_tropical",
-        "broadleaf_deciduous_temperate",
-        "needleleaf_evergreen",
-        "needleleaf_deciduous",
-        "shrub_evergreen",
-        "shrub_deciduous_temperate",
-        "shrub_deciduous_boreal",
-        "c3_grass_arctic",
-        "c3_grass_temperate",
-        "c4_grass"
+        GLOB = "global",
+        BlETr = "broadleaf_evergreen_tropical",
+        BlETe = "broadleaf_evergreen_temperate",
+        BlDTr = "broadleaf_deciduous_tropical",
+        BlDTe = "broadleaf_deciduous_temperate",
+        NlE = "needleleaf_evergreen",
+        NlD = "needleleaf_deciduous",
+        ShE = "shrub_evergreen",
+        ShDTe = "shrub_deciduous_temperate",
+        ShDBo = "shrub_deciduous_boreal",
+        C3GAr = "c3_grass_arctic",
+        C3GTe = "c3_grass_temperate",
+        C4G = "c4_grass"
     ),
     custom = c(
-        "global",
-        "broadleaf_evergreen_tropical",
-        "broadleaf_evergreen_temperate",
-        "broadleaf_deciduous_tropical",
-        "broadleaf_deciduous_temperate",
-        "needleleaf_evergreen",
-        "needleleaf_deciduous",
-        "c3_grass",
-        "c4",
-        "succulent",
-        "n_fixer"
+        GLOB = "global",
+        BlETr = "broadleaf_evergreen_tropical",
+        BlETe = "broadleaf_evergreen_temperate",
+        BlDTr = "broadleaf_deciduous_tropical",
+        BlDTe = "broadleaf_deciduous_temperate",
+        NlE = "needleleaf_evergreen",
+        NlD = "needleleaf_deciduous",
+        C3G = "c3_grass",
+        C4 = "c4",
+        Su = "succulent",
+        Nf = "n_fixer"
     )
 )
 
