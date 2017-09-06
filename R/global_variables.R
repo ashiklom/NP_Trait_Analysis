@@ -62,3 +62,55 @@ pft_levels <- list(
 
 #' @export
 pft_schemes <- names(pft_levels)
+
+#' @export
+pft_colors <- list(
+    jules1 = c(
+        GLOB = "black",
+        Bl = "blue",
+        Nl = "forestgreen",
+        Sh = "chocolate4",
+        C3G = "hotpink",
+        C4G = "blueviolet"
+    ),
+    jules2 = c(
+        GLOB = "black",
+        BlETr = "deepskyblue",
+        BlETe = "deepskyblue4",
+        BlD = "blue",
+        NlE = "chartreuse2",
+        NlD = "forestgreen",
+        ShE = "chocolate1",
+        ShD = "chocolate4",
+        C3G = "hotpink",
+        C4G = "blueviolet"
+    ),
+    clm45 = c(
+        GLOB = "black",
+        BlETr = "deepskyblue",
+        BlETe = "deepskyblue4",
+        BlDTr = "cyan2",
+        BlDTe = "blue",
+        NlE = "chartreuse2",
+        NlD = "forestgreen",
+        ShE = "chocolate1",
+        ShDTe = "chocolate4",
+        ShDBo = "brown1",
+        C3GAr = "pink",
+        C3GTe = "hotpink",
+        C4G = "blueviolet"
+    ),
+    custom = c(
+        GLOB = "black",
+        BlETr = "deepskyblue",
+        BlETe = "deepskyblue4",
+        BlDTr = "cyan2",
+        BlDTe = "blue",
+        NlE = "chartreuse2",
+        NlD = "forestgreen",
+        C3G = "hotpink",
+        C4 = "blueviolet",
+        Su = "brown",
+        Nf = "grey"
+    )
+)

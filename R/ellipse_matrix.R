@@ -1,3 +1,4 @@
+#' @export
 ellipse_matrix <- function(dat) {
   params <- dat %>% pull(param) %>% levels()
   nparams <- length(params)

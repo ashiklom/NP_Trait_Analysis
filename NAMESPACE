@@ -2,8 +2,11 @@
 
 export(area_params)
 export(compare_mv)
+export(ellipse_matrix)
 export(mass_params)
 export(model_types)
+export(pft_colors)
 export(pft_levels)
 export(pft_schemes)
+export(single_ellipse)
 export(summary_barplot)

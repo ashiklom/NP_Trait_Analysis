@@ -1,3 +1,4 @@
+#' @export
 single_ellipse <- function(dat, x_param, y_param) {
   xy_param <- c(x_param, y_param)
 
@@ -29,7 +30,7 @@ single_ellipse <- function(dat, x_param, y_param) {
     unnest(axes)
 
   dat_global <- dat_sub_3 %>%
-    filter(pft == 'global') %>%
+    filter(pft == 'GLOB') %>%
     unnest(ellipse_x, ellipse_y) %>%
     select(mean_x, mean_y, ellipse_x, ellipse_y)
 
