@@ -2,6 +2,7 @@
 
 export(area_params)
 export(compare_mv)
+export(ellipse_axes)
 export(ellipse_matrix)
 export(mass_params)
 export(model_types)

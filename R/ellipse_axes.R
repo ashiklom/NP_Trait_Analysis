@@ -1,4 +1,5 @@
-ellipse_axes <- function(mat) {
+#' @export
+ellipse_axes <- function(mat, chisqval = 1) {
   eig <- eigen(mat)
   max_val <- max(eig$values)
   imax <- which(eig$values == max_val)
@@ -8,7 +9,6 @@ ellipse_axes <- function(mat) {
   min_vec <- eig$vectors[,imin]
   angle <- atan2(max_vec[2], max_vec[1])
   theta <- seq(0, 2 * pi, 0.01)
-  chisqval <- 1 #2.4477
   a <- chisqval * sqrt(max_val)
   b <- chisqval * sqrt(min_val)
   ellipse_x <- a * cos(theta)

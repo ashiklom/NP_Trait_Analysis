@@ -8,6 +8,7 @@ try_data <- readRDS('extdata/traits_analysis.rds')
 if (FALSE) {
     # For testing
     cmdargs <- c('multi', 'area', 'clm45', 'shrub_evergreen')
+    cmdargs <- c('multi', 'mass', 'jules1', 'c4_grass')
     cmdargs <- c('hier', 'mass', 'jules2')
     cmdargs <- c('multi', 'area', 'jules1')
 }
@@ -15,7 +16,7 @@ if (FALSE) {
 out_dir <- "output"
 dir.create(out_dir, showWarnings = FALSE)
 
-if(!exists("cmdargs")) cmdargs <- commandArgs(trailingOnly=TRUE)
+if (!exists("cmdargs")) cmdargs <- commandArgs(trailingOnly = TRUE)
 # Arguments:
 #   1. Model type. Must be either 'multi' or 'hier'
 #   2. Data type. Must be either 'area' or 'mass'
@@ -74,7 +75,10 @@ niter <- 2500
 nchains <- 4
 parallel <- TRUE
 autofit <- TRUE
-max_attempts <- 400
+max_attempts <- 500
+keep_samples <- 20000
+save_progress <- NULL
+# save_progress <- file.path(progress_dir, file_tag)
 
 progress_dir <- 'progress'
 dir.create(progress_dir, showWarnings = FALSE)
@@ -96,7 +100,8 @@ if (model_type == 'hier') {
                                autofit = autofit,
                                priors = prior,
                                max_attempts = max_attempts,
-                               save_progress = file.path(progress_dir, file_tag))
+                               keep_samples = keep_samples,
+                               save_progress = save_progress)
 
 } else if (model_type == 'multi') {
     source('scripts/informative_prior.R')
@@ -106,8 +111,10 @@ if (model_type == 'hier') {
                           nchains = nchains,
                           parallel = parallel,
                           autofit = autofit,
+                          priors = prior,
                           max_attempts = max_attempts,
-                          save_progress = file.path(progress_dir, file_tag))
+                          keep_samples = keep_samples,
+                          save_progress = save_progress)
 }
 
 message('Model run complete. Saving results.')
