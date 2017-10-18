@@ -6,4 +6,8 @@
         path: "{{ install_basepath }}"
         state: directory
     - name: "Clone mvtraits package"
-      git: "repo=git://github.com/ashiklom/mvtraits refspec={{ git_branch }} dest={{ install_basepath }}/mvtraits"
+      git: repo=git://github.com/ashiklom/mvtraits refspec={{ mvtraits_branch }} dest={{ install_basepath }}/mvtraits
+    - name: "Install mvtraits package"
+      shell: "Rscript -e devtools::install('{{ install_basepath }}/mvtraits')"
+    - name: "Clone analysis scripts"
+      git: repo=git://github.com/ashiklom/np_trait_analysis refspec={{ analysis_branch }} dest={{ install_basepath }}/np-trait-analysis
