@@ -1,0 +1,9 @@
+---
+- hosts: geo
+  tasks:
+    - name: "Create install directory"
+      file:
+        path: "{{ install_basepath }}"
+        state: directory
+    - name: "Clone mvtraits package"
+      git: "repo=git://github.com/ashiklom/mvtraits refspec={{ git_branch }} dest={{ install_basepath }}/mvtraits"

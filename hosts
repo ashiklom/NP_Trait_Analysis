@@ -1,0 +1,6 @@
+[targets]
+geo     ansible_host=geo.bu.edu     ansible_ssh_pass="itwasR0b'sFault"
+
+[targets:vars]
+install_basepath=/projectnb/dietzelab/ashiklom/ansible-newPhyt
+git_branch=cleanup
