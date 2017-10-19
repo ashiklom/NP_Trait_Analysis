@@ -1,0 +1,9 @@
+---
+- name: "Get session info"
+  shell: "/bin/bash -l -c \"Rscript -e 'sessionInfo()'\""
+  register: session_info
+
+- debug: msg="{{ session_info.stdout }}"
+
+- name: "Clone analysis scripts"
+  git: repo=git://github.com/ashiklom/np_trait_analysis refspec={{ analysis_branch }} dest={{ analysis_dir }}

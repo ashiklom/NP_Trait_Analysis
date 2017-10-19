@@ -6,39 +6,6 @@
     local_data_dir: "/home/ashiklom/Projects/new-phytologist-traits/preprocess-try"
     data_dir: "{{ analysis_dir }}/extdata"
   tasks:
-    - name: "Create install directory"
-      file:
-        path: "{{ install_basepath }}"
-        state: directory
-
-    - name: "Clone mvtraits package"
-      git: repo=git://github.com/ashiklom/mvtraits refspec={{ mvtraits_branch }} dest={{ mvtraits_dir }}
-      register: mvtraits
-
-    - name: "Install mvtraits package"
-      shell: "/bin/bash -l -c \"Rscript -e 'devtools::install(\\\"{{ mvtraits_dir }}\\\")'\""
-      when: mvtraits.changed
-
-    - name: "Get session info"
-      shell: "/bin/bash -l -c \"Rscript -e 'sessionInfo()'\""
-      register: session_info
-
-    - debug: msg="{{ session_info.stdout }}"
-
-    - name: "Clone analysis scripts"
-      git: repo=git://github.com/ashiklom/np_trait_analysis refspec={{ analysis_branch }} dest={{ analysis_dir }}
-
-    - name: "Create TRY data directory"
-      file:
-        path: "{{ data_dir }}"
-        state: directory
-
-    - name: "Copy TRY data"
-      copy:
-        src: "{{ local_data_dir }}/traits/traits_analysis.rds"
-        dest: "{{ data_dir }}"
-
-    - name: "Copy PFT data"
-      copy:
-        src: "{{ local_data_dir }}/pfts_species/all_pfts.rds"
-        dest: "{{ data_dir }}"
+    - include_tasks: setup.yml
+    - include_tasks: session_info.yml
+    - include_tasks: try_data.yml

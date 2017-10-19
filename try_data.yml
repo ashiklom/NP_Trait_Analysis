@@ -1,0 +1,15 @@
+---
+- name: "Create TRY data directory"
+  file:
+    path: "{{ data_dir }}"
+    state: directory
+
+- name: "Copy TRY data"
+  copy:
+    src: "{{ local_data_dir }}/traits/traits_analysis.rds"
+    dest: "{{ data_dir }}"
+
+- name: "Copy PFT data"
+  copy:
+    src: "{{ local_data_dir }}/pfts_species/all_pfts.rds"
+    dest: "{{ data_dir }}"
