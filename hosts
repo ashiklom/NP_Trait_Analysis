@@ -1,5 +1,5 @@
 [targets]
-geo     ansible_host=geo.bu.edu     ansible_ssh_pass="itwasR0b'sFault"
+geo     ansible_host=geo.bu.edu
 
 [targets:vars]
 install_basepath=/projectnb/dietzelab/ashiklom/ansible-newPhyt
