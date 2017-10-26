@@ -7,6 +7,10 @@ try_data <- readRDS('extdata/traits_analysis.rds')
 # For testing
 if (FALSE) {
     # For testing
+    cmdargs <- c("hier", "mass", "clm45")
+    cmdargs <- c("hier", "area", "clm45")
+    cmdargs <- c("multi", "mass", "clm45")
+    cmdargs <- c("multi", "area", "clm45")
     cmdargs <- c('multi', 'area', 'clm45', 'shrub_evergreen')
     cmdargs <- c('multi', 'mass', 'jules1', 'c4_grass')
     cmdargs <- c('hier', 'mass', 'jules2')
@@ -75,7 +79,7 @@ niter <- 2500
 nchains <- 4
 parallel <- TRUE
 autofit <- TRUE
-max_attempts <- 500
+max_attempts <- 50
 keep_samples <- 20000
 save_progress <- NULL
 # save_progress <- file.path(progress_dir, file_tag)
@@ -89,7 +93,7 @@ dir.create(results_dir, showWarnings = FALSE)
 message('Saving final run results in directory: ', results_dir)
 
 if (model_type == 'hier') {
-    data_groups <- data_df %>% dplyr::pull(!!pft_type_q) %>% as.integer()
+    data_groups <- data_df[[pft_type]]
     source('scripts/informative_prior.R')
     message('Starting hierarchical model run...')
     raw_fit <- fit_mvnorm_hier(dat = data_mat,
