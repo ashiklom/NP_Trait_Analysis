@@ -1,7 +1,2 @@
 [targets]
 geo     ansible_host=geo.bu.edu
-
-[targets:vars]
-install_basepath=/projectnb/dietzelab/ashiklom/ansible-newPhyt
-mvtraits_branch=cleanup
-analysis_branch=ansible

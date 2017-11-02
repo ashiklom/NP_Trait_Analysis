@@ -5,7 +5,7 @@
     state: directory
 
 - name: "Clone mvtraits package"
-  git: repo=git://github.com/ashiklom/mvtraits refspec={{ mvtraits_branch }} dest={{ mvtraits_dir }}
+  git: repo=git://github.com/ashiklom/mvtraits version={{ mvtraits_branch }} dest={{ mvtraits_dir }}
   register: mvtraits
 
 - name: "Install mvtraits package"
@@ -13,4 +13,4 @@
   when: mvtraits.changed
 
 - name: "Clone analysis scripts"
-  git: repo=git://github.com/ashiklom/np_trait_analysis refspec={{ analysis_branch }} dest={{ analysis_dir }}
+  git: repo=git://github.com/ashiklom/np_trait_analysis version={{ analysis_branch }} dest={{ analysis_dir }}
