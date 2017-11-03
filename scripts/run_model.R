@@ -82,6 +82,7 @@ autofit <- TRUE
 max_attempts <- 50
 keep_samples <- 20000
 save_progress <- NULL
+threshold <- 1.3
 # save_progress <- file.path(progress_dir, file_tag)
 
 progress_dir <- 'progress'
@@ -103,6 +104,7 @@ if (model_type == 'hier') {
                                parallel = parallel,
                                autofit = autofit,
                                priors = prior,
+                               threshold = threshold,
                                max_attempts = max_attempts,
                                keep_samples = keep_samples,
                                save_progress = save_progress)

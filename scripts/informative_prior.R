@@ -28,7 +28,7 @@ if (exists('data_df') && exists('use_rxp') && exists('data_mat')) {
   prior[['mu_global']] <- means
   prior[['sigma_global']] <- variances
   if (exists('data_groups')) {
-    npft <- max(data_groups)
+    npft <- max(as.integer(data_groups))
     stopifnot(npft == length(unique(data_groups)))
     prior[['mu_group']] <- matrix(rep(means, npft), nrow = npft, byrow = TRUE)
     prior[['sigma_group']] <- mvtraits::matrep(variances, npft)

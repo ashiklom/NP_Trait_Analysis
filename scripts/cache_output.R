@@ -29,11 +29,21 @@ outfiles <- dir(outdir) %>%
   parse_filetag() %>%
   arrange(desc(date)) %>%
   distinct(model_type, mass_area, pft_type, pft, .keep_all = TRUE) %>%
-  mutate(fname = file.path(outdir, fname))
+  mutate(
+    fname = file.path(outdir, fname),
+    pft = case_when(
+      pft != "NA" ~ pft,
+      model_type == "multi" ~ "global",
+      model_type == "hier" ~ "hier"
+    )
+  )
 
 read_output <- function(fname) {
   readRDS(fname)[["stats"]]
 }
 
-dat_list <- sapply(outfiles$fname, read_output, simplify = FALSE, USE.NAMES = TRUE)
-saveRDS(dat_list, cachefile)
+outfiles$data <- lapply(outfiles$fname, read_output)
+
+outfiles %>%
+  select(model_type, mass_area, pft_type, pft, date, fname, data) %>%
+  saveRDS(cachefile)
