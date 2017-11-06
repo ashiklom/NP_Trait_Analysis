@@ -21,19 +21,37 @@ mass_params <- c("leaf_lifespan", "SLA", "Nmass", "Pmass", "Rdmass", "Vcmax_mass
 area_params <- gsub("mass$", "area", mass_params)
 param_labels <- c("Leaf lifespan", "SLA", "N", "P", "Rd", "Vcmax", "Jmax")
 
-param_fancy <- list(
+param_fancy_chr <- c(
+  leaf_lifespan = "Leaf~lifespan~(months)",
+  Nmass = "N[mass]~('%')",
+  Pmass = "P[mass]~('%')",
+  SLA = "SLA~(mm ^ 2 ~ mg ^ -1)",
+  Rdmass = "R[{list(d,mass)}]~(mu * mol ~ g ^ -1 ~ s ^ -1)",
+  Jmax_mass = "J[{list(max, mass)}]~(mu * mol ~ g ^ -1 ~ s ^ -1)",
+  Vcmax_mass = "V[{list(c, max, mass)}]~(mu * mol ~ g ^ -1 ~ s ^ -1)",
+  # TODO: Fix these
+  Narea = "N[area]~(mg ~ mm ^ -2)",
+  Parea = "P[area]~(mg ~ mm ^ -2)",
+  Rdarea = "R[{list(d, area)}]~(mu * mol ~ mm ^ -2 ~ s ^ -1)",
+  Jmax_area = "J[{list(max, area)}]~(mu * mol ~ mm ^ -2 ~ s ^ -1)",
+  Vcmax_area = "V[{list(c, max, area)}]~(mu * mol ~ mm ^ -2 ~ s ^ -1)"
+)
+
+param_fancy <- c(
   leaf_lifespan = "Leaf lifespan (months)",
-  Nmass = expression(paste(N[mass], " (\\%)")),
-  Pmass = expression(paste(P[mass], " (\\%)")),
+  Nmass = expression(paste(N[mass], " (%)")),
+  Pmass = expression(paste(P[mass], " (%)")),
   SLA = expression(paste("SLA (", mm ^ 2 ~ mg ^ -1, ")")),
+  Rdmass = expression(paste(R[{list(d, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")")),
   Jmax_mass = expression(paste(J[{list(max, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")")),
   Vcmax_mass = expression(paste(V[{list(c, max, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")")),
   # TODO: Fix these
-  Narea = expression(paste(N[mass], " (\\%)")),
-  Parea = expression(paste(P[mass], " (\\%)")),
-  Jmax_area = expression(paste(J[{list(max, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")")),
-  Vcmax_area = expression(paste(V[{list(c, max, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")"))
+  Narea = expression(N[mass] ~ (mg ~ mm ^ -2)),
+  Parea = expression(P[mass] ~ (mg ~ mm ^ -2)),
+  Jmax_area = expression(J[{list(max, mass)}] ~ (mu * mol ~ g ^ -1 ~ s ^ -1)),
+  Vcmax_area = expression(V[{list(c, max, mass)}] ~ (mu * mol ~ g ^ -1 ~ s ^ -1))
 )
 
 source("scripts/paultolcolors.R")
-pft_colors <- tol14rainbow[-c(10, 9)]
+pft_colors <- tol21rainbow[c(1, 3, 4, 6, 7, 9, 13:15, 16:18)]
+#pft_colors <- tol14rainbow[-c(10, 9)]

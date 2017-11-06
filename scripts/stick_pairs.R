@@ -22,7 +22,7 @@ npft <- length(pfts)
 close.screen(all.screens = TRUE)
 
 #tikzDevice::tikz("manuscript-tex/stick_pairsplot.tex", width = 5, height = 5)
-#pdf("manuscript-tex/stick_pairsplot.pdf", width = 5, height = 5)
+pdf("figures/stick_pairsplot.pdf", width = 5, height = 5)
 stickplot_pairs(
   mu_global_lower = dat_list$multi_mass$mu,
   Sigma_global_lower = dat_list$multi_mass$Sigma,
@@ -39,11 +39,11 @@ stickplot_pairs(
   vars_upper = area_params,
   col_group = pft_colors,
   cex_g = 1.2,
-  lwd_g = 2,
+  lwd_g = 1,
   lty_g = 1,
   lwd_s = 1.3,
   par_plot = list(oma = c(0, 3, 3, 3), cex = 0.4),
   par_legplot = list(mar = c(0, 0, 0, 0)),
   par_legend = list(ncol = 5, x = "center", cex = 0.6)
 )
-#dev.off()
+dev.off()
