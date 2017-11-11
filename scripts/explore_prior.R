@@ -22,9 +22,10 @@ try_data <- readRDS('extdata/traits_analysis.rds')
 #   spread(vartype, value)
 
 try_long <- try_data %>%
+  select(-Latitude, -Longitude, -LMA) %>%
   select_if(is_double) %>%
   gather() %>%
-  filter(!is.na(value), key != 'LMA') %>%
+  filter(!is.na(value)) %>%
   mutate(value = log10(value))
 
 source('scripts/informative_prior.R')
@@ -39,4 +40,5 @@ plot_df <- bind_rows(try_long %>% mutate(type = 'data'),
 
 ggplot(plot_df) +
   aes(x = key, y = value, fill = type) +
-  geom_violin()
+  geom_violin() +
+  facet_wrap(~key, scales = "free")

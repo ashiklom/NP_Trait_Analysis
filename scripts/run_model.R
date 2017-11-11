@@ -118,6 +118,7 @@ if (model_type == 'hier') {
                           parallel = parallel,
                           autofit = autofit,
                           priors = prior,
+                          threshold = threshold,
                           max_attempts = max_attempts,
                           keep_samples = keep_samples,
                           save_progress = save_progress)

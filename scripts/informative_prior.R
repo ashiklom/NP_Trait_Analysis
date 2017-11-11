@@ -1,17 +1,17 @@
 prior_df <- tribble(
   ~param, ~mean, ~stdev,
-  'Jmax_area', 2, 0.5,
-  'Jmax_mass', 0, 0.4,
-  'leaf_lifespan', 0.75, 0.5,
-  'Narea', 0.25, 0.5,
-  'Nmass', 1.25, 0.5,
-  'Parea', -1, 0.5,
+  'Jmax_area', 2, 0.26,
+  'Jmax_mass', 0, 0.26,
+  'leaf_lifespan', 0.75, 0.4,
+  'Narea', 0.25, 0.3,
+  'Nmass', 1.25, 0.3,
+  'Parea', -1, 0.3,
   'Pmass', 0, 0.3,
-  'Rdarea', 0, 0.5,
-  'Rdmass', -2, 0.5,
-  'SLA', 1, 0.75,
-  'Vcmax_area', -0.5, 0.5,
-  'Vcmax_mass', 1.7, 0.5
+  'Rdarea', 0, 0.27,
+  'Rdmass', -2, 0.26,
+  'SLA', 1, 0.6,
+  'Vcmax_mass', -0.4, 0.26,
+  'Vcmax_area', 1.7, 0.19
 ) %>%
   mutate(variance = stdev ^ 2)
 

@@ -42,8 +42,10 @@ stickplot_pairs(
   lwd_g = 1,
   lty_g = 1,
   lwd_s = 1.3,
-  par_plot = list(oma = c(0, 3, 3, 3), cex = 0.4),
+  par_plot = list(oma = c(0, 5, 3, 5), cex = 0.4),
   par_legplot = list(mar = c(0, 0, 0, 0)),
   par_legend = list(ncol = 5, x = "center", cex = 0.6)
 )
+mtext("Mass normalization", side = 2, cex = 0.7, line = 3)
+mtext("Area normalization", side = 4, cex = 0.7, line = 1)
 dev.off()
