@@ -1,0 +1,217 @@
+# Materials and Methods
+
+```{r options, echo=FALSE, message=FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  dpi = 300,
+  cache = TRUE
+)
+options(knitr.table.format = "pandoc")
+suppressPackageStartupMessages({
+  library(tidyverse)
+})
+source("scripts/pft_abbreviations.R")
+try_data <- readRDS("extdata/traits_analysis.rds")
+
+try_sub <- try_data %>%
+  select(pft = clm45, Jmax_area:Vcmax_mass,
+         -Latitude, -Longitude, -LMA)
+
+sample_size <- try_sub %>%
+  select(pft, one_of(both_params)) %>%
+  mutate(
+    pft = factor(pft, abbr2pft) %>% forcats::lvls_revalue(pft2abbr)
+  ) %>%
+  group_by(pft) %>%
+  summarize_all(~sum(!is.na(.))) %>%
+  gather("param", "sample_size", -pft) %>%
+  mutate(param = factor(param, both_params))
+```
+
+## Trait data
+
+Foliar trait data for this analysis comes from the TRY global traits database
+(@kattge_try_2011; see Supplementary Table 1 for a complete table of component datasets and references.).
+We focused our research on seven foliar traits:
+Leaf longevity (months),
+specific leaf area (SLA, mm$^2$ mg$^{-1}$),
+leaf nitrogen content ($N_{mass}$, mg N g$^{-1}$ or $N_{area}$, g m$^{-2}$),
+leaf phosphorus content ($P_{mass}$, mg P g$^{-1}$ or $P_{area}$, g m$^{-2}$),
+leaf dark respiration at leaf temperature ($R_{d,mass}$, µmol g$^{-1}$ s$^{-1}$, or $R_{d,area}$, µmol m$^{-2}$ s$^{-1}$),
+maximum Rubisco carboxylation rate at 25°C ($V_{c,max,mass}$, µmol g$^{-1}$ s$^{-1}$, or $V_{c,max,area}$, µmol m$^{-2}$ s$^{-1}$),
+and maximum electron transport rate ($J_{max,mass}$, µmol g$^{-1}$ s$^{-1}$, or $J_{max,area}$, µmol m$^{-2}$ s$^{-1}$).
+We performed analyses separately for both mass- and area-normalized traits to avoid artifacts caused by different trait normalization [@osnas_global_2013; @lloyd_les].
+We restricted our analysis to TRY data that have been quality-controlled and for which adequate species information was provided for functional type classification (see @kattge_try_2011).
+
+Although the light- and CO2-saturated photosynthetic rate ($A_{max}$) was an important trait in previous studies, we did not include it in our study for two reasons.
+First of all, data on raw photosynthetic rates are highly sensitive to measurement methodology and environmental conditions, which were generally inconsistent or unavailable in TRY.
+Second, $A_{max}$ is not a good measure of photosynthetic capacity because it integrates over variability in many physiologically independent traits such as $V_{c,max}$, $J_{max}$, and stomatal conductance, and is therefore not used in vegetation models as a photosynthetic parameter [@Ali_2015].
+
+Following past studies [e.g. @wright_worldwide_2004; @wright_assessing_2005; @diaz_global_2016], we log-transformed all trait values to correct for their strong right-skewness.
+
+## Plant functional types
+
+```{r "pfts"}
+n_species <- try_data %>%
+  distinct(clm45, AccSpeciesID) %>%
+  select(pft = clm45, species = AccSpeciesID) %>%
+  count(pft) %>%
+  mutate(
+    pft = as.character(pft),
+    label = pft2abbr[pft],
+    pft = tools::toTitleCase(gsub("_", " ", pft))
+  ) %>%
+  select(`Label` = label, `PFT` = pft, `Number of species` = n)
+species_caption <- paste(
+  "Names, labels, and species counts for plant functional types (PFTs)",
+  "used in this analysis."
+)
+kable(n_species, caption = species_caption, align = rep("c", ncol(n_species)))
+```
+
+(ref:ssfigcap) Sample sizes for each trait-PFT pair. $y$ axis is scaled logarithmically.
+
+```{r "samplesize", fig.cap='(ref:ssfigcap)', fig.width=7, fig.height=7}
+ss_plot <- sample_size %>%
+  mutate(param = forcats::lvls_revalue(param, param_simple[both_params])) %>%
+  ggplot() + 
+  aes(x = pft, y = sample_size, fill = pft) + 
+  geom_col() +
+  scale_y_log10(breaks = c(10, 100, 1000, 10000)) +
+  facet_wrap(~param, ncol = 2, labeller = label_parsed) +
+  scale_fill_manual(values = pft_colors) +
+  xlab("Plant functional type") +
+  ylab("Sample size") +
+  guides(fill = guide_legend(title = "PFT")) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+ss_plot
+```
+
+We assigned each species to a unique plant functional type (PFT) following the scheme in the Community Land Model (CLM4.5, @clm45_note; Tab. \@ref(tab:pfts), Fig. \@ref(fig:samplesize)).
+We obtained categorical data on growth form, leaf type, phenology, and photosynthetic pathway from the TRY database.
+Where the same species was reported to have different attributes in different datasets, we assigned the attribute that was observed most frequently, and, in cases of ties, selected the attribute that was more likely based on phylogenetically similar species.
+For biome specification, we collected all latitude and longitude data for each species,
+matched these data to 30 second ($\sim1 km^{2}$ ) mean annual temperature ($AMT$, averaged 1970-2000) data from WorldClim-2 [@worldclim],
+calculated the mean temperature for each species,
+and then binned these species based on the following cutoffs: boreal/arctic ($AMT \leq 5^\circ C$), temperate ($AMT \leq 20^\circ C$), and tropical ($AMT > 20^\circ C$).
+
+
+## Multivariate analysis
+
+### Basic model description
+
+In this study, we compared three different models representing different levels of complexity.
+
+The simplest model was the ‘univariate’ model, in which each trait was modeled independently.
+For an observation $x_{i,t}$ of trait $t$ and sample $i$...
+
+$$x_{i,t} \sim N(\mu_t, \sigma_t)$$
+
+...where $N$ is the univariate normal (Gaussian) distribution with mean $\mu_t$ and standard deviation $\sigma_t$ for trait $t$.
+
+The second-simplest model was the ‘multivariate’ model, in which traits were modeled as samples from a multivariate distribution with a single mean vector and covariance matrix.
+For the observed vector of traits ${\mathbf{x_i}}$ for sample $i$...
+
+$$\mathbf{x_i} \sim mvN(\mathbf{\mu}, \mathbf{\Sigma})$$
+
+...where $mvN$ is the multivariate normal (Gaussian) distribution with mean vector $\mathbf{\mu}$ and variance-covariance matrix $\mathbf{\Sigma}$.
+We ran both of these models independently for each PFT as well as for the entire dataset (as if every observation belonged to the same PFT).
+
+The most complex model was the ‘hierarchical’ model, in which observed trait values were drawn from a PFT-specific multivariate normal distribution describing within-PFT variation and whose parameters were themselves sampled from a global multivariate distribution describing the variation among PFTs.
+For the observed vector of traits $\mathbf{x}_{i,p}$ for sample $i$ belonging to PFT $p$...
+
+$$\mathbf{x}_{i,p} \sim mvN(\mathbf{\mu}_p, \mathbf{\Sigma}_p)$$
+$$\mathbf{\mu}_p \sim mvN(\mathbf{\mu}_g, \mathbf{\Sigma}_g)$$
+
+…where $\mathbf{\mu}_p$ and $\mathbf{\Sigma}_p$ are the mean vector and variance-covariance matrix describing variation within PFT $p$, and $\mathbf{\mu}_g$ and $\mathbf{\Sigma}_g$ are the mean vector and variance-covariance matrix describing among-PFT (global) variation.
+
+
+### Model implementation
+
+We fit the above models using a Gibbs sampling algorithm that leveraged known conjugate prior relationships for efficient exploration of the sampling space.
+For priors on all multivariate mean vectors ($\mathbf{\mu}$), we used normal distributions…
+
+$$P(\mathbf{\mu}) \sim mvN(\mathbf{\mu}_0, {\mathbf{\Sigma}}_0)$$
+
+...which gives rise to the following expression for the posterior...
+
+$$P(\mathbf{\mu} \mid 
+    \mathbf{x}, \mathbf{\Sigma}, 
+    \mathbf{\mu}_0, \mathbf{\Sigma}_0)
+  \sim
+  mvN(\mathbf{\mu^*}, \mathbf{\Sigma^*})$$
+
+...where...
+
+$$\mathbf{\Sigma^*} = (\mathbf{\Sigma}_0^{-1} + n \mathbf{\Sigma}^{-1})^{-1}$$
+$$\mathbf{\mu^*} = \mathbf{\mu}_0 \mathbf{\Sigma}_0^{-1} + \bar{\mathbf{x}} n \mathbf{\Sigma}^{-1}$$
+
+...where ${\bar{{\mathbf{x}}}}$ are the sample means of the data and $n$ is the number of rows in the data.
+
+For priors on all multivariate variance-covariance matrices, we used the Wishart distribution ($W$)...
+
+$$P(\mathbf{\Sigma}) \sim W(\nu_0, \mathbf{S}_0)$$
+
+...which gives rise to the following expression for the posterior...
+
+$$P(\mathbf{\Sigma} \mid
+  \mathbf{x}, \mathbf{\mu},
+  \nu_0, \mathbf{\Sigma}_0)
+  \sim
+  (W(\nu^*, S^*))^{-1}$$
+
+...where...
+
+$$\nu^* = 1 + \nu_0 + n + m$$
+$$\mathbf{x^*} = \mathbf{x} - \bar{\mu}$$
+$$\mathbf{SS} = \mathbf{x^*}^{T} \mathbf{x^*}$$
+$$\mathbf{S^*} = (\mathbf{S}_0 + \mathbf{SS})^{-1}$$
+
+...where $n$ is the number of rows and $m$ is the number of columns in data matrix $x$. For further details on this derivation, see @gelman_bayesian.
+
+The fundamentally multivariate nature of the sampling procedure described above makes it incapable of accommodating missing values in the data ($x$).
+Therefore, our algorithm also included imputation of partially missing data, which proceeded as follows: For a block of data $\mathbf{x'}$ containing missing observations in the columns $\mathbf{m}$ and present observations in columns $\mathbf{p}$...
+
+$$\mathbf{x'}[m] \sim mvN(\mathbf{\mu}', \mathbf{\Sigma}')$$
+
+...where...
+
+$$\mathbf{\mu'} = 
+  (\mathbf{x'}[p] - \mathbf{\mu'}[p]) 
+  (\mathbf{\Sigma}[p,p]^{-1} \mathbf{\Sigma}[p,m])$$
+$$\mathbf{\Sigma'} = \mathbf{\Sigma}[m,m] - 
+  \mathbf{\Sigma}[m,p]
+  (\mathbf{\Sigma}[p,p]^{-1} \mathbf{\Sigma}[p,m])$$
+
+For each model fit, we ran five parallel MCMC chains, automatically increasing the sample size until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.05 (Gelman and Rubin 1992).
+
+We implemented this sampling algorithm in R (version 3.4.2; @rstats).
+The code for fitting these models to data is available as an open source R package (`mvtraits`) at <http://github.com/ashiklom/mvtraits>.
+
+
+### Analysis of results
+
+To assess the impact of multivariate and hierarchical constraint on trait estimates,
+we compared the mean and size of the 95% confidence intervals of mean estimates of each trait for each PFT (Fig. \@ref(fig:meancompare)).
+In addition, we report the mean and 95% confidence intervals of mean estimates for each trait and PFT from the hierarchical model in tabular form (Tab. 2 and 3). 
+To test the hypothesis that the multivariate and hierarchical models offer more value in terms of uncertainty constraint at smaller sample sizes, we calculated the relative uncertainty ($\alpha$) as a function of the mean ($\mu$) and upper ($q_{0.975}$) and lower ($q_{0.025}$) confidence limits of trait estimates as...
+
+$$ \alpha = \frac{q_{0.975} - q_{0.025}}{\mu} $$
+
+We then fit a generalized linear model relating relative uncertainty to sample size ($n$) for each of the model types (univariate, multivariate, and hierarchical; Fig. \@ref(fig:civssamplesize)) as...
+
+$$ \log{\alpha} = b_0 + b_1 \log{n} $$
+
+To assess the consistency of among- and with-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$) plotted the dominant eigenvectors centered on the mean estimates (Fig. \@ref(fig:stickpairs)).
+Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the global correlations estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
+For this reason, we compared within-PFT covariances as estimated by the hierarchical model with the covariances estimated by fitting a multivariate model to all of the data.
+
+The R code for all analyses is publicly available online at <http://github.com/ashiklom/np_trait_analysis>.
+The TRY data used for this analysis can be requested at <http://try-db.org>.

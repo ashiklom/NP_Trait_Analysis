@@ -1,0 +1,6 @@
+_book
+_bookdown_files
+cache
+.cache
+library.bib
+extdata
