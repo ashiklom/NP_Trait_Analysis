@@ -4,6 +4,7 @@ abbr2pft <- c(
   BlETe = "broadleaf_evergreen_temperate",
   BlDTr = "broadleaf_deciduous_tropical",
   BlDTe = "broadleaf_deciduous_temperate",
+  BlDBo = "broadleaf_deciduous_boreal",
   NlETe = "needleleaf_evergreen_temperate",
   NlEBo = "needleleaf_evergreen_boreal",
   NlD = "needleleaf_deciduous",
@@ -103,5 +104,21 @@ param_fancy <- sapply(param_fancy_chr, formula)
 #)
 
 source("scripts/paultolcolors.R")
-pft_colors <- tol21rainbow[c(1, 3, 4, 6, 7, 8, 9, 13:15, 16:18)]
+pft_inds <- c(
+  BlETr = 1,
+  BlETe = 3,
+  BlDTr = 4,
+  BlDTe = 5,
+  BlDBo = 6,
+  NlETe = 7,
+  NlEBo = 8,
+  NlD = 9,
+  ShE = 13,
+  ShDTe = 14,
+  ShDBo = 15,
+  C3GAr = 16,
+  C3GTe = 17,
+  C4G = 18
+)
+pft_colors <- tol21rainbow[pft_inds]
 #pft_colors <- tol14rainbow[-c(10, 9)]
