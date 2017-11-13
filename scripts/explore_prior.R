@@ -29,16 +29,13 @@ try_long <- try_data %>%
   mutate(value = log10(value))
 
 source('scripts/informative_prior.R')
-
 prior_long <- prior_df %>%
   mutate(samples = map2(mean, stdev, ~rnorm(5000, .x, .y))) %>%
   select(key = param, value = samples) %>%
   unnest()
-
 plot_df <- bind_rows(try_long %>% mutate(type = 'data'),
                      prior_long %>% mutate(type = 'prior'))
-
 ggplot(plot_df) +
-  aes(x = key, y = value, fill = type) +
-  geom_violin() +
+  aes(x = key, y = 10^value, fill = type) +
+  geom_boxplot() +
   facet_wrap(~key, scales = "free")
