@@ -17,7 +17,7 @@ source("scripts/pft_abbreviations.R")
 try_data <- readRDS("extdata/traits_analysis.rds")
 
 try_sub <- try_data %>%
-  select(pft = clm45, Jmax_area:Vcmax_mass,
+  select(pft = clm45, one_of(both_params),
          -Latitude, -Longitude, -LMA)
 
 sample_size <- try_sub %>%
