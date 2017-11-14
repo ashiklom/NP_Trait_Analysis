@@ -86,6 +86,10 @@ table_cap_mass <- paste(
 )
 table_cap_area <- gsub("mass", "area", table_cap_mass)
 
+censor <- function(rxp, pft, pfts, param, value) {
+  if_else(grepl(rxp, param) & pfts %in% pft, "---", value)
+}
+
 table_dat <- means_dat %>%
   filter(
     model_type == "hierarchical",
@@ -95,11 +99,17 @@ table_dat <- means_dat %>%
     mu_lo = if_else(param == "Rdmass", mu_lo * 1000, mu_lo),
     mu_mean = if_else(param == "Rdmass", mu_mean * 1000, mu_mean),
     mu_hi = if_else(param == "Rdmass", mu_hi * 1000, mu_hi),
+    mu_lo = if_else(param == "Rdarea", mu_lo * 1000, mu_lo),
+    mu_mean = if_else(param == "Rdarea", mu_mean * 1000, mu_mean),
+    mu_hi = if_else(param == "Rdarea", mu_hi * 1000, mu_hi),
     lo_f = formatC(mu_lo, digits = 3),
     mid_f = formatC(mu_mean, digits = 3),
     hi_f = formatC(mu_hi, digits = 3),
     value = sprintf("%s (%s,%s)", mid_f, lo_f, hi_f),
-    value = if_else(grepl("Vcmax|Jmax", param) & pft == "C4G", "---", value)
+    value = censor("Vcmax|Jmax", "C4G", pft, param, value),
+    value = censor("Rdmass", "ShDBo", pft, param, value),
+    value = censor("Jmax_mass", c("NlEBo", "NlD"), pft, param, value),
+    value = censor("Jmax_area", c("NlD"), pft, param, value)
   ) %>%
   select(pft, param, value) %>%
   mutate(
@@ -148,9 +158,11 @@ plot_dat <- means_dat %>%
     mu_hi = pclip(param, "Jmax_area", mu_hi, 150),
     mu_mean = pclip(param, "Jmax_area", mu_mean, 150),
     mu_hi = pclip(param, "Rdmass", mu_hi, 0.03),
-    mu_hi = pclip(param, "Rdarea", mu_hi, 0.0035),
-    mu_mean = pclip(param, "Rdarea", mu_mean, 0.0035),
-    mu_lo = pclip(param, "Rdarea", mu_lo, 0.0035),
+    mu_mean = pclip(param, "Rdmass", mu_mean, 0.03),
+    mu_lo = pclip(param, "Rdmass", mu_lo, 0.03),
+    mu_hi = pclip(param, "Rdarea", mu_hi, 0.0025),
+    mu_mean = pclip(param, "Rdarea", mu_mean, 0.0025),
+    mu_lo = pclip(param, "Rdarea", mu_lo, 0.0025),
     mu_hi = pclip(param, "Parea", mu_hi, 0.285),
     #mu_lo = pclip(param, "Jmax_area", mu_lo, 40, FALSE),
     param = forcats::lvls_revalue(param, param_fancy_chr[both_params])
@@ -339,10 +351,11 @@ Meanwhile, temperate broadleaved evergreen trees had significant correlations be
 In general, we observed fewer significant trait correlations among area-normalized traits than mass-normalized traits. 
 
 ```{r boxprep}
-hier_mass_file <- "../output/hier.mass.clm45.NA.2017-11-13-1250.rds"
-hier_area_file <- "../output/hier.area.clm45.NA.2017-11-13-1312.rds"
-multi_mass_file <- "../output/multi.mass.clm45.NA.2017-11-13-1231.rds"
-multi_area_file <- "../output/multi.area.clm45.NA.2017-11-13-1245.rds"
+outdir <- "../output"
+hier_mass_file <- tail(dir(outdir, "hier.mass.clm45", full.names = TRUE), 1)
+hier_area_file <- tail(dir(outdir, "hier.area.clm45", full.names = TRUE), 1)
+multi_mass_file <- tail(dir(outdir, "multi.mass.clm45", full.names = TRUE), 1)
+multi_area_file <- tail(dir(outdir, "multi.area.clm45", full.names = TRUE), 1)
 
 hier_summary_mass <- readRDS(hier_mass_file)[["summary_table"]] %>%
   mutate(mass_area = "mass")
