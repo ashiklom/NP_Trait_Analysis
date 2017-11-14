@@ -209,7 +209,7 @@ We then fit a generalized linear model relating relative uncertainty to sample s
 
 $$ \log{\alpha} = b_0 + b_1 \log{n} $$
 
-To assess the consistency of among- and with-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$) plotted the dominant eigenvectors centered on the mean estimates (Fig. \@ref(fig:stickpairs)).
+To assess the consistency of among- and within-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$) plotted the dominant eigenvectors centered on the mean estimates (Fig. \@ref(fig:stickpairs)).
 Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the global correlations estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
 For this reason, we compared within-PFT covariances as estimated by the hierarchical model with the covariances estimated by fitting a multivariate model to all of the data.
 

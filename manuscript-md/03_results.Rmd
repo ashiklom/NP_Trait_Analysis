@@ -227,6 +227,8 @@ However, this analysis revealed no consistent significant benefit from the hiera
 
 (ref:sscap) Relative uncertainty in PFT-level trait estimates as a function of sample size for each model type.
 Lines represent linear models ($\log(y) = b_0 + b_1 \log(x)$) fit independently for each model type.
+In general, differences in estimate uncertainty between the univariate and multivariate models were minimal at large sample sizes but increasingly important at low sample sizes.
+However, differences in estimate uncertainty between the multivariate and hierarchical models were consistently negligible.
 
 ```{r "civssamplesize", fig.width=4.4, fig.height=3, fig.cap='(ref:sscap)'}
 ## Relative uncertainty
@@ -291,8 +293,10 @@ relative_ci
 ## Trait correlation patterns among- and within-PFTs
 
 (ref:stickcap) Pairwise trait mean and covariance estimates for all data pooled globally (black) and for each PFT (colored).
-Correlations not significantly different from zero are indicated by x symbols at the mean estimate.
+Covariance estimates not significantly different from zero ($p < 0.05$) are indicated by x symbols at the mean estimate.
 $x$ and $y$ axes vary on a log scale, reflecting the fact that the model was fit using the base 10 log of all traits.
+With the exception of leaf lifespan, pairwise covariances are consistent in direction but vary somewhat in magnitude between PFTs, and when comparing PFT-level and global estimates.
+However, many pairwise covariances are not statistically significant, particularly (but not always) for undersampled traits and PFTs.
 
 ```{r stickpairs, fig.width = 5, fig.height = 5, fig.cap = '(ref:stickcap)'}
 suppressPackageStartupMessages({
@@ -390,6 +394,7 @@ hs <- bind_rows(hsm, hsa, msm, msa)
 
 (ref:corrbarscap) Mean and 95% CI on estimates of pairwise correlation coefficients
 for all data pooled globally (dark grey) and for each PFT (colored).
+For most PFT-trait pairs, correlations are mutually consistent in magnitude but vary in strength.
 
 ```{r corrbars, fig.width=7, fig.height=7, fig.cap='(ref:corrbarscap)'}
 .zzz <- close.screen(all.screens = TRUE)

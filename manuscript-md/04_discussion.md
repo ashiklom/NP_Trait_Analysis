@@ -3,10 +3,10 @@
 ## Variation in trait means among PFTs
 
 A key application of this study is to provide data-driven parameter estimates for earth system models.
-To this end, we compared our mean parameter estimates (Fig. \@ref(fig:meancompare), Table 3) with corresponding default parameters in CLM 4.5 (@clm45_note).
-Our mean estimates of SLA agreed with CLM's defaults (@clm45_note, Table 8.1) only for tropical broadleaved evergreen trees, and for all other PFTs, our estimates are significantly lower.
+To this end, we compared our mean parameter estimates (Fig. \@ref(fig:meancompare), Table 3) with corresponding default parameters in CLM 4.5 [@clm45_note].
+Our mean estimates of SLA agreed with CLM's defaults [@clm45_note, Table 8.1] only for tropical broadleaved evergreen trees, and for all other PFTs, our estimates are significantly lower.
 We could not directly compare our estimates of $N_{mass}$ to CLM because CLM reports the C to N ratio instead, but we can comment on the relative magnitudes and trends in these respective traits.
-PFTs in CLM, by default, take on one of three C:N ratios: all grasses and deciduous PFTs have the lowest C:N (i.e. highest $N_{mass}$), followed by a higher value for all evergreen PFTs except boreal needleleaf evergreen, which has the highest value (i.e. lowest $N_{mass}$) (@clm45_note).
+PFTs in CLM, by default, take on one of three C:N ratios: all grasses and deciduous PFTs have the lowest C:N (i.e. highest $N_{mass}$), followed by a higher value for all evergreen PFTs except boreal needleleaf evergreen, which has the highest value (i.e. lowest $N_{mass}$) [@clm45_note].
 Our results agree that most evergreen PFTs, particularly needleleaved evergreen species, have lower $N_{mass}$ than deciduous PFTs.
 However, in our results, broadleaved tropical evergreen species had $N_{mass}$ that was more similar to most deciduous PFTs and significantly higher than other evergreen PFTs.
 Meanwhile, grasses generally had lower $N_{mass}$ than deciduous trees, and C4 grasses in particular (which comprise many of CLM's agricultural PFTs) had $N_{mass}$ that was nearly as low as the evergreen species.
@@ -39,7 +39,7 @@ Taken together with the finding that evergreen conifers are relatively unique in
 Similarly, the correlations of $N_{mass}$ with traits directly related to function ($R_{d,mass}$, $V_{c,max,mass}$, and $J_{max,mass}$) was weaker for tropical evergreen broadleaved trees than for most other PFTs, but the correlation of these traits with $P_{mass}$ was comparable or even slightly higher.
 This supports the idea that the productivity of tropical species is generally P-limited [@reich_global_2004], and, more generally, that photosynthetic parameters are affected more strongly by environmental covariates than leaf nitrogen contents [@Ali_2015].
 We also found that the strength of the correlation between $V_{c,max,area}$ and $N_{area}$, which is often used in ecosystem modeling to parameterize photosynthesis [@clm45_note; @rogers_roadmap_2017] varied by plant functional type, and was generally weaker for needleleaved than broadleaved species, echoing the results of @kattge_2009_vcmax.
-In light of this fact and considering that boreal forests, largely populated by needleleaf species, have the largest influence on global climate of any biome [@Snyder_2004, @bonan_forests_2008], we suggest that parameterization of needleleaf tree productivity based on foliar nitrogen content be treated with caution in Earth System Models.
+In light of this fact and considering that boreal forests, largely populated by needleleaf species, have the largest influence on global climate of any biome [@Snyder_2004; @bonan_forests_2008], we suggest that parameterization of needleleaf tree productivity based on foliar nitrogen content be treated with caution in Earth System Models.
 Meanwhile, the correlations of all traits with leaf lifespan was significantly weaker (often to the point of becoming insignificant) within most PFTs than globally.
 This suggests that leaf economic relationships related to leaf lifespan are dominated by the fundamental differences between deciduous and evergreen PFTs, while the factors driving variability in leaf lifespan within PFTs are more complex and idiosyncratic [@Reich_2014; @wu_leaf_2016].
 That being said, much of this within-PFT variability is driven by variations in shade responses, and a key limitation of our study is that we have no information about the relative canopy positions at which traits were collected [@lusk_why_2008; @keenan_global_2016].
