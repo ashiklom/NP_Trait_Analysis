@@ -18,6 +18,8 @@ The interaction between growth form and biome in discrete PFT definitions confou
 For example, @poorter_causes_2009 found variation in SLA by growth form was, from highest to lowest, grasses, deciduous woody plants, evergreen woody plants, and succulents, while the pattern by biome was, again from highest to lowest, grassland, tundra, tropical forest, temperate forest, woodland, shrubland, and desert.
 We observed as expected that arctic grasses had lower mean SLA than temperate grasses, and that evergreen trees had higher specific leaf area than their deciduous counterparts.
 However, we observed by far the highest mean specific leaf area values in deciduous broadleaf trees, rather than in grass PFTs as expected.
+Similarly to @onoda_2011_global, we found no consistent patterns in SLA with temperature:
+Among broadleaved evergreen PFTs, temperate species had lower SLA than tropical, and among broadleaved deciduous PFTs, temperate species had higher SLA than both tropical and boreal species.
 With respect to the expected decline in foliar N:P ratios with latitude [@reich_global_2004], we found that $N_{mass}$ was generally higher in PFTs associated with colder biomes compared to warmer ones, but observed biome-related differences in $P_{mass}$ only among deciduous broadleaved and needleleaved evergreen PFT.
 Our results for both $R_{d,mass}$ and $R_{d,area}$ failed to show a trend with respect to biome, contrary to the results of @atkin_global_2015 (though this may be partially because our results are for respiration at ambient temperature, whereas Atkin et al. found that the climatic gradient was much stronger when respiration rates were standardized to a common temperature).
 
