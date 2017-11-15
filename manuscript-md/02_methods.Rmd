@@ -190,28 +190,36 @@ $$\mathbf{\Sigma'} = \mathbf{\Sigma}[m,m] -
   \mathbf{\Sigma}[m,p]
   (\mathbf{\Sigma}[p,p]^{-1} \mathbf{\Sigma}[p,m])$$
 
-For each model fit, we ran five parallel MCMC chains, automatically increasing the sample size until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.05 (Gelman and Rubin 1992).
+For each model fit, we ran five parallel MCMC chains, automatically increasing the sample size until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.1 [@gelman_1992_inference].
 
-We implemented this sampling algorithm in R (version 3.4.2; @rstats).
-The code for fitting these models to data is available as an open source R package (`mvtraits`) at <http://github.com/ashiklom/mvtraits>.
+We implemented this sampling algorithm in R [version 3.4.2; @rstats].
+The code for fitting these models to arbitrary data is available as an open source R package (`mvtraits`) at <http://github.com/ashiklom/mvtraits>.
 
 
 ### Analysis of results
 
 To assess the impact of multivariate and hierarchical constraint on trait estimates,
-we compared the mean and size of the 95% confidence intervals of mean estimates of each trait for each PFT (Fig. \@ref(fig:meancompare)).
-In addition, we report the mean and 95% confidence intervals of mean estimates for each trait and PFT from the hierarchical model in tabular form (Tab. 2 and 3). 
-To test the hypothesis that the multivariate and hierarchical models offer more value in terms of uncertainty constraint at smaller sample sizes, we calculated the relative uncertainty ($\alpha$) as a function of the mean ($\mu$) and upper ($q_{0.975}$) and lower ($q_{0.025}$) confidence limits of trait estimates as...
+we compared the mean and size of the 95% confidence intervals of mean estimates of each trait for each PFT from each model (Fig.~\@ref(fig:meancompare)).
+In addition, we report the mean and 95% confidence intervals of mean estimates for each trait and PFT from the hierarchical model in tabular form (Tab.~2 and 3). 
+
+To test the hypothesis that the multivariate and hierarchical models offer more value in terms of uncertainty constraint at smaller sample sizes, we calculated the relative uncertainty ($\alpha$) as a function of the mean ($\mu$) and upper ($q_{0.975}$) and lower ($q_{0.025}$) confidence limits of trait estimates.
 
 $$ \alpha = \frac{q_{0.975} - q_{0.025}}{\mu} $$
 
-We then fit a generalized linear model relating relative uncertainty to sample size ($n$) for each of the model types (univariate, multivariate, and hierarchical; Fig. \@ref(fig:civssamplesize)) as...
+We then fit a generalized linear model relating relative uncertainty to sample size ($n$) for each of the model types (univariate, multivariate, and hierarchical; Fig. \@ref(fig:civssamplesize)).
 
 $$ \log{\alpha} = b_0 + b_1 \log{n} $$
 
-To assess the consistency of among- and within-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$) plotted the dominant eigenvectors centered on the mean estimates (Fig. \@ref(fig:stickpairs)).
-Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the global correlations estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
+If all three models perform equally well at all sample sizes, their respective slope coefficients would be statistically indistinguishable.
+On the other hand, models that perform better should have lower slope ($b_1$) coefficients, indicating a slower increase in the uncertainty ($\alpha$) with decreasing sample size ($n$).
+
+To assess the consistency of among- and within-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$), plotted the dominant eigenvectors centered on the mean estimates (Fig.~\@ref(fig:stickpairs)).
+This figure provides a visual representation of relative positions of PFTs in trait space and both the direction and extent of within-PFT trait covariance, and is directly analogous to conceptual figures describing hierarchical trait variability across environmental gradients as presented in, for instance, @cornwell_community_2009 and @albert_intraspecific_2010.
+Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the across-PFT covariances estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
 For this reason, we compared within-PFT covariances as estimated by the hierarchical model with the covariances estimated by fitting a multivariate model to all of the data.
 
-The R code for all analyses is publicly available online at <http://github.com/ashiklom/np_trait_analysis>.
+Besides the consistency in the direction of trait covariance globally and between different PFTs, we also investigated the strength and predictive power of these covariances, which is represented by correlation coefficients (i.e. the pairwise covariance normalized to the variances of the component variables).
+To do this, we plotted the mean and 95% confidence interval of the pairwise trait correlation coefficients for the global estimate from the pooled multivariate model and PFT-level estimates from the hierarchical model (Fig.~\@ref(fig:corrbars)).
+
+The R code for running these analyses is publicly available online at <http://github.com/ashiklom/np_trait_analysis>.
 The TRY data used for this analysis can be requested at <http://try-db.org>.

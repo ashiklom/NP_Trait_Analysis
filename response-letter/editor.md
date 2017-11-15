@@ -46,7 +46,7 @@ An acknowledgment and justification for using dark respiration over Amax is need
 
 We have added a paragraph to the methods (section 2.1, "Trait data") explaining our rationale for not choosing $A_{max}$.
 However, we agree that examining traits more directly related to photosynthesis is valuable, and therefore have included both $V_{c,max}$ and $J_{max}$.
-**TODO: Justification for R_d,mass**
+Leaf dark respiration appears as one of the the original traits defining the leaf economic spectrum [@wright_2004_worldwide], and has been identified as a key parameter in Earth System Models that requires additional constraint [@atkin_2014_improving; @atkin_2016_global].
 
 > 3) Line 150 forward - to interpret the methods in this area I really wanted to know how many plant functional groups there are. 
 I can kind of guess it from a later table (but it is not completely clear to me there). Can you spell this out here.
@@ -56,7 +56,10 @@ We have also re-written the text describing our method for assigning PFTs to mak
 
 > 4) Line 150 - can you give a justification for assuming MVN across plant functional groups?
 
-**TODO: Respond**
+We selected the multivariate normal distribution for several reasons.
+From an algorithmic standpoint, it allows for highly efficient Gibbs sampling, which makes our approach considerably more computationally tractable.
+Second, the parameters of the multivariate normal distribution--the mean vector and variance-covariance matrix--have intuitive interpretations, unlike other multivariate distributions.
+Finally, the multivariate normal distribution is closely related to standard frequentist statistics that have extensively been applied to trait studies at all scales.
 
 > 5) Line 179-184 - I am always suspicious of trait filling methods.
 Can you show your results are robust to choices here?
@@ -65,7 +68,8 @@ One would think this should be possible in a Bayesian world especially.
 
 Trait filling is fundamental to the multivariate approach used in this paper -- this is precisely the mechanism by which trait observations borrow strength from each other.
 For this trait dataset, there is not a single observation that contains all seven of the traits we included.
-**TODO: More here? Something in the supplement?**
+Therefore, we do not believe a multivariate analysis without trait filling makes sense in the context of this paper.
+However, our univariate model by definition does not include any trait filling, so it already serves as a point of comparison.
 
 > 6) Line 198, line 225, line 233, line 241, line 243 line 267 - several  of the places I am not sure which model is being used with which word
 
@@ -176,7 +180,7 @@ Given our new implementation of the missing data model, this comment is no longe
 > g. “Analysis of results” section: Again, the text is fine, but it’s too sparse.
 You need to clearly explain how your treatment of the results of your model fitting help you achieve your objectives.
 
-**TODO**
+We have provided additional context for all of our analysis in the analysis section.
 
 > i. Line 198 typo: “with-PFT” should be “within-PFT”
 
@@ -186,7 +190,7 @@ This has been revised accordingly.
 I think the TRY data repository information should be moved up to where you introduce the TRY trait data that you used.
 
 We have moved the R reference up accordingly.
-**TODO: Properly reference TRY data**
+However, we have kept the TRY data URL in the same place as the link to code for performing our analyses, as we believe that keeping these two links close together makes it easier for readers to quickly identify the resources needed to reproduce our analyses.
 
 > 3. Results
 >
@@ -300,7 +304,8 @@ This kind of question applies to every kind of contrast (e.g., woody, nonwoody; 
 By laying out hypotheses about what we might expect to see, testing that with the data, and interpreting how to think about support for or refutation of those hypotheses, the authors would advance the field.
 Unfortunately this is almost entirely lacking in the paper.
 
-**TODO**
+We have added more text about mechanisms imparting scale dependence on the leaf economic spectrum to the introduction and discussion.
+In the latter, we highlight several specific cases where we observed patterns unique to certain PFTs and the ecophysiological basis for these idiosyncracies.
 
 > 3. Value for modeling
 

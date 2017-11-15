@@ -23,7 +23,11 @@ As a result, relationships between leaf economic traits and climate have been in
 However, the use of among-trait and trait-environment correlations at the global scale, for both qualitative ecological inference and land surface modeling, has several important caveats.
 First, observed correlations at the global scale do not always hold at smaller scales (such as sites, species, and individuals).
 For example, some studies suggested consistent correlations across scales [@wright_worldwide_2004; @albert_multi-trait_2010; @asner_amazonian_2014]
-whereas others showed no or even opposite correlations [@albert_multi-trait_2010; @messier_how_2010; @wright_does_2012; @feng_scale_2013; @grubb_relationships_2015; @wigley_leaf_2016; @messier_traitnetwork].
+whereas others showed no or even opposite correlations [@albert_intraspecific_2010; @messier_how_2010; @wright_does_2012; @feng_scale_2013; @grubb_relationships_2015; @wigley_leaf_2016; @messier_traitnetwork; @kichenin_2013_contrasting].
+Many mechanisms have been suggested for deviation from global trait relationships at smaller scales.
+Trade-offs between strategies may only be applicable when multiple competing strategies co-occur, and in cases where strong environmental filters allow only a narrow range of strategies, alternative processes can drive community assembly [@rosado_trait_dominance; @pierce_csr_cooccur; @grim_pierce_book].
+Different selective pressures dominate at different scales, particularly within versus among species [@albert_intraspecific_2010; @messier_how_2010; @kichenin_2013_contrasting], and the large variability in the variance structures of traits suggests that different traits have contrasting sensitivity to these different pressures [@messier_trait_2016].
+Experimental evidence shows that species can alter different aspects of their leaf economy in a relatively uncoordinated fashion, even when the direction of univariate trait responses to environmental change is consistent [@wright_does_2012].
 Second, among-trait correlations at any scale do not provide causal evidence for functional trade-offs or even similarity in response to external stimuli [@messier_trait_2016].
 Therefore, ascribing too much leverage to trait correlations can lead to an underestimation of plant functional diversity [@grubb_trade-offs_2015].
 Third, plants maintain their fitness in a given environment through multiple independent strategies (corresponding to multiple mutually orthogonal axes of trait variability).
@@ -31,8 +35,6 @@ As a consequence, changes in key leaf economic traits such as nitrogen content a
 hydraulics [@li_leaf_2015],
 overall plant carbon budget [@edwards_leaf_2014],
 and dispersal [@westoby_plant_2002].
-Fourth, strategic trade-offs may only have predictive power when multiple competing strategies co-occur and may be unable to predict community assembly in communities constrained by environmental filters to only a single strategy [@rosado_trait_dominance; @pierce_csr_cooccur].
-In fact, the twin-filter model of @grim_pierce_book formalizes this notion into an explicit hierarchy, whereby competition - stress - disturbance (CSD, corresponding to the competitor, stress tolerator, and ruder) filter operates on a macro-environmental scale while a smaller-scale "proximal filter" refines the mechanisms driving survival and coexistence independently of the macro-scale filter.
 Finally, modeling ecosystem function based on trait correlations with abiotic factors is sampling from the hypothetical space of potential species and communities that could have evolved rather than constraining models to forecast the actual vegetation we have today as the result of spatial separation and constraints on convergent evolution.
 Among other problems, this approach fails to account for the timescales required for adaptation as well as actual limitations of the physiology of different species and community assembly.
 
@@ -52,6 +54,6 @@ The answer to this question has relevant implications for ecosystem modelling an
 Here we hypothesize that leaf economic relationships represent a biome-level environmental filter that regulates variability among PFTs and has little to no bearing on trait correlations within PFTs.
 To evaluate this hypothesis, we develop a hierarchical multivariate Bayesian model that explicitly accounts for across- and within-PFT variability in trait correlations.
 We then fit this model to a global database of foliar traits to estimate mean trait values and variance-covariance matrices for plant functional types as defined in a major earth system model (Community Land Model, CLM).
-We evaluate the ability of this model to reduce uncetainties in trait estimates compared to a univariate model, as well as its ability to reproduce observed patterns of global trait variation.
-Finally, we evaluate the generality and scale dependence of trait covariance patterns by comparing covariance estimates from the dataset without functional type differentiation to covariance estimates for each plant functional type.
+We evaluate the ability of this model to reduce uncertainties in trait estimates compared to a univariate model, as well as its ability to reproduce observed patterns of global trait variation.
+Finally, we evaluate the generality and scale dependence of trait covariance patterns by comparing covariance and correlation estimates from the dataset without functional type differentiation to estimates for each plant functional type.
 In particular, our study is novel in its treatment of within- and among-PFT variability simultaneously and with a global dataset.
