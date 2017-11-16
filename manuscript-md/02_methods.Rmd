@@ -33,8 +33,7 @@ sample_size <- try_sub %>%
 
 ## Trait data
 
-Foliar trait data for this analysis comes from the TRY global traits database
-(@kattge_try_2011; see Supplementary Table 1 for a complete table of component datasets and references.).
+Foliar trait data for this analysis comes from the TRY global traits database (@kattge_try_2011; Tab.\ \@ref(tab:trydata)).
 We focused our research on seven foliar traits:
 Leaf longevity (months),
 specific leaf area (SLA, mm$^2$ mg$^{-1}$),
@@ -43,14 +42,39 @@ leaf phosphorus content ($P_{mass}$, mg P g$^{-1}$ or $P_{area}$, g m$^{-2}$),
 leaf dark respiration at leaf temperature ($R_{d,mass}$, µmol g$^{-1}$ s$^{-1}$, or $R_{d,area}$, µmol m$^{-2}$ s$^{-1}$),
 maximum Rubisco carboxylation rate at 25°C ($V_{c,max,mass}$, µmol g$^{-1}$ s$^{-1}$, or $V_{c,max,area}$, µmol m$^{-2}$ s$^{-1}$),
 and maximum electron transport rate ($J_{max,mass}$, µmol g$^{-1}$ s$^{-1}$, or $J_{max,area}$, µmol m$^{-2}$ s$^{-1}$).
-We performed analyses separately for both mass- and area-normalized traits to avoid artifacts caused by different trait normalization [@osnas_global_2013; @lloyd_les].
-We restricted our analysis to TRY data that have been quality-controlled and for which adequate species information was provided for functional type classification (see @kattge_try_2011).
+We performed analyses separately for both mass- and area-normalized traits to avoid potential artifacts caused by different trait normalization [@osnas_global_2013; @lloyd_les].
+We restricted our analysis to TRY data that have been quality-controlled and for which adequate species information was provided for functional type classification [see @kattge_try_2011].
 
 Although the light- and CO2-saturated photosynthetic rate ($A_{max}$) was an important trait in previous studies, we did not include it in our study for two reasons.
 First of all, data on raw photosynthetic rates are highly sensitive to measurement methodology and environmental conditions, which were generally inconsistent or unavailable in TRY.
 Second, $A_{max}$ is not a good measure of photosynthetic capacity because it integrates over variability in many physiologically independent traits such as $V_{c,max}$, $J_{max}$, and stomatal conductance, and is therefore not used in vegetation models as a photosynthetic parameter [@Ali_2015].
 
-Following past studies [e.g. @wright_worldwide_2004; @wright_assessing_2005; @diaz_global_2016], we log-transformed all trait values to correct for their strong right-skewness.
+Following past studies [e.g. @wright_worldwide_2004; @wright_assessing_2005; @onoda_2011_global; @diaz_global_2016], we log-transformed all trait values to correct for their strong right-skewness.
+
+```{r "trydata"}
+crtable <- readRDS("extdata/crossref_table.rds") %>%
+  mutate(
+    Reference = case_when(
+      Reference == "@try_data_03" ~ "@baraloto_decoupled_2010",
+      Reference == "@try_data_09" ~ "@wright_worldwide_2004",
+      Reference == "@try_data_14" ~ "@kattge_2009_vcmax",
+      Reference == "@try_data_15" ~ "@laughlin_multi-trait_2010",
+      Reference == "@try_data_26" ~ "@onoda_2011_global",
+      Reference == "@try_data_30" ~ "@messier_how_2010",
+      Reference == "@try_data_33" ~ "@pierce_allocating_2013",
+      Reference == "@try_data_41" ~ "@poorter_causes_2009",
+      Reference == "@try_data_44" ~ "@choat_global_2012",
+      Reference == "@try_data_59" ~ "@laughlin_climatic_2011",
+      Reference == "@try_data_67" ~ "@wright_does_2012",
+      Reference == "@try_data_80" ~ "@choat_global_2012",
+      Reference == "@try_data_114" ~ "@kichenin_2013_contrasting",
+      Reference == "@try_data_134" ~ "@diaz_plant_2004",
+      TRUE ~ Reference
+    )
+  )
+cap <- "Data sources and observation counts for foliar trait data"
+kable(crtable, caption = cap)
+```
 
 ## Plant functional types
 
@@ -94,12 +118,12 @@ ss_plot <- sample_size %>%
 ss_plot
 ```
 
-We assigned each species to a unique plant functional type (PFT) following the scheme in the Community Land Model (CLM4.5, @clm45_note; Tab. \@ref(tab:pfts), Fig. \@ref(fig:samplesize)).
+We assigned each species to a unique plant functional type (PFT) following the scheme in the Community Land Model [CLM4.5, @clm45_note; Tab.\ \@ref(tab:pfts), Fig.\ \@ref(fig:samplesize)].
 We obtained categorical data on growth form, leaf type, phenology, and photosynthetic pathway from the TRY database.
-Where the same species was reported to have different attributes in different datasets, we assigned the attribute that was observed most frequently, and, in cases of ties, selected the attribute that was more likely based on phylogenetically similar species.
+Where the same species was reported to have different attributes in different datasets, we assigned the attribute that was observed most frequently, and, in cases of ties, selected the attribute that was more likely based on phylogenetically similar species or more likely to occur in nature.
 For biome specification, we collected all latitude and longitude data for each species,
-matched these data to 30 second ($\sim1 km^{2}$ ) mean annual temperature ($AMT$, averaged 1970-2000) data from WorldClim-2 [@worldclim],
-calculated the mean temperature for each species,
+matched these data to 30 second ($\sim1 km^{2}$) mean annual temperature ($AMT$, averaged 1970-2000) data from WorldClim-2 [@worldclim],
+calculated the mean AMT for all sites at which that species was observed,
 and then binned these species based on the following cutoffs: boreal/arctic ($AMT \leq 5^\circ C$), temperate ($AMT \leq 20^\circ C$), and tropical ($AMT > 20^\circ C$).
 
 
@@ -176,8 +200,10 @@ $$\mathbf{S^*} = (\mathbf{S}_0 + \mathbf{SS})^{-1}$$
 
 ...where $n$ is the number of rows and $m$ is the number of columns in data matrix $x$. For further details on this derivation, see @gelman_bayesian.
 
-The fundamentally multivariate nature of the sampling procedure described above makes it incapable of accommodating missing values in the data ($x$).
-Therefore, our algorithm also included imputation of partially missing data, which proceeded as follows: For a block of data $\mathbf{x'}$ containing missing observations in the columns $\mathbf{m}$ and present observations in columns $\mathbf{p}$...
+The fundamentally multivariate nature of the sampling procedure described above makes it incapable of accommodating partially missing observations.
+Therefore, our algorithm also included imputation of partially missing data, which proceeded as follows:
+For a block of data $\mathbf{x'}$ containing missing observations in columns $\mathbf{m}$ and present observations in columns $\mathbf{p}$,
+the missing values $\mathbf{x'}[m]$ are drawn randomly from a marginal multivariate normal distribution at each iteration of the sampling algorithm...
 
 $$\mathbf{x'}[m] \sim mvN(\mathbf{\mu}', \mathbf{\Sigma}')$$
 
@@ -191,16 +217,14 @@ $$\mathbf{\Sigma'} = \mathbf{\Sigma}[m,m] -
   (\mathbf{\Sigma}[p,p]^{-1} \mathbf{\Sigma}[p,m])$$
 
 For each model fit, we ran five parallel MCMC chains, automatically increasing the sample size until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.1 [@gelman_1992_inference].
-
-We implemented this sampling algorithm in R [version 3.4.2; @rstats].
-The code for fitting these models to arbitrary data is available as an open source R package (`mvtraits`) at <http://github.com/ashiklom/mvtraits>.
+We implemented this sampling algorithm in an open source, publicly available R [version 3.4.2; @rstats] package (<http://github.com/ashiklom/mvtraits>).
 
 
 ### Analysis of results
 
 To assess the impact of multivariate and hierarchical constraint on trait estimates,
-we compared the mean and size of the 95% confidence intervals of mean estimates of each trait for each PFT from each model (Fig.~\@ref(fig:meancompare)).
-In addition, we report the mean and 95% confidence intervals of mean estimates for each trait and PFT from the hierarchical model in tabular form (Tab.~2 and 3). 
+we compared the mean and size of the 95% confidence intervals of mean estimates of each trait for each PFT from each model (Fig.\ \@ref(fig:meancompare)).
+In addition, we report the mean and 95% confidence intervals of mean estimates for each trait and PFT from the hierarchical model in tabular form (Tab.\ 3 and 4). 
 
 To test the hypothesis that the multivariate and hierarchical models offer more value in terms of uncertainty constraint at smaller sample sizes, we calculated the relative uncertainty ($\alpha$) as a function of the mean ($\mu$) and upper ($q_{0.975}$) and lower ($q_{0.025}$) confidence limits of trait estimates.
 
@@ -210,16 +234,16 @@ We then fit a generalized linear model relating relative uncertainty to sample s
 
 $$ \log{\alpha} = b_0 + b_1 \log{n} $$
 
-If all three models perform equally well at all sample sizes, their respective slope coefficients would be statistically indistinguishable.
+If all three models performed equally well at all sample sizes, their respective slope coefficients would be statistically indistinguishable.
 On the other hand, models that perform better should have lower slope ($b_1$) coefficients, indicating a slower increase in the uncertainty ($\alpha$) with decreasing sample size ($n$).
 
-To assess the consistency of among- and within-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$), plotted the dominant eigenvectors centered on the mean estimates (Fig.~\@ref(fig:stickpairs)).
+To assess the consistency of among- and within-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$), plotted the dominant eigenvectors centered on the mean estimates (Fig.\ \@ref(fig:stickpairs)).
 This figure provides a visual representation of relative positions of PFTs in trait space and both the direction and extent of within-PFT trait covariance, and is directly analogous to conceptual figures describing hierarchical trait variability across environmental gradients as presented in, for instance, @cornwell_community_2009 and @albert_intraspecific_2010.
 Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the across-PFT covariances estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
 For this reason, we compared within-PFT covariances as estimated by the hierarchical model with the covariances estimated by fitting a multivariate model to all of the data.
 
 Besides the consistency in the direction of trait covariance globally and between different PFTs, we also investigated the strength and predictive power of these covariances, which is represented by correlation coefficients (i.e. the pairwise covariance normalized to the variances of the component variables).
-To do this, we plotted the mean and 95% confidence interval of the pairwise trait correlation coefficients for the global estimate from the pooled multivariate model and PFT-level estimates from the hierarchical model (Fig.~\@ref(fig:corrbars)).
+To do this, we plotted the mean and 95% confidence interval of the pairwise trait correlation coefficients for the global estimate from the pooled multivariate model and PFT-level estimates from the hierarchical model (Fig.\ \@ref(fig:corrbars)).
 
 The R code for running these analyses is publicly available online at <http://github.com/ashiklom/np_trait_analysis>.
 The TRY data used for this analysis can be requested at <http://try-db.org>.

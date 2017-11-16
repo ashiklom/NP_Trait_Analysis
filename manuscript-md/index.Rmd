@@ -21,6 +21,7 @@ author: >
 bibliography:
   - library.bib
   - extra.bib
+  - tryrefs.bib
 csl: new-phytologist.csl
 output:
   bookdown::pdf_document2:
@@ -85,13 +86,12 @@ knitr::kable(wc_total, digits = 1)
 
 # Summary {-}
 
-* We investigated whether global leaf economic relationships across plant functional types (PFTs) can be reconciled with within-PFT relationships, and the extent to which this hierarchical structure can be used to constrain trait estimates.
+* We investigated whether global leaf economic relationships across plant functional types (PFTs) area also present within-PFTs, and the extent to which this hierarchical structure can be used to constrain trait estimates.
 
 * We developed a hierarchical multivariate Bayesian model that assumes separate means and covariance structures within and across PFTs and fit this model to seven leaf traits from the TRY database: longevity, specific leaf area, nitrogen and phosphorus contents, and rates of dark respiration, maximum Rubisco carboxylation, and maximum electron transport. 
 We evaluated the ability of this model to estimate trait means and reproduce leaf economic trade-offs.
 
 * Leveraging covariance in multivariate models reduced uncertainties in mean trait estimates, particularly for undersampled trait-PFT combinations.
-Sometimes, the multivariate model significantly shifted trait means, resulting in estimates better aligned with patterns predicted from global ecology and biogeography.
 However, additional constraint from the across-PFT hierarchy was limited compared to the simple multivariate models.
 
 * Trait correlations were generally consistent in direction within and across PFTs, and consistent with predictions of the leaf economic spectrum.
