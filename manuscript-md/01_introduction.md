@@ -9,7 +9,7 @@ and the benefits of more finely-resolved representation of functional diversity 
 
 Plant functional traits can be used to link directly measurable features of individuals to their fitness within an ecosystem and, by extension, ecosystem performance as a whole [@violle_let_2007].
 Recent syntheses of global trait databases have revealed that although the functional diversity among plant species is immense, this diversity is constrained by allometries and trade-offs between plant strategies [@wright_worldwide_2004; @kattge_try_2011; @kleyer_why_2015; @diaz_global_2016].
-One strategic axis currently receiving attention is the ‘leaf economic spectrum’, which defines a trade-off between plant investment in productive but short-lived leaves versus less productive but sturdy and long-lived leaves [@wright_worldwide_2004; @shipley_fundamental_2006; @reich_world-wide_2014; @diaz_global_2016]
+One axis of trait covariation currently receiving attention is the ‘leaf economic spectrum’, which defines a trade-off between plant investment in productive but short-lived leaves versus less productive but sturdy and long-lived leaves [@wright_worldwide_2004; @shipley_fundamental_2006; @reich_world-wide_2014; @diaz_global_2016]
 Leaf economic traits are well-correlated with
 plant ecophysiology [@shipley_functional_2005; @niinemets_within-canopy_2016; @wu_convergence_2016]
 community composition [@burns_patterns_2004; @cavender-bares_multiple_2004],
@@ -26,9 +26,10 @@ For example, some studies suggested consistent correlations across scales [@wrig
 whereas others showed no or even opposite correlations [@albert_intraspecific_2010; @messier_how_2010; @wright_does_2012; @feng_scale_2013; @grubb_relationships_2015; @wigley_leaf_2016; @messier_traitnetwork; @kichenin_2013_contrasting].
 Many mechanisms have been suggested for deviation from global trait relationships at smaller scales.
 Trade-offs between strategies may only be applicable when multiple competing strategies co-occur, and in cases where strong environmental filters allow only a narrow range of strategies, alternative processes can drive community assembly [@rosado_trait_dominance; @pierce_csr_cooccur; @grim_pierce_book].
-Different selective pressures dominate at different scales, particularly within versus among species [@albert_intraspecific_2010; @messier_how_2010; @kichenin_2013_contrasting], and the large variability in the variance structures of traits suggests that different traits have contrasting sensitivity to these different pressures [@messier_trait_2016].
+Different selective pressures dominate at different scales, particularly within versus among species [@albert_intraspecific_2010; @messier_how_2010; @kichenin_2013_contrasting],
+and the large variability in the variance structures of traits suggests that different traits have contrasting sensitivity to these different pressures [@messier_trait_2016].
 Experimental evidence shows that species can alter different aspects of their leaf economy in a relatively uncoordinated fashion, even when the direction of univariate trait responses to environmental change is consistent [@wright_does_2012].
-Nitrogen allocation patterns to photosynthesis and respiration differ substantially among PFTs, suggesting different investment strategies and varying relationships between foliar nitrogen contents and photosynthetic traits [@ghimire_2017_Nallocation].
+Meanwhile, across different plant functional types, resource allocation patterns, for instance of nutrients to photosynthesis versus structure and defense, differ substantially, suggesting different investment strategies and varying relationships among traits [@ghimire_2017_Nallocation].
 Second, among-trait correlations at any scale do not provide causal evidence for functional trade-offs or even similarity in response to external stimuli [@messier_trait_2016].
 Therefore, ascribing too much leverage to trait correlations can lead to an underestimation of plant functional diversity [@grubb_trade-offs_2015].
 Third, plants maintain their fitness in a given environment through multiple independent strategies (corresponding to multiple mutually orthogonal axes of trait variability).
@@ -54,7 +55,7 @@ Can the constraint on average functional characteristics across PFTs provided by
 The answer to this question has relevant implications for ecosystem modelling and functional ecology.
 Here we hypothesize that leaf economic relationships represent a biome-level environmental filter that regulates variability among PFTs and has little to no bearing on trait correlations within PFTs.
 To evaluate this hypothesis, we develop a hierarchical multivariate Bayesian model that explicitly accounts for across- and within-PFT variability in trait correlations.
-We then fit this model to a global database of foliar traits to estimate mean trait values and variance-covariance matrices for plant functional types as defined in a major earth system model (Community Land Model, CLM).
-We evaluate the ability of this model to reduce uncertainties in trait estimates compared to a univariate model, as well as its ability to reproduce observed patterns of global trait variation.
-Finally, we evaluate the generality and scale dependence of trait covariance patterns by comparing covariance and correlation estimates from the dataset without functional type differentiation to estimates for each plant functional type.
+We then fit this model to a global database of foliar traits to estimate mean trait values and variance-covariance matrices for PFTs as defined in a major earth system model [Community Land Model, CLM, @clm45_note].
+We evaluate the ability of this model to reduce uncertainties in trait estimates and reproduce observed patterns of global trait variation compared to non-hierarchical multivariate and univariate models.
+Finally, we assess the generality and scale dependence of trait trade-offs by comparing covariance and correlation estimates globally and within each PFT.
 In particular, our study is novel in its treatment of within- and among-PFT variability simultaneously and with a global dataset.
