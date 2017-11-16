@@ -15,7 +15,7 @@ Furthermore, we were interested in the ability of our hierarchical modeling appr
 In particular, we note that some ecosystem models are parameterized for individual species [e.g. Linkages, @linkages; LANDIS, @landis].
 
 However, we agree the number of PFTs selected and their resulting low sample sizes made it possible that many of our results were a mere statistical artifact rather than ecologically meaningful.
-To address this concern, and to make the paper more directly applicable to ecosystem modeling, we replaced our PFT scheme with the scheme used by the Community Land Model (CLM 4.5, @clm45_note).
+To address this concern, and to make the paper more directly applicable to ecosystem modeling, we replaced our PFT scheme with the scheme used by the Community Land Model [CLM 4.5, @clm45_note].
 This brings the number of PFTs down to 14.
 We have provided additional details about how we assigned species to PFTs in the methods (Section 2.2, "Plant functional types").
 
@@ -46,7 +46,7 @@ An acknowledgment and justification for using dark respiration over Amax is need
 
 We have added a paragraph to the methods (section 2.1, "Trait data") explaining our rationale for not choosing $A_{max}$.
 However, we agree that examining traits more directly related to photosynthesis is valuable, and therefore have included both $V_{c,max}$ and $J_{max}$.
-Leaf dark respiration appears as one of the the original traits defining the leaf economic spectrum [@wright_2004_worldwide], and has been identified as a key parameter in Earth System Models that requires additional constraint [@atkin_2014_improving; @atkin_2016_global].
+Leaf dark respiration appears as one of the the original traits defining the leaf economic spectrum [@wright_worldwide_2004], and has been identified as a key parameter in Earth System Models that requires additional constraint [@atkin_2014_improving; @atkin_2016_global].
 
 > 3) Line 150 forward - to interpret the methods in this area I really wanted to know how many plant functional groups there are. 
 I can kind of guess it from a later table (but it is not completely clear to me there). Can you spell this out here.
@@ -141,7 +141,7 @@ Looking at the results, I can see that you did in fact use LMA and not SLA, whic
 
 We have fixed references to units throughout the paper.
 However, in the revised analysis, we have switched from LMA to SLA.
-While we agree that LMA may be the more intuitive unit, the use of SLA allows us to directly compare our estimates to those of CLM.
+While we agree that LMA may be more intuitive, the use of SLA allows us to directly compare our estimates to those of CLM.
 
 > b. The “Multivariate analysis” section:
 All the text here is good but is too sparse.
@@ -156,6 +156,8 @@ How does each model individually and together help you achieve your research goa
 
 > e. Lines 158-161: Edit the bars in your mathematical expressions and text. I don’t think the xi,p in the mathematical expression should have a bar, right? Your mus in the text need bars.
 
+We have revised all of our mathematical notation to be more consistent.
+
 > f. The “Model implementation” section:
 >
 > i. Yay for Stan!
@@ -166,7 +168,7 @@ Please do this, though, because you’ve obviously done a good job, and it this 
 
 In the revised version of the text, we have moved from using Stan to a direct implementation of the sampling algorithms.
 This was done primarily to allow efficient filling of missing data, rather than simply omitting missing values, as we had done in the Stan implementation.
-However, a side effect of using our own implementation is that the sampling is more computationally efficient, and the underlying code for running the models is somewhat simpler.
+However, a side effect of using our own implementation is that the sampling is more efficient, and the underlying code for running the models is somewhat simpler.
 
 To make the code easier to use, we have isolated the code for fitting multivariate and hierarchical models, as well as some associated utilities, into their own R package (`mvtraits`).
 We have put considerable effort into making this package more user friendly, both by adding documentation and examples to the package and by making the code design more modular and versatile.
@@ -321,3 +323,5 @@ I also don’t think they are useful for modeling, given the extremely high numb
 
 All of the figures and analyses for this paper have been completely re-done, and the results were significantly different as a result.
 In the discussion section, we highlight specific contrasts among PFTs in terms of both mean estimates and trait correlations, and, particularly for the latter, suggest ecophysiological rationale for those differences.
+
+# References {-}
