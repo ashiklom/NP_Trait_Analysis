@@ -27,6 +27,8 @@ output:
   bookdown::pdf_document2:
     latex_engine: xelatex
     toc: no
+    includes:
+      in_header: preamble.tex
 ---
 $^1$Department of Earth & Environment, Boston University, Boston, MA 02215, USA;
 $^2$Institute of Ecology, University of Innsbruck, 6020 Innsbruck, Austria;
