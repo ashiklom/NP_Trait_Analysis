@@ -1,5 +1,17 @@
-# Editor comments
+# Editor
 
+> I have received three reviews of your paper, and the reviewers and I appreciate the work you have conducted.
+As you will see, the reviews are quite divergent, from positive to more critical.
+In light of these reviews, as I will outline below, I am not able to accept your paper in its current form, and invite resubmission of a revised manuscript if you desire.
+>
+> Reviewer 1 is largely positive and notes a shared concern about the use of respiration vs photosynthesis, and the impact of the trait-filling methods on your results.
+Reviewer 2 is also generally positive though very concerned about the use of mass-based vs. area-based physiological metrics.
+I do not generally concur with the view that LMA leads to ‘inevitable’ and thus biologically less interesting relationships when using mass-based measures, but you should take these comments into consideration and decide whether to pursue area-based measures as well.
+Reviewer 2 provides a number of other useful suggestions.
+Reviewer 3 is the most critical and I find myself in agreement with the points raised.
+While I appreciate the power of the new generation of hierarchical models, it does seem that the biological questions and the biological implications of the results are sometimes lost sight of.
+In particular, reviewer 3 questions the very large number, and non-conventional definition, of PFTs, the definition of biomes, and the overall motivation for the work.
+>
 > From my own reading, I am strongly concerned about the very small sample sizes, combined with trait-filling of missing data, that mean many PFTs are quite data poor.
 I also wonder whether it is really that surprising that relationships observed across broad data ranges break down when the data are aggregated.
 I think it is well known that any regression will exhibit less strong results if one samples a narrow range of data.
@@ -32,6 +44,16 @@ In the second part of our discussion (section 4.2, "Trait correlations and leaf 
 
 # Reviewer 1
 
+> This paper looks at how the well known (almost textbook knowledge at this point) leaf economic spectrum (LES) scales within and between functional groups.
+They find that the LES is primarily a cross-functional group result.
+The LES does not exist in any generality within a functional group.
+I found this a very nice paper.
+The question is important.
+Others have attacked this somewhat indirectly.
+But the large data size and the directness of the tests make this paper novel and important.
+I found the methods very convincing.
+Comparing an analysis at the species level with an analysis using species nested within functional groups is exactly the right approach and gives a convincing answer.
+>
 > 1) My main feedback, is that I think the authors are not careful and consistent to describe the within functional group and across functional group analyses (the latter case having two versions, the nested version and the unnested version).
 The authors need to pick on a sensible name for each of these and then use it repeatedly.
 I have highlighted just some of the places this occurs in the specific issues below, but it is more generally and the paper needs to be edited start to finish with this in mind. 
@@ -85,6 +107,13 @@ However, our mean estimates and the relative constraint on them from our differe
 
 # Reviewer 2
 
+> I like the motivation for the study and the straightforward statistical approach and presentation of results. Well done.
+The study objectives are timely, sufficiently novel, and useful.
+The authors effectively build on body of work that is described well in their introduction and discussion.
+The analysis is rigorous and a contributes a useful statistical approach to the literature on foliar trait analysis.
+Demonstrating the hierarchical analysis of traits between and within PFTs is a great contribution to our understanding of trait ecology.
+Having said that, though, I have one major criticism and a minor query/suggestion about the overall study:
+>
 > 1. Why did you use mass-based (instead of area-based) nutrient concentrations and dark respiration rates?
 You don’t justify the choice, but you should, because this makes a crucial difference for interpreting trait correlations and trait distributions among and within different groups.
 Given the strength and utility of your statistical approach and ideas, I think you are missing useful information by relying on mass-based values.
@@ -258,6 +287,16 @@ Since these paragraphs worked well, we did not re-write them completely, but ada
 
 # Reviewer 3
 
+> This is a technically proficient manuscript in many respects, with some strong features, about an important topic.
+It generally is written well and quantitatively well done, but – somewhat surprisingly to me given the overall high quality of the work – it seems to have been formulated in a way that leads to several problems.
+>
+> The paper addresses an important question – whether trait trade-offs and associated trait relationships are similar or different among different plant functional types and biomes.  
+The model approach (from simple univariate, to multivariate to hierarchical) is parsimonious and clear.
+The main issues involve the number of PFTs used in the analyses (35), and how they were defined; and the curious absence of much biological or ecological thought about whether, why, and how trait relationships vary among major plant life forms and across biogeographic gradients.
+This latter (and missing) component of the paper would seem to be essential for a contribution to New Phytologist, or for that matter, for any journal.
+The former issue (35 PFTs) is problematic in terms of how one might interpret the results of the analyses, as I will discuss below.
+Together they contribute to several concerns or ‘missing’ elements for the paper.
+>
 > 1. There are a number of concerns about the PFT classification.
 >
 > a) With 35 PFTs, many of the sample sizes (Table 1) are far too low for any kind of reliable estimates within PFTs and comparisons among PFTs.
