@@ -33,11 +33,11 @@ Meanwhile, across different plant functional types, resource allocation patterns
 Second, among-trait correlations at any scale do not provide causal evidence for functional trade-offs or even similarity in response to external stimuli [@messier_trait_2016].
 Therefore, ascribing too much leverage to trait correlations can lead to an underestimation of plant functional diversity [@grubb_trade-offs_2015].
 Third, plants maintain their fitness in a given environment through multiple independent strategies (corresponding to multiple mutually orthogonal axes of trait variability).
-As a consequence, changes in key leaf economic traits such as nitrogen content and mass per unit area may not affect other aspects of plant function, such as
+As a consequence, changes in key leaf economic traits such as leaf nitrogen content and specific leaf area area may not affect other aspects of plant function, such as
 hydraulics [@li_leaf_2015],
 overall plant carbon budget [@edwards_leaf_2014],
 and dispersal [@westoby_plant_2002].
-Finally, modeling ecosystem function based on trait correlations with abiotic factors is sampling from the hypothetical space of potential species and communities that could have evolved, rather than constraining models to forecast the actual vegetation we have today as the result of spatial separation and constraints on convergent evolution.
+Finally, modeling ecosystem function based on trait correlations is sampling from the hypothetical space of potential species and communities that could have evolved, rather than constraining models to forecast the actual vegetation we have today as the result of spatial separation and constraints on convergent evolution.
 Among other problems, this approach fails to account for the timescales required for adaptation as well as actual limitations of the physiology of different species and community assembly.
 
 An alternative approach is to preserve existing PFT classifications
