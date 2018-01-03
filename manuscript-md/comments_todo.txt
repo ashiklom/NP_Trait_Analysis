@@ -1,0 +1,97 @@
+============================
+1.0 Introduction
+============================
+- [ ] Add mass vs. area-based trait discussion (Kramer)
+- [ ] The Introduction is heavily referenced. Up to 8 references for some statements with several references to the same author(s). That hampers the flow of the reading and you could reduce the word count somewhat by reducing the referencing per statement whilst maintaining all references (Kramer)
+
+============================
+2.1 Trait data
+============================
+- [ ] Say that respiration values are at ambient temperature (Dietze)
+- [ ] Clarify "where the same species was reported to have..." (Dietze)
+- [ ] Change SLA unit to m2 kg-1 (Niinemets)
+- [ ] L156 1 km2 (Niinemets)
+
+============================
+2.3 Multivariate analysis
+============================
+- [ ] Ditch the ellipses. Use a colon before, and no punctuation after (Dietze, Niinemets)
+- [ ] L199 -- "are drawn randomly from a [marginal -> conditional]" (Dietze)
+- [ ] L199 -- Reinforce conditional by writing it as x'[m|p] (Dietze)
+- [ ] L209 -- Reword "compared the mean and size of the 95% confidence intervals..." (Dietze)
+- [ ] L210 -- "In addition, we report" -- drop this sentence. (Dietze)
+- [ ] L218 -- "On the other hand, models that perform better..." -- Discuss both slope and intercept. (Dietze)
+- [ ] "To assess the consistency" -- Change to "where pairwise cov was diff from zero, we calculated the eigenvalues of the pairwise..." (Dietze)
+- [ ] (somewhere in methods) Explicitly mention the comparison with CLM, including calculation of N from C:N ratio. (Dietze)
+
+## 3.0 Results
+- [ ] "Our analysis of the relationship..." -- Explicitly discuss slope and intercept (Dietze)
+
+====================
+4.0 Discussion
+====================
+- [ ] Reorder the discussion as follows: (Souzilovskaia)
+    - covariance as constraint
+    - variation in trait means among PFTs
+    - Trait correlations and leaf economics
+    - Earth system models
+    - Methodological considerations (or in appendix -- see main paper for comments)
+    - Conclusions (focused on ecology!)
+====================
+4.1 Variation in trait means
+====================
+- [ ] Move most of first paragraph to Results (Dietze)
+    - The entrance in the discussion: A key application of this study is to provide data-driven parameter estimates for Earth System Models. Gives the impression this is the central aim of the project, with in particular CLM in mind. Whereas the model application is presented in the Introduction as being derived from general insights considering constraints across PFTs so rather as a spin off. (Kramer)
+- [ ] L383-394. I think that both these studies fall short due to a different reason. We have shown in our 2015 Tansley review, in particular, that Llloyd et al did not look at herbs and is therefore completely misleading. Different traits are need to explain variations in different PFT-s. I am attaching the paper, which I think has to be included at this point. (Niinemets)
+- [ ] Remove note about log10 values (once it is corrected in the discussion) (Dietze)
+- [ ] "Our results for both R_dmass..." -- More on this. Ideally, we would have used reference T, but this is what we had. For more model applicability, need to make these measurements at a reference temperature and make sure leaf T is consistently reported.
+
+===================
+4.2 Trait correlations and leaf economics
+===================
+- [ ] "Although we did not include photosynthesis" -- Replace with Amax; ditch "which are closely ... rates" (Dietze)
+- [ ] Correlation strength -- We start with the question "are relationships within vs. across PFTs consistent?" Maybe add a supplementary figure like figure 5, but for slopes.
+
+=============================
+4.3 Covariance as constraint
+=============================
+- [ ] L404-406. This is difficult to understand, perhaps reword. Why do we overestimate uncertainty? (Niinemets)
+- [ ] "...time and labor-intensive traits [,] such as ... [,] [still lack...] [...for certain PFTs] [...taken into account {.}]. [For example,...][We therefore suggest that future...] (Dietze)
+- [ ] "...current generation of ecosystem models [using well-sampled traits]" (Dietze)
+- [ ] Add more on hierarchical model -- will perform better when there among-PFT variability is high relative to within. Also, more unbalanced sampling. Also, more PFTs is the direction that modeling is headed (competitive cohort-bsaed representations; actually computing variability we're currently averaging over). (Dietze)
+- [ ] Also, consider using trait data to define PFTs as a future direction (Dietze).
+
+===================
+Figure 2
+===================
+- [ ] Add CLM values (Dietze)
+- [ ] Make sure means are actually sample means (a.k.a. apply the log correction)
+
+===================
+Tables 3, 4
+===================
+- [ ] Add units
+- [ ] Move to supplement
+
+==================
+Throughout
+==================
+- [ ] In acronyms, the subscripts are typically in Roman not in italics (Niinemets)
+- [ ] Fig. 1, 2,4,5-  main letter in italics (Niinemets)
+- [ ] Refer to Table 1 everywhere where PFTs are mentioned (Niinemets)
+- [ ] More ecologically meaningful names -- "independent traits model", "covarying traits model", "traits-within-PFT model" (Soudzilovskaia)
+- [ ] Consistent usage of (Kramer)
+    - among vs across PFT
+    - trait vs functional characteristics
+    - mean vs average
+
+=====================
+Kramer
+=====================
+- It is not immediately clear how the central question posed in the Introduction: Can the constraint on average functional characteristics across PFTs provided by the leaf economic spectrum be reconciled with trait relationships within each PFT?  relates to the title: Covariance as constraint: Leveraging leaf economic relationships to constrain plant functional type trait estimates. That is also the case with the hypothesis: (...) that leaf economic relationships represent a biome-level environmental filter that regulates variability among PFTs and has little to no bearing on trait correlations within PFTs. How is that related to the title?
+
+- Moreover, it’s a bit of a search in the Discussion and Conclusions sections to find answers to this question and hypothesis. It is currently not clear to me if the trait means across PFT are reconciled with the trait relationships within PFT.
+
+- Overall, I feel the structure of the Discussion and Results sections do not match very well the structure of the Introduction. It would be helpful if the biological / scientific questions posed in the Introduction are presented in the same order in the Results and Discussion sections. With respect to the title it would be logical to start the discussion with the section: Covariance as constraint. However, the central question appears to place emphasis on average of functional characteristics. Furthermore, the Results section starts with PFT means; followed with among and within PFT correlation patterns. It is not clear why a the discussion follows a somewhat different structure compared to the Results section. A choice needs to be made here to make that consistent (I mean: title –> central questions -> hypothesis-> structure of Results and Discussion)
+
+- It would be more clear if in the Conclusion section only conclusions are presented that drawn from the analyses performed. Thus directly connected to the biological research questions related to within and among PFT both trait variation and -correlation structure, with respect to either analyses per unit leaf mass and per unit leaf area. Now the Conclusions are a bit of continuation of the Discussion.
