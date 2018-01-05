@@ -1,8 +1,15 @@
 ============================
+0.0 Summary
+============================
+- [ ] End summary on a stronger note (Soudzilovskaia)
+
+============================
 1.0 Introduction
 ============================
 - [ ] Add mass vs. area-based trait discussion (Kramer)
 - [ ] The Introduction is heavily referenced. Up to 8 references for some statements with several references to the same author(s). That hampers the flow of the reading and you could reduce the word count somewhat by reducing the referencing per statement whilst maintaining all references (Kramer)
+- [ ] "Recent syntheses of global trait..." could be removed for brevity (Soudzilovskaia)
+- [ ] Discuss PNAS paper by Battler et al.
 
 ============================
 2.1 Trait data
@@ -11,6 +18,7 @@
 - [ ] Clarify "where the same species was reported to have..." (Dietze)
 - [ ] Change SLA unit to m2 kg-1 (Niinemets)
 - [ ] L156 1 km2 (Niinemets)
+- [ ] Move TRY data table to appendix (Soudzilovskaia)
 
 ============================
 2.3 Multivariate analysis
@@ -24,8 +32,16 @@
 - [ ] "To assess the consistency" -- Change to "where pairwise cov was diff from zero, we calculated the eigenvalues of the pairwise..." (Dietze)
 - [ ] (somewhere in methods) Explicitly mention the comparison with CLM, including calculation of N from C:N ratio. (Dietze)
 
-## 3.0 Results
+=================
+3.0 Results
+=================
 - [ ] "Our analysis of the relationship..." -- Explicitly discuss slope and intercept (Dietze)
+- [ ] "Where we observed differences between models..." -- Provide ecological context to differences between models. Otherwise, it reads very technical.
+
+==================
+3.2
+==================
+- [ ] "Correlations between Narea and leaf lifespan was positive globally" -- contradicts first sentence of this paragraph (Soudzilovskaia)
 
 ====================
 4.0 Discussion
@@ -37,6 +53,7 @@
     - Earth system models
     - Methodological considerations (or in appendix -- see main paper for comments)
     - Conclusions (focused on ecology!)
+
 ====================
 4.1 Variation in trait means
 ====================
@@ -45,12 +62,14 @@
 - [ ] L383-394. I think that both these studies fall short due to a different reason. We have shown in our 2015 Tansley review, in particular, that Llloyd et al did not look at herbs and is therefore completely misleading. Different traits are need to explain variations in different PFT-s. I am attaching the paper, which I think has to be included at this point. (Niinemets)
 - [ ] Remove note about log10 values (once it is corrected in the discussion) (Dietze)
 - [ ] "Our results for both R_dmass..." -- More on this. Ideally, we would have used reference T, but this is what we had. For more model applicability, need to make these measurements at a reference temperature and make sure leaf T is consistently reported.
+- [ ] First sentence -- This is a weak statement for a first sentence in a discussion. Basically you say that your work does not have own value but provide the data to modellers. Please start with a startement about the ecological importance of your own work. You investigate the nature of relationships between ecolphisiological features(traits) of plants, which has a great scientific value in its own! I propose to start with a statement summarzing your findings, and to follow with your surrect second 4.3 as that is discussioning your central hypothesis. The discussion about the implications fro modelling deserves its own sub-section, in the end of the discussion paragraph.
 
 ===================
 4.2 Trait correlations and leaf economics
 ===================
 - [ ] "Although we did not include photosynthesis" -- Replace with Amax; ditch "which are closely ... rates" (Dietze)
 - [ ] Correlation strength -- We start with the question "are relationships within vs. across PFTs consistent?" Maybe add a supplementary figure like figure 5, but for slopes.
+- [ ] "There has been some debate in the trait ecology community" -- this is a methodological issue; could be moved to supplement (Soudzilovskaia)
 
 =============================
 4.3 Covariance as constraint
@@ -61,6 +80,12 @@
 - [ ] Add more on hierarchical model -- will perform better when there among-PFT variability is high relative to within. Also, more unbalanced sampling. Also, more PFTs is the direction that modeling is headed (competitive cohort-bsaed representations; actually computing variability we're currently averaging over). (Dietze)
 - [ ] Also, consider using trait data to define PFTs as a future direction (Dietze).
 
+========================
+Conclusions
+========================
+- [ ] First sentence -- Not good English
+- [ ] Second paragraph ("We foresee tremendous potential...") -- this is about methods, and is not suitable for conclusions. Should be in an appendix, or a separate subsection of the discussion. Conclusions should be more ecological.
+
 ===================
 Figure 2
 ===================
@@ -68,10 +93,16 @@ Figure 2
 - [ ] Make sure means are actually sample means (a.k.a. apply the log correction)
 
 ===================
+Figure 4
+===================
+- [ ] "The use of two y axes in such complex figure makes it very difficult to interpret. I would make two figures instead. Could you indicate what is shown on the axes?
+
+===================
 Tables 3, 4
 ===================
-- [ ] Add units
-- [ ] Move to supplement
+- [ ] Add units (Dietze, Niinemets)
+- [ ] Move to supplement (Dietze)
+- [ ] Reduce precision to 2 decimal places (Soudzilovskaia)
 
 ==================
 Throughout
