@@ -16,7 +16,6 @@
 ============================
 - [ ] Say that respiration values are at ambient temperature (Dietze)
 - [ ] Move TRY data table to appendix (Soudzilovskaia)
-    - Disagree. Others identified this as an important table
 
 ============================
 2.3 Multivariate analysis
@@ -26,7 +25,6 @@
 =================
 3.0 Results
 =================
-- [ ] "Our analysis of the relationship..." -- Explicitly discuss slope and intercept (Dietze)
 - [ ] "Where we observed differences between models..." -- Provide ecological context to differences between models. Otherwise, it reads very technical. (Soudzilovskaia)
 
 ==================

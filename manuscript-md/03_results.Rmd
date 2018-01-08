@@ -223,7 +223,7 @@ Of the tree PFTs, needleleaved evergreen trees had the highest $J_{max,area}$ bu
 We observed clear differences in the relative uncertainties of mean estimates with respect to sample size.
 All of the high-latitude PFTs consistently had among the largest error bars around their mean estimates relative to other PFTs, while the traits with the largest uncertainties were dark respiration, $V_{c,max}$, and $J_{max}$.
 For many of these trait-PFT combinations, the additional constraint from trait covariance provided by the multivariate and hierarchical models substantially reduced error bars, making it possible to compare estimates against those of other PFTs.
-Our analysis of the relationship between model type, sample size, and estimate relative uncertainty found that this covariance-based constraint from the multivariate model becomes increasingly important at smaller sample sizes (Fig.\ \@ref(fig:civssamplesize)).
+Our analysis of the relationship between model type, sample size, and estimate relative uncertainty found that this covariance-based constraint from the multivariate model both reduced uncertainty overall (lower intercept) and reduced the sensitivity of estimate uncertainty to sample size (lower slope) compared to the univariate model (Fig.\ \@ref(fig:civssamplesize)).
 However, this analysis revealed no consistent significant benefit from the hierarchical model.
 
 (ref:sscap) Relative uncertainty in PFT-level trait estimates as a function of sample size for each model type.
