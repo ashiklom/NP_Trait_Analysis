@@ -56,8 +56,7 @@
 ===================
 4.2 Trait correlations and leaf economics
 ===================
-- [ ] "Although we did not include photosynthesis" -- Replace with Amax; ditch "which are closely ... rates" (Dietze)
-- [ ] Correlation strength -- We start with the question "are relationships within vs. across PFTs consistent?" Maybe add a supplementary figure like figure 5, but for slopes.
+- [ ] Correlation strength -- We start with the question "are relationships within vs. across PFTs consistent?" Maybe add a supplementary figure like figure 5, but for slopes. (Dietze)
 - [ ] "There has been some debate in the trait ecology community" -- this is a methodological issue; could be moved to supplement (Soudzilovskaia)
 
 =============================

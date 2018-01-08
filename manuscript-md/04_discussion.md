@@ -28,7 +28,7 @@ Our results for both $R_{d,mass}$ and $R_{d,area}$ failed to show a trend with r
 The canonical leaf economic spectrum is defined by a negative correlation of between SLA and leaf lifespan, and a positive correlation of SLA with $N_{mass}$, $P_{mass}$, and photosynthesis and respiration rates [@wright_worldwide_2004].
 We were able to reproduce the directionality of these relationships for most PFTs in our hierarchical model.
 Relationships of SLA with $N_{mass}$ and $P_{mass}$ were consistently positive, and relationships of SLA with leaf lifespan were generally negative (though, for some PFTs, correlations were not significantly different from zero).
-Although we did not include photosynthesis in our analysis, $V_{c,max,mass}$ and $J_{max,mass}$, which are closely related to photosynthesis rates, generally exhibited the expected positive correlations with SLA, as did $R_{d,mass}$, though many correlations were not significant, primarily due to sample size.
+Although we did not include maximum photosynthesis rate ($A_{max}$), $V_{c,max,mass}$ and $J_{max,mass}$ generally exhibited the expected positive correlations with SLA, as did $R_{d,mass}$, though many correlations were not significant, primarily due to sample size.
 
 While the direction of relationships we observed was largely consistent across different PFTs, the strength of these correlations was more variable.
 For example, the correlations of SLA with $N_{mass}$ and $P_{mass}$ were significantly weaker in needleleaved PFTs than in broadleaved PFTs.
