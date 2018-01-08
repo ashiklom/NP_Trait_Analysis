@@ -1,4 +1,4 @@
-Package: nptraits
+Package: shiklomanov2017np
 Type: Package
 Title: New Phytologist multivariate trait analysis
 Version: 1.0.0
@@ -8,8 +8,8 @@ Maintainer: Alexey Shiklomanov <ashiklom@bu.edu>
 Description: Perform analyses for New Phytologist traits paper.
 Depends:
   tidyverse,
-  magrittr
-Imports:
-  mvtraits
-License: FreeBSD
+  mvtraits,
+  knitr,
+  here
+License: MIT
 RoxygenNote: 6.0.1
