@@ -341,7 +341,7 @@ mtext("Mass-normalized", side = 2, cex = 0.7, line = 3)
 mtext("Area-normalized", side = 4, cex = 0.7, line = 1)
 ```
 
-Where pairwise trait correlations were statistically significant, these correlations were generally consistent in direction both globally and within each PFT (Fig.\ \@ref(fig:stickpairs)).
+For all traits except leaf lifespan, pairwise trait correlations were generally consistent in direction both globally and within each PFT (Fig.\ \@ref(fig:stickpairs)).
 In particular, mass- and area-normalized traits were all positively correlated with each other and, respectively, positively and negatively correlated with SLA, both globally and within each PFT.
 The same was generally true of correlations of mass-based traits with leaf lifespan, but correlations of leaf lifespan with area-normalized traits were more variable.
 The correlation between $N_{area}$ and leaf lifespan was positive globally and for evergreen shrubs but negative for broadleaved deciduous trees and not significant for any other PFTs.
