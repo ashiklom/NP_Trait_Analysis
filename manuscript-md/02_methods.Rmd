@@ -122,7 +122,7 @@ We assigned each species to a unique plant functional type (PFT) following the s
 We obtained categorical data on growth form, leaf type, phenology, and photosynthetic pathway from the TRY database.
 Where the same species was reported to have different attributes in different datasets, we assigned the attribute that was observed most frequently, and, in cases of ties, selected the attribute that was more likely based on phylogenetically similar species or more likely to occur in nature.
 For biome specification, we collected all latitude and longitude data for each species,
-matched these data to 30 second ($\sim1 km^{2}$) mean annual temperature ($AMT$, averaged 1970-2000) data from WorldClim-2 [@worldclim],
+matched these data to 30 second ($\sim1$ km$^{2}$) mean annual temperature ($AMT$, averaged 1970-2000) data from WorldClim-2 [@worldclim],
 calculated the mean AMT for all sites at which that species was observed,
 and then binned these species based on the following cutoffs: boreal/arctic ($AMT \leq 5^\circ C$), temperate ($AMT \leq 20^\circ C$), and tropical ($AMT > 20^\circ C$).
 

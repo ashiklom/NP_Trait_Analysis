@@ -16,7 +16,6 @@
 ============================
 - [ ] Say that respiration values are at ambient temperature (Dietze)
 - [ ] Clarify "where the same species was reported to have..." (Dietze)
-- [ ] L156 1 km2 (Niinemets)
 - [ ] Move TRY data table to appendix (Soudzilovskaia)
 
 ============================
