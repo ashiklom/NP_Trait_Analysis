@@ -1,8 +1,0 @@
----
-install_basepath: "/projectnb/dietzelab/ashiklom/ansible-newPhyt"
-mvtraits_branch: "cleanup"
-analysis_branch: "ansible"
-mvtraits_dir: "{{ install_basepath }}/mvtraits"
-analysis_dir: "{{ install_basepath }}/np-trait-analysis"
-local_data_dir: "/home/ashiklom/Projects/new-phytologist-traits/preprocess-try"
-data_dir: "{{ analysis_dir }}/extdata"
