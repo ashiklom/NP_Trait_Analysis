@@ -15,12 +15,15 @@
 2.1 Trait data
 ============================
 - [ ] Say that respiration values are at ambient temperature (Dietze)
+    - This needs to be backed up by data exploration -- double check that there are not enough leaf T measurements to adjust this
 - [ ] Move TRY data table to appendix (Soudzilovskaia)
+    - Might be able to shrink this table down in Word. But will need to think about this.
 
 ============================
 2.3 Multivariate analysis
 ============================
 - [ ] (somewhere in methods) Explicitly mention the comparison with CLM, including calculation of N from C:N ratio. (Dietze)
+    - Write this up as I'm doing it
 
 =================
 3.0 Results
@@ -88,7 +91,9 @@ Tables 3, 4
 Throughout
 ==================
 - [ ] In acronyms, the subscripts are typically in Roman not in italics (Niinemets)
+    - Minor typographical issue
 - [ ] Fig. 1, 2,4,5-  main letter in italics (Niinemets)
+    - Minor typographical issue
 - [ ] Refer to Table 1 everywhere where PFTs are mentioned (Niinemets)
 - [ ] More ecologically meaningful names -- "independent traits model", "covarying traits model", "traits-within-PFT model" (Soudzilovskaia)
 - [ ] Consistent usage of (Kramer)
