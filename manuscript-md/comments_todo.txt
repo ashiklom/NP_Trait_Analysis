@@ -15,7 +15,6 @@
 2.1 Trait data
 ============================
 - [ ] Say that respiration values are at ambient temperature (Dietze)
-- [ ] Clarify "where the same species was reported to have..." (Dietze)
 - [ ] Move TRY data table to appendix (Soudzilovskaia)
 
 ============================
