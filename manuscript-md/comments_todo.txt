@@ -63,8 +63,6 @@
 4.3 Covariance as constraint
 =============================
 - [ ] L404-406. This is difficult to understand, perhaps reword. Why do we overestimate uncertainty? (Niinemets)
-- [ ] "...time and labor-intensive traits [,] such as ... [,] [still lack...] [...for certain PFTs] [...taken into account {.}]. [For example,...][We therefore suggest that future...] (Dietze)
-- [ ] "...current generation of ecosystem models [using well-sampled traits]" (Dietze)
 - [ ] Add more on hierarchical model -- will perform better when there among-PFT variability is high relative to within. Also, more unbalanced sampling. Also, more PFTs is the direction that modeling is headed (competitive cohort-bsaed representations; actually computing variability we're currently averaging over). (Dietze)
 - [ ] Also, consider using trait data to define PFTs as a future direction (Dietze).
 
