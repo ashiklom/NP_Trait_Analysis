@@ -228,8 +228,11 @@ We then fit a generalized linear model relating relative uncertainty to sample s
 
 $$ \log{\alpha} = b_0 + b_1 \log{n} $$
 
-If all three models performed equally well at all sample sizes, their respective slope coefficients would be statistically indistinguishable.
-On the other hand, models that perform better should have lower slope ($b_1$) coefficients, indicating a slower increase in the uncertainty ($\alpha$) with decreasing sample size ($n$).
+If all three models performed equally well at all sample sizes, their respective slope and intercept coefficients would be statistically indistinguishable.
+On the other hand, models that perform better should have
+lower intercept ($b_0$) coefficients, indicating generally lower uncertainty,
+and
+lower slope ($b_1$) coefficients, indicating a reduced sensitivity of uncertainty ($\alpha$) to sample size ($n$).
 
 To assess the consistency of among- and within-PFT trait trade-offs, we looked at covariance estimates for each trait pair and, where these values were significantly different from zero ($p < 0.05$),
 we calculated the eigenvalues from the pairwise variance-covariance matrix for that trait pair and plotted the corresponding dominant eigenvectors centered on the mean estimates (Fig.\ \@ref(fig:stickpairs)).
