@@ -1,8 +1,0 @@
----
-- hosts: geo
-  vars_files:
-    - geo_vars.yml
-  tasks:
-    - include_tasks: setup.yml
-    - include_tasks: session_info.yml
-    - include_tasks: try_data.yml
