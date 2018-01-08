@@ -36,7 +36,7 @@ sample_size <- try_sub %>%
 Foliar trait data for this analysis comes from the TRY global traits database (@kattge_try_2011; Tab.\ \@ref(tab:trydata)).
 We focused our research on seven foliar traits:
 Leaf longevity (months),
-specific leaf area (SLA, mm$^2$ mg$^{-1}$),
+specific leaf area (SLA, m$^2$ kg$^{-1}$),
 leaf nitrogen content ($N_{mass}$, mg N g$^{-1}$ or $N_{area}$, g m$^{-2}$),
 leaf phosphorus content ($P_{mass}$, mg P g$^{-1}$ or $P_{area}$, g m$^{-2}$),
 leaf dark respiration at leaf temperature ($R_{d,mass}$, µmol g$^{-1}$ s$^{-1}$, or $R_{d,area}$, µmol m$^{-2}$ s$^{-1}$),

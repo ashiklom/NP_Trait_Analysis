@@ -16,7 +16,6 @@
 ============================
 - [ ] Say that respiration values are at ambient temperature (Dietze)
 - [ ] Clarify "where the same species was reported to have..." (Dietze)
-- [ ] Change SLA unit to m2 kg-1 (Niinemets)
 - [ ] L156 1 km2 (Niinemets)
 - [ ] Move TRY data table to appendix (Soudzilovskaia)
 

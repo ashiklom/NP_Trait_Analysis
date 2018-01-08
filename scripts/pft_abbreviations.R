@@ -57,7 +57,7 @@ param_markdown_nounit <- c(
 )
 param_markdown <- c(
   leaf_lifespan = "Leaf lifespan (months)",
-  SLA = "SLA (mm$^2$ mg$^{-1}$)",
+  SLA = "SLA (m$^2$ kg$^{-1}$)",
   Nmass = "$N_{mass}$ (mg g$^{-1}$)",
   Narea = "$N_{area}$ (g m$^{-2}$)",
   Pmass = "$P_{mass}$ (mg g$^{-1}$)",
@@ -74,7 +74,7 @@ param_fancy_chr <- c(
   leaf_lifespan = "Leaf~lifespan~(months)",
   Nmass = "N[mass]~(mg ~ g ^ -1)",
   Pmass = "P[mass]~(mg ~ g ^ -1)",
-  SLA = "SLA~(mm ^ 2 ~ mg ^ -1)",
+  SLA = "SLA~(m ^ 2 ~ kg ^ -1)",
   Rdmass = "R[list(d,mass)]~(mu * mol ~ g ^ -1 ~ s ^ -1)",
   Vcmax_mass = "V[list(c, max, mass)]~(mu * mol ~ g ^ -1 ~ s ^ -1)",
   Jmax_mass = "J[list(max, mass)]~(mu * mol ~ g ^ -1 ~ s ^ -1)",
@@ -92,7 +92,7 @@ param_fancy <- sapply(param_fancy_chr, formula)
   #leaf_lifespan = "Leaf lifespan (months)",
   #Nmass = expression(N[mass]~(
   #Pmass = expression((P[mass], " (%)")),
-  #SLA = expression(("SLA (", mm ^ 2 ~ mg ^ -1, ")")),
+  #SLA = expression(("SLA (", m ^ 2 ~ kg ^ -1, ")")),
   #Rdmass = expression((R[{list(d, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")")),
   #Jmax_mass = expression((J[{list(max, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")")),
   #Vcmax_mass = expression((V[{list(c, max, mass)}], " (", mu * mol ~ g ^ -1 ~ s ^ -1, ")")),
