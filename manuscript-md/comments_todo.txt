@@ -22,7 +22,6 @@
 2.3 Multivariate analysis
 ============================
 - [ ] L218 -- "On the other hand, models that perform better..." -- Discuss both slope and intercept. (Dietze)
-- [ ] "To assess the consistency" -- Change to "where pairwise cov was diff from zero, we calculated the eigenvalues of the pairwise..." (Dietze)
 - [ ] (somewhere in methods) Explicitly mention the comparison with CLM, including calculation of N from C:N ratio. (Dietze)
 
 =================

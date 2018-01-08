@@ -231,7 +231,8 @@ $$ \log{\alpha} = b_0 + b_1 \log{n} $$
 If all three models performed equally well at all sample sizes, their respective slope coefficients would be statistically indistinguishable.
 On the other hand, models that perform better should have lower slope ($b_1$) coefficients, indicating a slower increase in the uncertainty ($\alpha$) with decreasing sample size ($n$).
 
-To assess the consistency of among- and within-PFT trait trade-offs, we calculated the eigenvalues from pairwise variance-covariance matrix estimates for each trait pair and, where the covariance was significantly different from zero ($p < 0.05$), plotted the dominant eigenvectors centered on the mean estimates (Fig.\ \@ref(fig:stickpairs)).
+To assess the consistency of among- and within-PFT trait trade-offs, we looked at covariance estimates for each trait pair and, where these values were significantly different from zero ($p < 0.05$),
+we calculated the eigenvalues from the pairwise variance-covariance matrix for that trait pair and plotted the corresponding dominant eigenvectors centered on the mean estimates (Fig.\ \@ref(fig:stickpairs)).
 This figure provides a visual representation of relative positions of PFTs in trait space and both the direction and extent of within-PFT trait covariance, and is directly analogous to conceptual figures describing hierarchical trait variability across environmental gradients as presented in, for instance, @cornwell_community_2009 and @albert_intraspecific_2010.
 Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the across-PFT covariances estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
 For this reason, we compared within-PFT covariances as estimated by the hierarchical model with the covariances estimated by fitting a multivariate model to all of the data.
