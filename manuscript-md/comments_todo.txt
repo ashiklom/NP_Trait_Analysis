@@ -70,7 +70,7 @@ Conclusions
 Figure 2
 ===================
 - [ ] Add CLM values (Dietze)
-- [ ] Make sure means are actually sample means (a.k.a. apply the log correction)
+- [ ] Make sure means are actually sample means (a.k.a. apply the log correction) (Dietze)
 
 ===================
 Figure 4
