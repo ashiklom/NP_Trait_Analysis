@@ -9,13 +9,14 @@
 - [ ] Add mass vs. area-based trait discussion (Kramer)
 - [ ] The Introduction is heavily referenced. Up to 8 references for some statements with several references to the same author(s). That hampers the flow of the reading and you could reduce the word count somewhat by reducing the referencing per statement whilst maintaining all references (Kramer)
 - [ ] "Recent syntheses of global trait..." could be removed for brevity (Soudzilovskaia)
-- [ ] Discuss PNAS paper by Battler et al.
+- [ ] Discuss PNAS paper by Battler et al. (Soudzilovskaia)
 
 ============================
 2.1 Trait data
 ============================
 - [ ] Say that respiration values are at ambient temperature (Dietze)
 - [ ] Move TRY data table to appendix (Soudzilovskaia)
+    - Disagree. Others identified this as an important table
 
 ============================
 2.3 Multivariate analysis
@@ -33,7 +34,7 @@
 3.0 Results
 =================
 - [ ] "Our analysis of the relationship..." -- Explicitly discuss slope and intercept (Dietze)
-- [ ] "Where we observed differences between models..." -- Provide ecological context to differences between models. Otherwise, it reads very technical.
+- [ ] "Where we observed differences between models..." -- Provide ecological context to differences between models. Otherwise, it reads very technical. (Soudzilovskaia)
 
 ==================
 3.2
