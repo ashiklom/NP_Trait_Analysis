@@ -135,37 +135,37 @@ and then binned these species based on the following cutoffs: boreal/arctic ($AM
 In this study, we compared three different models representing different levels of complexity.
 
 The simplest model was the ‘univariate’ model, in which each trait was modeled independently.
-For an observation $x_{i,t}$ of trait $t$ and sample $i$...
+For an observation $x_{i,t}$ of trait $t$ and sample $i$:
 
 $$x_{i,t} \sim N(\mu_t, \sigma_t)$$
 
-...where $N$ is the univariate normal (Gaussian) distribution with mean $\mu_t$ and standard deviation $\sigma_t$ for trait $t$.
+where $N$ is the univariate normal (Gaussian) distribution with mean $\mu_t$ and standard deviation $\sigma_t$ for trait $t$.
 
 The second-simplest model was the ‘multivariate’ model, in which traits were modeled as samples from a multivariate distribution with a single mean vector and covariance matrix.
-For the observed vector of traits ${\mathbf{x_i}}$ for sample $i$...
+For the observed vector of traits ${\mathbf{x_i}}$ for sample $i$:
 
 $$\mathbf{x_i} \sim mvN(\mathbf{\mu}, \mathbf{\Sigma})$$
 
-...where $mvN$ is the multivariate normal (Gaussian) distribution with mean vector $\mathbf{\mu}$ and variance-covariance matrix $\mathbf{\Sigma}$.
+where $mvN$ is the multivariate normal (Gaussian) distribution with mean vector $\mathbf{\mu}$ and variance-covariance matrix $\mathbf{\Sigma}$.
 We ran both of these models independently for each PFT as well as for the entire dataset (as if every observation belonged to the same PFT).
 
 The most complex model was the ‘hierarchical’ model, in which observed trait values were drawn from a PFT-specific multivariate normal distribution describing within-PFT variation and whose parameters were themselves sampled from a global multivariate distribution describing the variation among PFTs.
-For the observed vector of traits $\mathbf{x}_{i,p}$ for sample $i$ belonging to PFT $p$...
+For the observed vector of traits $\mathbf{x}_{i,p}$ for sample $i$ belonging to PFT $p$:
 
 $$\mathbf{x}_{i,p} \sim mvN(\mathbf{\mu}_p, \mathbf{\Sigma}_p)$$
 $$\mathbf{\mu}_p \sim mvN(\mathbf{\mu}_g, \mathbf{\Sigma}_g)$$
 
-…where $\mathbf{\mu}_p$ and $\mathbf{\Sigma}_p$ are the mean vector and variance-covariance matrix describing variation within PFT $p$, and $\mathbf{\mu}_g$ and $\mathbf{\Sigma}_g$ are the mean vector and variance-covariance matrix describing among-PFT (global) variation.
+where $\mathbf{\mu}_p$ and $\mathbf{\Sigma}_p$ are the mean vector and variance-covariance matrix describing variation within PFT $p$, and $\mathbf{\mu}_g$ and $\mathbf{\Sigma}_g$ are the mean vector and variance-covariance matrix describing among-PFT (global) variation.
 
 
 ### Model implementation
 
 We fit the above models using a Gibbs sampling algorithm that leveraged known conjugate prior relationships for efficient exploration of the sampling space.
-For priors on all multivariate mean vectors ($\mathbf{\mu}$), we used normal distributions…
+For priors on all multivariate mean vectors ($\mathbf{\mu}$), we used normal distributions:
 
 $$P(\mathbf{\mu}) \sim mvN(\mathbf{\mu}_0, {\mathbf{\Sigma}}_0)$$
 
-...which gives rise to the following expression for the posterior...
+This gives rise to the following expression for the posterior:
 
 $$P(\mathbf{\mu} \mid 
     \mathbf{x}, \mathbf{\Sigma}, 
@@ -173,18 +173,16 @@ $$P(\mathbf{\mu} \mid
   \sim
   mvN(\mathbf{\mu^*}, \mathbf{\Sigma^*})$$
 
-...where...
-
 $$\mathbf{\Sigma^*} = (\mathbf{\Sigma}_0^{-1} + n \mathbf{\Sigma}^{-1})^{-1}$$
 $$\mathbf{\mu^*} = \mathbf{\mu}_0 \mathbf{\Sigma}_0^{-1} + \bar{\mathbf{x}} n \mathbf{\Sigma}^{-1}$$
 
-...where ${\bar{{\mathbf{x}}}}$ are the sample means of the data and $n$ is the number of rows in the data.
+where ${\bar{{\mathbf{x}}}}$ are the sample means of the data and $n$ is the number of rows in the data.
 
-For priors on all multivariate variance-covariance matrices, we used the Wishart distribution ($W$)...
+For priors on all multivariate variance-covariance matrices, we used the Wishart distribution ($W$):
 
 $$P(\mathbf{\Sigma}) \sim W(\nu_0, \mathbf{S}_0)$$
 
-...which gives rise to the following expression for the posterior...
+This gives rise to the following expression for the posterior:
 
 $$P(\mathbf{\Sigma} \mid
   \mathbf{x}, \mathbf{\mu},
@@ -192,23 +190,19 @@ $$P(\mathbf{\Sigma} \mid
   \sim
   (W(\nu^*, S^*))^{-1}$$
 
-...where...
-
 $$\nu^* = 1 + \nu_0 + n + m$$
 $$\mathbf{x^*} = \mathbf{x} - \bar{\mu}$$
 $$\mathbf{SS} = \mathbf{x^*}^{T} \mathbf{x^*}$$
 $$\mathbf{S^*} = (\mathbf{S}_0 + \mathbf{SS})^{-1}$$
 
-...where $n$ is the number of rows and $m$ is the number of columns in data matrix $x$. For further details on this derivation, see @gelman_bayesian.
+where $n$ is the number of rows and $m$ is the number of columns in data matrix $x$. For further details on this derivation, see @gelman_bayesian.
 
 The fundamentally multivariate nature of the sampling procedure described above makes it incapable of accommodating partially missing observations.
 Therefore, our algorithm also included imputation of partially missing data, which proceeded as follows:
 For a block of data $\mathbf{x'}$ containing missing observations in columns $\mathbf{m}$ and present observations in columns $\mathbf{p}$,
-the missing values $\mathbf{x'}[m]$ are drawn randomly from a marginal multivariate normal distribution at each iteration of the sampling algorithm...
+the missing values $\mathbf{x'}[m]$ are drawn randomly from a conditional multivariate normal distribution at each iteration of the sampling algorithm:
 
-$$\mathbf{x'}[m] \sim mvN(\mathbf{\mu}', \mathbf{\Sigma}')$$
-
-...where...
+$$\mathbf{x'}[m|p] \sim mvN(\mathbf{\mu}', \mathbf{\Sigma}')$$
 
 $$\mathbf{\mu'} = 
   (\mathbf{x'}[p] - \mathbf{\mu'}[p]) 

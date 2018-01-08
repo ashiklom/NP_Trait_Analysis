@@ -21,9 +21,6 @@
 ============================
 2.3 Multivariate analysis
 ============================
-- [ ] Ditch the ellipses. Use a colon before, and no punctuation after (Dietze, Niinemets)
-- [ ] L199 -- "are drawn randomly from a [marginal -> conditional]" (Dietze)
-- [ ] L199 -- Reinforce conditional by writing it as x'[m|p] (Dietze)
 - [ ] L209 -- Reword "compared the mean and size of the 95% confidence intervals..." (Dietze)
 - [ ] L210 -- "In addition, we report" -- drop this sentence. (Dietze)
 - [ ] L218 -- "On the other hand, models that perform better..." -- Discuss both slope and intercept. (Dietze)
