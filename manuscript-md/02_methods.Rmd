@@ -218,8 +218,7 @@ We implemented this sampling algorithm in an open source, publicly available R [
 ### Analysis of results
 
 To assess the impact of multivariate and hierarchical constraint on trait estimates,
-we compared the mean and size of the 95% confidence intervals of mean estimates of each trait for each PFT from each model (Fig.\ \@ref(fig:meancompare)).
-In addition, we report the mean and 95% confidence intervals of mean estimates for each trait and PFT from the hierarchical model in tabular form (Tab.\ 3 and 4). 
+we compared the mean and 95% confidence intervals of trait estimates for each PFT from each model (Fig.\ \@ref(fig:meancompare)).
 
 To test the hypothesis that the multivariate and hierarchical models offer more value in terms of uncertainty constraint at smaller sample sizes, we calculated the relative uncertainty ($\alpha$) as a function of the mean ($\mu$) and upper ($q_{0.975}$) and lower ($q_{0.025}$) confidence limits of trait estimates.
 
