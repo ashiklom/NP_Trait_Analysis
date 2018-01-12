@@ -7,7 +7,7 @@ fnames <- c(
   conclusions = "05_conclusions.md"
 )
 files <- file.path(
-  "~/Projects/new-phytologist-traits/np-trait-analysis/manuscript-md",
+  "~/Projects/new-phytologist-traits/np-trait-analysis/manuscript",
   fnames
 )
 names(files) <- names(fnames)
