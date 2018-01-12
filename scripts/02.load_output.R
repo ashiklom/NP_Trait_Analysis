@@ -1,19 +1,20 @@
 library(tidyverse)
+library(here)
 
 arg <- commandArgs(trailingOnly = TRUE)
 
 outdir <- arg[1]
 if (is.na(outdir)) {
-  outdir <- "output"
+  outdir <- here("output")
 }
 
 resultsdir <- arg[2]
 if (is.na(resultsdir)) {
-  resultsdir <- "results"
+  resultsdir <- here("results")
 }
 
 dir.create(resultsdir, showWarnings = FALSE)
-cachefile <- file.path(resultsdir, "mvtraits_results.rds")
+resultsfile <- file.path(resultsdir, "mvtraits_results.rds")
 
 parse_filetag <- function(fname_list) {
   l <- lapply(fname_list, strsplit, split = "\\.")
@@ -42,8 +43,8 @@ read_output <- function(fname) {
   readRDS(fname)[["stats"]]
 }
 
-outfiles$data <- lapply(outfiles$fname, read_output)
+outfiles$data <- map(outfiles$fname, safely(read_output))
 
 outfiles %>%
   select(model_type, mass_area, pft_type, pft, date, fname, data) %>%
-  saveRDS(cachefile)
+  saveRDS(resultsfile)
