@@ -7,13 +7,13 @@ if (is.na(outdir)) {
   outdir <- "output"
 }
 
-cachedir <- arg[2]
-if (is.na(cachedir)) {
-  cachedir <- ".cache"
+resultsdir <- arg[2]
+if (is.na(resultsdir)) {
+  resultsdir <- "results"
 }
 
-dir.create(cachedir, showWarnings = FALSE)
-cachefile <- file.path(cachedir, "mvtraits_results.rds")
+dir.create(resultsdir, showWarnings = FALSE)
+cachefile <- file.path(resultsdir, "mvtraits_results.rds")
 
 parse_filetag <- function(fname_list) {
   l <- lapply(fname_list, strsplit, split = "\\.")

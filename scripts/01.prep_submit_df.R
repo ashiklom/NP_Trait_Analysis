@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-library(nptraits)
+library(shiklomanov2017np)
 
 submit_tab_fname <- "submit_df.dat"
 array_submit_fname <- "array_submit.sh"
@@ -42,7 +42,7 @@ script <- c("#!/bin/bash -l",
             "#$ -l h_rt=11:59:00",
             paste("#$ -pe omp", nchains),
             paste0("#$ -t 1-", nrow(submit_df)),
-            paste("Rscript run_model.R",
+            paste("Rscript scripts/run_model.R",
                   "$(head -n ${SGE_TASK_ID} submit_df.dat ",
                   "| tail -n 1)")
             )
