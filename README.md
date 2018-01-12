@@ -43,7 +43,8 @@ Analysis code and manuscript for Shiklomanov et al. *New Phytologist*
 
 # Other scripts
 
-- `scripts/data_map.R` -- Generates a map of TRY data locations (where Latitude and Longitude are available)
-- `scripts/multi_hier.R` -- Generates a conceptual figure comparing multivariate and hierarchical variability (for presentations)
-- `scripts/multivariate.R` -- Generates a series of conceptual figures illustrating the idea of covariance as constraint (for presentations)
-- `scripts/species_trait_comparison.R` -- Figure illustrating the amount of variability within a single PFT, and within a species (for presentations)
+- `scripts/presentations` -- Various scripts to generate figures used in presentations
+    - `data_map.R` -- Map of TRY data locations (where Latitude and Longitude are available)
+    - `multi_hier.R` -- Generates a conceptual figure comparing multivariate and hierarchical variability (for presentations)
+    - `multivariate.R` -- Generates a series of conceptual figures illustrating the idea of covariance as constraint (for presentations)
+    - `species_trait_comparison.R` -- Figure illustrating the amount of variability within a single PFT, and within a species (for presentations)
