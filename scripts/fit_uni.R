@@ -1,8 +1,7 @@
 library(runjags)
-library(tidyverse)
+library(shiklomanov2017np)
 
 try_data <- readRDS("extdata/traits_analysis.rds")
-source("scripts/pft_abbreviations.R")
 source("scripts/informative_prior.R")
 
 jags_model <- "

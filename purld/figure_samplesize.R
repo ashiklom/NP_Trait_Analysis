@@ -3,7 +3,7 @@
 
 ## ----options, echo=FALSE, message=FALSE----------------------------------
 library(shiklomanov2017np)
-try_data <- readRDS("extdata/traits_analysis.rds")
+try_data <- readRDS(here("extdata/traits_analysis.rds"))
 
 try_sub <- try_data %>%
   select(pft = clm45, one_of(both_params),

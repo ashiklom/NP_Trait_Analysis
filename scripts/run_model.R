@@ -2,6 +2,9 @@
 library(mvtraits)
 library(tidyverse)
 
+message("Current working directory: ", getwd())
+print(sessionInfo())
+
 try_data <- readRDS('extdata/traits_analysis.rds')
 
 # For testing
@@ -21,6 +24,8 @@ out_dir <- "output"
 dir.create(out_dir, showWarnings = FALSE)
 
 if (!exists("cmdargs")) cmdargs <- commandArgs(trailingOnly = TRUE)
+message("Running with the following arguments:")
+print(cmdargs)
 # Arguments:
 #   1. Model type. Must be either 'multi' or 'hier'
 #   2. Data type. Must be either 'area' or 'mass'

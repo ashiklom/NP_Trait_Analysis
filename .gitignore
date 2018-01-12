@@ -47,6 +47,8 @@ try.run.*
 *#*
 qstat.txt
 .last.*
+scripts/ref_dois
+scripts/try_bibtex_raw.bib
 
 backup_samples/
 mvtraits/tests/testthat/*.rds

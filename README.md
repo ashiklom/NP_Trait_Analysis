@@ -37,4 +37,13 @@ Analysis code and manuscript for Shiklomanov et al. *New Phytologist*
     - On an SGE-type HPC, the command `qsub array_submit.sh` should work.
     - Locally, all the models can be run with a `bash` one-line script like `for i in $(seq 1 32); do SGE_TASK_ID=$i array_submit.sh; done`. Output files are saved in the `output` directory.
 
-4. Run `scripts/02.load_output.R` to load all model outputs. This reads results from the `output` directory, extracts the summary tables, combines them into a single data frame, and saves the result to `results/mvtraits_results.rds`.
+4. Univariate models are fit using the `scripts/fit_uni.R` script. Because these fits are very fast, this script is meant to be run once, in series, and is not optimized for parallel execution.
+
+5. Run `scripts/02.load_output.R` to load all model outputs. This reads results from the `output` directory, extracts the summary tables, combines them into a single data frame, and saves the result to `results/mvtraits_results.rds`.
+
+# Other scripts
+
+- `scripts/data_map.R` -- Generates a map of TRY data locations (where Latitude and Longitude are available)
+- `scripts/multi_hier.R` -- Generates a conceptual figure comparing multivariate and hierarchical variability (for presentations)
+- `scripts/multivariate.R` -- Generates a series of conceptual figures illustrating the idea of covariance as constraint (for presentations)
+- `scripts/species_trait_comparison.R` -- Figure illustrating the amount of variability within a single PFT, and within a species (for presentations)

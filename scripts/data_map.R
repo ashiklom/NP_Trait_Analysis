@@ -1,7 +1,6 @@
 library(tidyverse)
 
 try_dat <- readRDS("extdata/traits_analysis.rds")
-try_clim <- readRDS("extdata/traits_with_climate.rds")
 
 miss <- function(x) {
   as.integer(is.na(x))
