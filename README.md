@@ -29,7 +29,7 @@ Analysis code and manuscript for Shiklomanov et al. *New Phytologist*
 1. Obtain data files:
     - `extdata/traits_analysis.rds` from `preprocess-try::processed/traits/traits_analysis.rds`
 
-2. Run `scripts/01.prep_submit_df.R`. This creates two files:
+2. Run `scripts/01_prep_submit_df.R`. This creates two files:
     - `submit_df.dat` contains a list of model configurations to run, as arguments to the `scripts/run_model.R` script
     - `array_submit.sh`, a script for submitting these model runs to an SGE-type HPC queue
 
@@ -37,9 +37,11 @@ Analysis code and manuscript for Shiklomanov et al. *New Phytologist*
     - On an SGE-type HPC, the command `qsub array_submit.sh` should work.
     - Locally, all the models can be run with a `bash` one-line script like `for i in $(seq 1 32); do SGE_TASK_ID=$i array_submit.sh; done`. Output files are saved in the `output` directory.
 
-4. Univariate models are fit using the `scripts/fit_uni.R` script. Because these fits are very fast, this script is meant to be run once, in series, and is not optimized for parallel execution.
+4. Univariate models are fit using the `scripts/01_fit_uni.R` script. Because these fits are very fast, this script is meant to be run once, in series, and is not optimized for parallel execution.
 
-5. Run `scripts/02.load_output.R` to load all model outputs. This reads results from the `output` directory, extracts the summary tables, combines them into a single data frame, and saves the result to `results/mvtraits_results.rds`.
+5. Run `scripts/02_load_output.R` to load all model outputs. This reads results from the `output` directory, extracts the summary tables, combines them into a single data frame, and saves the result to `results/mvtraits_results.rds`.
+
+6. Run `scripts/03_generate_figures.R` and `scripts/03_stick_pairs_plot.R` to generate figures and tables for the manuscript.
 
 # Other scripts
 

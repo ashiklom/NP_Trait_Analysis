@@ -1,13 +1,14 @@
 library(mvtraits)
 library(tidyverse)
+library(shiklomanov2017np)
+library(flextable)
+library(officer)
 
-source("scripts/pft_abbreviations.R")
-cachefile <- ".cache/mvtraits_results.rds"
-results_all <- readRDS(cachefile)
+resultsfile <- "results/mvtraits_results.rds"
+results_all <- readRDS(resultsfile)
 try_data <- readRDS("extdata/traits_analysis.rds")
 try_sub <- try_data %>%
-  select(pft = clm45, Jmax_area:Vcmax_mass,
-         -Latitude, -Longitude, -LMA)
+  select(pft = clm45, !!both_params)
 
 n_species <- try_data %>%
   distinct(clm45, AccSpeciesID) %>%
@@ -24,17 +25,19 @@ species_caption <- paste("Names, labels, and species counts",
                          "for plant functional types (PFTs)",
                          "used in this analysis.",
                          "{#tbl:pfts}")
-if (FALSE) {
-  sink(file = species_table)
-  pander::pandoc.table(n_species, caption = species_caption, split.tables = Inf)
-  sink(NULL)
-}
+species_flex <- regulartable(n_species) %>%
+  theme_booktabs() %>%
+  autofit() %>%
+  align(align = "center", part = "all")
+species_table_docx <- read_docx() %>%
+  body_add_flextable(species_flex)
+print(species_table_docx, target = "figures/n_species_table.docx")
 
 sample_size <- try_sub %>%
   select(pft, one_of(both_params)) %>%
   mutate(
-         pft = factor(pft, abbr2pft) %>% forcats::lvls_revalue(pft2abbr)
-         ) %>%
+    pft = factor(pft, abbr2pft) %>% forcats::lvls_revalue(pft2abbr)
+  ) %>%
   group_by(pft) %>%
   summarize_all(~sum(!is.na(.))) %>%
   gather("param", "sample_size", -pft) %>%
@@ -64,11 +67,11 @@ max_ss <- max(sample_size$sample_size)
 multi_summary <- results_all %>%
   filter(model_type %in% c("uni", "multi")) %>%
   mutate(
-    mu_mean = map(data, c("mu", "Mean")) %>%
+    mu_mean = map(data, c("result", "mu", "Mean")) %>%
       map(~as_tibble(as.list(.))),
-    mu_lo = map(data, c("mu", "2.5%")) %>%
+    mu_lo = map(data, c("result", "mu", "2.5%")) %>%
       map(~as_tibble(as.list(.))),
-    mu_hi = map(data, c("mu", "97.5%")) %>%
+    mu_hi = map(data, c("result", "mu", "97.5%")) %>%
       map(~as_tibble(as.list(.)))
       ) %>%
   select(model_type:pft, mu_mean:mu_hi) %>%
@@ -85,7 +88,7 @@ hier_prep <- results_all %>%
   filter(model_type == "hier") %>%
   select(model_type:pft_type, data) %>%
   mutate(
-    mu_vals = map(data, "mu_group"),
+    mu_vals = map(data, c("result", "mu_group")),
     pft = map(mu_vals, names),
     mu_df = map2(pft, mu_vals, ~tibble(pft = ..1, dat = ..2))
   ) %>%
@@ -151,11 +154,6 @@ table_dat <- means_dat %>%
   )%>%
   spread(param, value) %>%
   arrange(pft)
-if (FALSE) {
-  sink(file = table_file)
-  pander::pandoc.table(table_dat, caption = table_cap, split.tables = 80)
-  sink(NULL)
-}
 
 pclip <- function(p, pname, value, lim, hi = TRUE) {
   f <- ifelse(hi, `>`, `<`)
@@ -172,16 +170,16 @@ plot_dat <- means_dat %>%
     mu_hi = if_else(irrelevant, NA_real_, mu_hi),
     mu_lo = if_else(irrelevant, NA_real_, mu_lo),
     mu_mean = if_else(irrelevant, NA_real_, mu_mean),
-    mu_hi = pclip(param, "Vcmax_mass", mu_hi, 100),
-    mu_lo = pclip(param, "Vcmax_mass", mu_lo, 15, FALSE),
-    mu_hi = pclip(param, "Vcmax_area", mu_hi, 2),
+    mu_hi = pclip(param, "Vcmax_area", mu_hi, 100),
+    #mu_lo = pclip(param, "Vcmax_mass", mu_lo, 15, FALSE),
+    mu_hi = pclip(param, "Vcmax_mass", mu_hi, 2),
     mu_hi = pclip(param, "Jmax_mass", mu_hi, 2.0),
     mu_hi = pclip(param, "Jmax_area", mu_hi, 175),
-    mu_lo = pclip(param, "Jmax_area", mu_lo, 40, FALSE),
-    mu_hi = pclip(param, "Rdmass", mu_hi, 0.03),
-    mu_hi = pclip(param, "Rdarea", mu_hi, 1.7),
-    mu_lo = pclip(param, "Rdarea", mu_lo, 0.25, FALSE),
-    mu_hi = pclip(param, "Parea", mu_hi, 0.275),
+    #mu_lo = pclip(param, "Jmax_area", mu_lo, 40, FALSE),
+    mu_hi = pclip(param, "Rdmass", mu_hi, 40),
+    #mu_hi = pclip(param, "Rdarea", mu_hi, 1.7),
+    #mu_lo = pclip(param, "Rdarea", mu_lo, 0.25, FALSE),
+    #mu_hi = pclip(param, "Parea", mu_hi, 0.275),
     param = forcats::lvls_revalue(param, param_fancy_chr[both_params])
   )
 

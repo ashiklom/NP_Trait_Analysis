@@ -1,22 +1,17 @@
-library(mvtraits)
-library(tidyverse)
+library(shiklomanov2017np)
 
-#devtools::reload(devtools::inst("mvtraits"))
-
-source("scripts/pft_abbreviations.R")
-
-cachefile <- ".cache/mvtraits_results.rds"
-results <- readRDS(cachefile)
+resultsfile <- "results/mvtraits_results.rds"
+results <- readRDS(resultsfile)
 results_sub <- results %>%
-  filter((model_type == "multi" & pft == "global") |
-         (model_type == "hier"))
-dat_list <- results_sub$data
+  filter(
+    (model_type == "multi" & pft == "global") | (model_type == "hier")
+  )
+dat_list <- map(results_sub$data, "result")
 names(dat_list) <- with(results_sub, paste(model_type, mass_area, sep = "_"))
 
 data_file <- "extdata/traits_analysis.rds"
-try_data <- readRDS(data_file)
 
-pfts <- levels(try_data$clm45)
+pfts <- unname(abbr2pft[abbr2pft != "global"])
 npft <- length(pfts)
 
 close.screen(all.screens = TRUE)
