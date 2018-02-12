@@ -3,6 +3,7 @@
 export(abbr2pft)
 export(area_params)
 export(both_params)
+export(clm45_table81)
 export(colortest)
 export(compare_mv)
 export(ellipse_axes)
