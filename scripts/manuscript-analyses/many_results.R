@@ -209,9 +209,10 @@ plot_dat <- means_dat %>%
     mu_lo = if_else(irrelevant, NA_real_, mu_lo),
     mu_mean = if_else(irrelevant, NA_real_, mu_mean),
     ## TODO: Fix these in the prior and re-run
-    mu_hi = pclip(param, "Vcmax_mass", mu_hi, 1.5),
+    mu_hi = pclip(param, "Vcmax_mass", mu_hi, 2.5),
     mu_hi = pclip(param, "Vcmax_area", mu_hi, 100),
     mu_hi = pclip(param, "Jmax_mass", mu_hi, 1.8),
+    mu_mean = pclip(param, "Jmax_mass", mu_mean, 1.8),
     mu_hi = pclip(param, "Jmax_area", mu_hi, 150),
     mu_mean = pclip(param, "Jmax_area", mu_mean, 150),
     #mu_hi = pclip(param, "Rdmass", mu_hi, 0.03),
