@@ -8,10 +8,13 @@ Leaf longevity (months),
 specific leaf area (SLA, m$^2$ kg$^{-1}$),
 leaf nitrogen content ($N_{mass}$, mg N g$^{-1}$ or $N_{area}$, g m$^{-2}$),
 leaf phosphorus content ($P_{mass}$, mg P g$^{-1}$ or $P_{area}$, g m$^{-2}$),
-leaf dark respiration at leaf temperature ($R_{d,mass}$, µmol g$^{-1}$ s$^{-1}$, or $R_{d,area}$, µmol m$^{-2}$ s$^{-1}$),
+leaf dark respiration at 25°C ($R_{d,mass}$, µmol g$^{-1}$ s$^{-1}$, or $R_{d,area}$, µmol m$^{-2}$ s$^{-1}$),
 maximum Rubisco carboxylation rate at 25°C ($V_{c,max,mass}$, µmol g$^{-1}$ s$^{-1}$, or $V_{c,max,area}$, µmol m$^{-2}$ s$^{-1}$),
-and maximum electron transport rate ($J_{max,mass}$, µmol g$^{-1}$ s$^{-1}$, or $J_{max,area}$, µmol m$^{-2}$ s$^{-1}$).
-We performed analyses separately for both mass- and area-normalized traits to avoid potential artifacts caused by different trait normalization [@osnas_global_2013; @lloyd_les].
+and maximum electron transport rate at 25°C ($J_{max,mass}$, µmol g$^{-1}$ s$^{-1}$, or $J_{max,area}$, µmol m$^{-2}$ s$^{-1}$).
+For $V_{c,max}$, we only used values already reported in TRY as being at 25°C.
+For $R_{d}$, we normalized the values to 25°C based on reported leaf temperature values following the same methods as @atkin_global_2015.
+For $J_{max}$, we normalized the values to 25°C based on reported leaf temperature values using the temperature response function described in @kattge_2007_temperature (Equation 1 therein).
+To avoid potential artifacts caused by different trait normalization, we performed analyses separately for both mass- and area-normalized traits [@osnas_global_2013; @lloyd_les].
 We restricted our analysis to TRY data that have been quality-controlled and for which adequate species information was provided for functional type classification [see @kattge_try_2011].
 
 Although the light- and CO2-saturated photosynthetic rate ($A_{max}$) was an important trait in previous studies, we did not include it in our study for two reasons.
@@ -22,7 +25,7 @@ Following past studies [e.g. @wright_worldwide_2004; @wright_assessing_2005; @on
 
 ## Plant functional types
 
-We assigned each species to a unique plant functional type (PFT) following the scheme in the Community Land Model [CLM4.5, @clm45_note; Tab.\ \@ref(tab:pfts), Fig.\ \@ref(fig:samplesize)].
+We assigned each species to a unique plant functional type (PFT) following the scheme in the Community Land Model [CLM4.5, @clm45_note; Tab.\ \@ref(tab:pfts), Fig.\ 1].
 We obtained categorical data on growth form, leaf type, phenology, and photosynthetic pathway from the TRY database.
 Where species attributes disagreed between datasets (e.g., categorized as a shrub in one dataset but a tree in another), we assigned the attribute that was observed most frequently between the datasets (e.g., if five datasets say "shrub" but only one says "tree", we would classify it as a shrub).
 Where species lacked data on certain attributes, we assigned those attributes based on higher order phylogeny where appropriate (e.g., \em{Poaceae} family are usually grasses, \em{Larix spp.} are deciduous needleleaved trees) or otherwise omitted the species from our analyses.
@@ -115,20 +118,24 @@ $$\mathbf{\Sigma'} = \mathbf{\Sigma}[m,m] -
   \mathbf{\Sigma}[m,p]
   (\mathbf{\Sigma}[p,p]^{-1} \mathbf{\Sigma}[p,m])$$
 
-For each model fit, we ran five parallel MCMC chains, automatically increasing the sample size until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.1 [@gelman_1992_inference].
-We implemented this sampling algorithm in an open source, publicly available R [version 3.4.2; @rstats] package (<http://github.com/ashiklom/mvtraits>).
+For each model fit, we ran five parallel MCMC chains, continuing the sampling until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.1 [@gelman_1992_inference].
+We implemented this sampling algorithm in an open source, publicly available R [version 3.4.3; @rstats] package (<http://github.com/ashiklom/mvtraits>).
 
 
 ### Analysis of results
 
 To assess the impact of multivariate and hierarchical constraint on trait estimates,
-we compared the mean and 95% confidence intervals of trait estimates for each PFT from each model (Fig.\ \@ref(fig:meancompare)).
+we compared the mean and 95% confidence intervals of trait estimates for each PFT from each model (Fig.\ 2).
+For reference, we also added the default parameter values of CLM 4.5 [Table 8.1 in @clm45_note] for SLA, $N_{mass}$, $N_{area}$, $V_{c,max,mass}$, and $V_{c,max,area}$ to Fig.\ 2.
+To convert CLM's reported C:N ratio to $N_{mass}$, we assumed a uniform leaf C fraction of 0.46.
+We then divided this calculated $N_{mass}$ by the reported SLA to obtain $N_{area}$.
+We calculated $V_{c,max,mass}$ by multiplying the reported $V_{c,max,area}$ by the reported SLA.
 
 To test the hypothesis that the multivariate and hierarchical models offer more value in terms of uncertainty constraint at smaller sample sizes, we calculated the relative uncertainty ($\alpha$) as a function of the mean ($\mu$) and upper ($q_{0.975}$) and lower ($q_{0.025}$) confidence limits of trait estimates.
 
 $$ \alpha = \frac{q_{0.975} - q_{0.025}}{\mu} $$
 
-We then fit a generalized linear model relating relative uncertainty to sample size ($n$) for each of the model types (univariate, multivariate, and hierarchical; Fig. \@ref(fig:civssamplesize)).
+We then fit a generalized linear model relating relative uncertainty to sample size ($n$) for each of the model types (univariate, multivariate, and hierarchical; Fig. 3).
 
 $$ \log{\alpha} = b_0 + b_1 \log{n} $$
 
@@ -139,13 +146,13 @@ and
 lower slope ($b_1$) coefficients, indicating a reduced sensitivity of uncertainty ($\alpha$) to sample size ($n$).
 
 To assess the consistency of among- and within-PFT trait trade-offs, we looked at covariance estimates for each trait pair and, where these values were significantly different from zero ($p < 0.05$),
-we calculated the eigenvalues from the pairwise variance-covariance matrix for that trait pair and plotted the corresponding dominant eigenvectors centered on the mean estimates (Fig.\ \@ref(fig:stickpairs)).
+we calculated the eigenvalues from the pairwise variance-covariance matrix for that trait pair and plotted the corresponding dominant eigenvectors centered on the mean estimates (Fig.\ 4).
 This figure provides a visual representation of relative positions of PFTs in trait space and both the direction and extent of within-PFT trait covariance, and is directly analogous to conceptual figures describing hierarchical trait variability across environmental gradients as presented in, for instance, @cornwell_community_2009 and @albert_intraspecific_2010.
 Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the across-PFT covariances estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
 For this reason, we compared within-PFT covariances as estimated by the hierarchical model with the covariances estimated by fitting a multivariate model to all of the data.
 
 Besides the consistency in the direction of trait covariance globally and between different PFTs, we also investigated the strength and predictive power of these covariances, which is represented by correlation coefficients (i.e. the pairwise covariance normalized to the variances of the component variables).
-To do this, we plotted the mean and 95% confidence interval of the pairwise trait correlation coefficients for the global estimate from the pooled multivariate model and PFT-level estimates from the hierarchical model (Fig.\ \@ref(fig:corrbars)).
+To do this, we plotted the mean and 95% confidence interval of the pairwise trait correlation coefficients for the global estimate from the pooled multivariate model and PFT-level estimates from the hierarchical model (Fig.\ 5).
 
-The R code for running these analyses is publicly available online at <http://github.com/ashiklom/np_trait_analysis>.
+The R code and ancillary data for running these analyses is publicly available online via the Open Science Framework (OSF) at <https://osf.io/w8y73/>.
 The TRY data used for this analysis can be requested at <http://try-db.org>.
