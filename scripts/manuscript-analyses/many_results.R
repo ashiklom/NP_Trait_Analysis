@@ -41,7 +41,7 @@ ss_plot <- sample_size %>%
 if (interactive()) {
   ss_plot
 }
-ggsave(file.path(manuscript_fig_dir, "sample_size.pdf"), ss_plot, 
+ggsave(file.path(manuscript_fig_dir, "sample_size.pdf"), ss_plot,
         width = 7, height = 7)
 
 ## ----prepresults---------------------------------------------------------
@@ -183,11 +183,12 @@ clm_dat <- clm45_table81 %>%
   mutate(
     Nmass = 0.46 / CN_leaf,         # g N g-1 leaf
     Narea = Nmass / SLA,            # g N m-2 leaf
+    Vcmax_mass = Vcmax_25 * SLA,    # umol g-1 s-1
     SLA = SLA * 1000,               # m2 kg-1
     model_type = factor("CLM 4.5", model_type_levels),
     pft = factor(pft, abbr2pft) %>% lvls_revalue(pft2abbr)
   ) %>%
-  select(pft, model_type, SLA, Nmass, Narea, Vcmax_area = Vcmax_25) %>%
+  select(pft, model_type, SLA, Nmass, Narea, Vcmax_mass, Vcmax_area = Vcmax_25) %>%
   gather(key = "param", value = "mu_mean", -pft, -model_type) %>%
   mutate(
     param = factor(param, both_params),
@@ -307,7 +308,11 @@ relative_ci <- ggplot(cv_dat) +
     legend.position = c(0.85, 0.75),
     panel.grid = element_blank()
   )
-relative_ci
+if (interactive())
+  relative_ci
+
+ggsave(file.path(manuscript_fig_dir, "relative_ci_model.pdf"),
+       width = 4.4, height = 3)
 
 ## ----stickpairs, fig.width = 5, fig.height = 5, fig.cap = '(ref:stickcap)'----
 results_sub <- results_all %>%
