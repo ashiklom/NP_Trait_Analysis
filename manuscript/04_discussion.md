@@ -1,6 +1,6 @@
 # Discussion
 
-## The leaf economic spectrum within and across PFTs
+## Scale dependence of the leaf economic spectrum
 
 The canonical leaf economic spectrum is defined by a negative correlation of between SLA and leaf lifespan, and a positive correlation of SLA with $N_{mass}$, $P_{mass}$, and photosynthesis and respiration rates [@wright_worldwide_2004].
 The first objective of this paper was to investigate the extent to which these relationships hold within and across PFTs.
