@@ -14,21 +14,12 @@
 ============================
 2.1 Trait data
 ============================
-- [ ] Say that respiration values are at ambient temperature (Dietze)
-    - This needs to be backed up by data exploration -- double check that there are not enough leaf T measurements to adjust this
 - [ ] Move TRY data table to appendix (Soudzilovskaia)
     - Might be able to shrink this table down in Word. But will need to think about this.
-
-============================
-2.3 Multivariate analysis
-============================
-- [ ] (somewhere in methods) Explicitly mention the comparison with CLM, including calculation of N from C:N ratio. (Dietze)
-    - Write this up as I'm doing it
 
 =================
 3.0 Results
 =================
-- [ ] "Where we observed differences between models..." -- Provide ecological context to differences between models. Otherwise, it reads very technical. (Soudzilovskaia)
 
 ====================
 4.0 Discussion
@@ -47,38 +38,22 @@
 - [ ] Move most of first paragraph to Results (Dietze)
     - The entrance in the discussion: A key application of this study is to provide data-driven parameter estimates for Earth System Models. Gives the impression this is the central aim of the project, with in particular CLM in mind. Whereas the model application is presented in the Introduction as being derived from general insights considering constraints across PFTs so rather as a spin off. (Kramer)
 - [ ] L383-394. I think that both these studies fall short due to a different reason. We have shown in our 2015 Tansley review, in particular, that Llloyd et al did not look at herbs and is therefore completely misleading. Different traits are need to explain variations in different PFT-s. I am attaching the paper, which I think has to be included at this point. (Niinemets)
-- [ ] Remove note about log10 values (once it is corrected in the discussion) (Dietze)
-- [ ] "Our results for both R_dmass..." -- More on this. Ideally, we would have used reference T, but this is what we had. For more model applicability, need to make these measurements at a reference temperature and make sure leaf T is consistently reported.
 - [ ] First sentence -- This is a weak statement for a first sentence in a discussion. Basically you say that your work does not have own value but provide the data to modellers. Please start with a startement about the ecological importance of your own work. You investigate the nature of relationships between ecolphisiological features(traits) of plants, which has a great scientific value in its own! I propose to start with a statement summarzing your findings, and to follow with your surrect second 4.3 as that is discussioning your central hypothesis. The discussion about the implications fro modelling deserves its own sub-section, in the end of the discussion paragraph. (Soudzilovskaia)
 
 ===================
 4.2 Trait correlations and leaf economics
 ===================
 - [ ] Correlation strength -- We start with the question "are relationships within vs. across PFTs consistent?" Maybe add a supplementary figure like figure 5, but for slopes. (Dietze)
-- [ ] "There has been some debate in the trait ecology community" -- this is a methodological issue; could be moved to supplement (Soudzilovskaia)
 
 =============================
 4.3 Covariance as constraint
 =============================
 - [ ] L404-406. This is difficult to understand, perhaps reword. Why do we overestimate uncertainty? (Niinemets)
-- [ ] Add more on hierarchical model -- will perform better when there among-PFT variability is high relative to within. Also, more unbalanced sampling. Also, more PFTs is the direction that modeling is headed (competitive cohort-bsaed representations; actually computing variability we're currently averaging over). (Dietze)
-- [ ] Also, consider using trait data to define PFTs as a future direction (Dietze).
 
 ========================
 Conclusions
 ========================
 - [ ] Second paragraph ("We foresee tremendous potential...") -- this is about methods, and is not suitable for conclusions. Should be in an appendix, or a separate subsection of the discussion. Conclusions should be more ecological. (Soudzilovskaia)
-
-===================
-Figure 2
-===================
-- [ ] Add CLM values (Dietze)
-- [ ] Make sure means are actually sample means (a.k.a. apply the log correction) (Dietze)
-
-===================
-Figure 4
-===================
-- [ ] "The use of two y axes in such complex figure makes it very difficult to interpret. I would make two figures instead. Could you indicate what is shown on the axes?
 
 ===================
 Tables 3, 4
@@ -90,10 +65,6 @@ Tables 3, 4
 ==================
 Throughout
 ==================
-- [ ] In acronyms, the subscripts are typically in Roman not in italics (Niinemets)
-    - Minor typographical issue
-- [ ] Fig. 1, 2,4,5-  main letter in italics (Niinemets)
-    - Minor typographical issue
 - [ ] Refer to Table 1 everywhere where PFTs are mentioned (Niinemets)
 - [ ] More ecologically meaningful names -- "independent traits model", "covarying traits model", "traits-within-PFT model" (Soudzilovskaia)
 - [ ] Consistent usage of (Kramer)
