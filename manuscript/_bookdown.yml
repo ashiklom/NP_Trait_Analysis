@@ -5,4 +5,5 @@ rmd_files:
   - 03_results.Rmd
   - 04_discussion.md
   - 05_conclusions.md
+  - 06_figures_tables.Rmd
 book_filename: "shiklomanov_newphyt.Rmd"

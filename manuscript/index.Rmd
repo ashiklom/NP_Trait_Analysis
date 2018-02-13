@@ -1,34 +1,39 @@
 ---
-title: "Covariance as constraint: Leveraging leaf economic relationships to constrain plant functional type trait estimates"
-author: >
-  Alexey N. Shiklomanov$^1$,
-  Elizabeth M. Cowdery$^1$,
-  Michael Bahn$^2$,
-  Chaeho Byun$^3$,
-  Joseph Craine$^4$,
-  Andrés Gonzalez-Melo$^5$,
-  Alvaro G. Gutiérrez$^6$,
-  Steven Jansen$^7$,
-  Nathan Kraft$^8$,
-  Koen Kramer$^{9}$,
-  Vanessa Minden$^{10,11}$
-  Ülo Niinemets$^{12}$,
-  Yusuke Onoda$^{13}$,
-  Enio Egon Sosinski$^{14}$,
-  Nadejda A. Soudzilovskaia$^{15}$,
-  Michael C. Dietze$^1$
+title: "Does the leaf economic spectrum hold within plant functional types? A Bayesian hierarchical meta-analysis"
+author:
+  - >
+    Alexey N. Shiklomanov$^1$
+    Elizabeth M. Cowdery$^1$,
+    Michael Bahn$^2$,
+    Chaeho Byun$^3$,
+    Joseph Craine$^4$,
+    Andrés Gonzalez-Melo$^5$,
+    Alvaro G. Gutiérrez$^6$,
+    Steven Jansen$^7$,
+    Nathan Kraft$^8$,
+    Koen Kramer$^{9}$,
+    Vanessa Minden$^{10,11}$,
+    Ülo Niinemets$^{12}$,
+    Yusuke Onoda$^{13}$,
+    Enio Egon Sosinski$^{14}$,
+    Nadejda A. Soudzilovskaia$^{15}$,
+    Michael C. Dietze$^1$
 bibliography:
   - library.bib
   - extra.bib
   - tryrefs.bib
 csl: new-phytologist.csl
 output:
+  bookdown::word_document2:
+    toc: no
+    reference_docx: ~/Projects/misc/pandoc-docx-template/academic-numbered.docx
   bookdown::pdf_document2:
     latex_engine: xelatex
     toc: no
     includes:
       in_header: preamble.tex
 ---
+<div custom-style="Affiliation">
 $^1$Department of Earth & Environment, Boston University, Boston, MA 02215, USA;
 $^2$Institute of Ecology, University of Innsbruck, 6020 Innsbruck, Austria;
 $^3$School of Biological Sciences, Seoul National University, Gwanak-ro 1, 08826, Seoul, Seoul, South Korea;
@@ -44,13 +49,19 @@ $^{12}$Institute of Agricultural and Environmental Sciences, Estonian University
 $^{13}$Graduate School of Agriculture, Kyoto University, Kyoto, 606-8502, Japan;
 $^{14}$Embrapa Temperate Agriculture, Rodovia BR 392, Km 78, CEP 96010-971 Pelotas, RS, Brazil;
 $^{15}$Conservation Biology Department, Institute of Environmental Sciences, Leiden University, Leiden, The Netherlands
+</div>
 
+<div custom-style="Single space">
 Corresponding author:
+
 Alexey Shiklomanov,
+
 telephone: +1 (302) 897-3348,
+
 email: ashiklom\@bu.edu
 
 Key words: Functional trade-off; hierarchical modeling; trait variation; ecological modeling; leaf morphology; leaf biochemistry
+</div>
 
 ```{r wordcount, echo = FALSE}
 fnames <- c(
@@ -60,8 +71,8 @@ fnames <- c(
   discussion = "04_discussion.md",
   conclusions = "05_conclusions.md"
 )
-files <- file.path(
-  "~/Projects/new-phytologist-traits/np-trait-analysis/manuscript-md", 
+files <- here::here(
+  "manuscript", 
   fnames
 )
 names(files) <- names(fnames)
