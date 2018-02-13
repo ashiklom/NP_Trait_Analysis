@@ -35,8 +35,9 @@ Our mean estimates of SLA agreed with CLM's defaults [@clm45_note, Table 8.1] on
 For $N_{mass}$, our estimates agreed reasonably well with CLM for evergreen temperate trees, needleleaved trees, and C3 arctic grasses, and were substantially different for all other PFTs.
 Our $N_{mass}$ estimates also varied much more across PFTs than CLM's parameters.
 For $N_{area}$, our estimates were significantly higher than CLM's for all PFTs, likely due to CLM's overestimates of SLA.
-Our mean estimates of $V_{c,max_area}$ (among those that were reasonably constrained by data) were lower than those of CLM for all PFTs except needleleaf evergreen trees and grasses, for which our estimates overlapped CLM's parameters.
-@kattge_2009_vcmax also found that $V_{c,max,area}$ was overestimated by Earth System models,
+Our estimates of $V_{c,max_mass}$ were lower across all PFTs, with particularly large differences for tropical and temeprate broadleaf deciduous trees and evergreen shrubs, and temperate C3 grasses.
+Our estimates of $V_{c,max,area}$ showed better agreement, though our values were still significantly lower for many PFTs.
+Like us, @kattge_2009_vcmax also found that $V_{c,max,area}$ was overestimated by Earth System models,
 but their estimates of $V_{c,max,area}$ and $N_{area}$ are generally slightly higher than ours.
 
 We observed clear differences in the relative uncertainties of mean estimates with respect to sample size.
