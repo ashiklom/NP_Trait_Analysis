@@ -1,9 +1,9 @@
-# Chunk name: "pfts"
+# Chunk name: pfts
 # Description: Table of number of species in each PFT
+
+## ---- pfts --------------------------------------------------------------
 library(shiklomanov2017np)
 try_data <- readRDS("extdata/traits_analysis.rds")
-
-## ----"pfts"--------------------------------------------------------------
 n_species <- try_data %>%
   distinct(clm45, AccSpeciesID) %>%
   select(pft = clm45, species = AccSpeciesID) %>%

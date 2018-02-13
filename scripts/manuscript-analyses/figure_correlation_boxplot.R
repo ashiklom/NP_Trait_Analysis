@@ -55,6 +55,14 @@ corr_bar <- function(dat, xvar, yvar, mass_area) {
   box()
 }
 
+if (!interactive()) {
+  pdf(
+    here("figures", "manuscript", "correlation_boxplot.pdf"),
+    width = 7,
+    height = 7
+  )
+}
+
 nv <- length(mass_params)
 main_screens <- split.screen(rbind(c(0, 1, 0.2, 1), c(0, 1, 0, 0.2)))
 par(mar = rep(0.1, 4), oma = c(0, 8, 1, 5), cex = 0.4)
@@ -94,10 +102,12 @@ for (i in seq_len(nv)) {
 screen(main_screens[2])
 par(mar = c(0, 0, 0, 0), oma = c(0, 0, 0, 0))
 plot(0, 0, type = "n", axes = FALSE, ann = FALSE)
-legend("center", legend = levels(hs$pft), fill = c("grey25", pft_colors), 
+legend("center", legend = levels(hs$pft), fill = c("grey25", pft_colors),
        ncol = 5, bty = "n")
 close.screen(all.screens = TRUE)
 mtext("Mass-normalized", side = 2, cex = 0.7, line = 1)
 mtext("Mean and 95% CI of pairwise correlation", side = 2, cex = 1, line = 2)
 mtext("Area-normalized", side = 4, cex = 0.7, line = 0)
-
+if (!interactive()) {
+  dev.off()
+}

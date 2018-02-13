@@ -1,8 +1,9 @@
 # Chunk name: trydata
 # Description: Table of TRY data citations
 
+## ---- trydata ----------
 library(shiklomanov2017np)
-crtable <- readRDS("extdata/crossref_table.rds") %>%
+crtable <- readRDS(here("extdata/crossref_table.rds")) %>%
   mutate(
     Reference = case_when(
       Reference == "@try_data_03" ~ "@baraloto_decoupled_2010",

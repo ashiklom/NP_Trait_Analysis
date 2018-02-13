@@ -41,7 +41,9 @@ Analysis code and manuscript for Shiklomanov et al. *New Phytologist*
 
 5. Run `scripts/02_load_output.R` to load all model outputs. This reads results from the `output` directory, extracts the summary tables, combines them into a single data frame, and saves the result to `results/mvtraits_results.rds`.
 
-6. Run `scripts/03_generate_figures.R` and `scripts/03_stick_pairs_plot.R` to generate figures and tables for the manuscript.
+6. Run R scripts in `scripts/manuscript-analyses/` (in any order) to generate figures and tables for the analysis.
+
+7. `cd` into the `manuscript/` directory and run `make` to compile the manuscript.
 
 # Other scripts
 
