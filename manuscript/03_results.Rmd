@@ -2,7 +2,7 @@
 
 ## Estimates of PFT-level means
 
-In general, leaf trait estimates from the univariate, multivariate, and hierarchical models were similar (Fig.\ \@ref(fig:meancompare)).
+In general, leaf trait estimates from the univariate, multivariate, and hierarchical models were similar (Fig.\ 2).
 Where we observed differences between models, the largest were between the univariate and multivariate models, while the additional constraint from the hierarchical model tended to have a minimal effect on trait estimates.
 Significant differences in trait estimates between univariate and multivariate models occurred even for traits with relatively large sample sizes, such as leaf nitrogen content.
 
@@ -29,20 +29,26 @@ C3 grasses and temperate needleleaved evergreen trees had the highest $J_{max,ar
 All of the shrub PFTs had the lowest $J_{max,mass}$ but average or above-average $J_{max,area}$, while the opposite was true of broadleaved tropical PFTs.
 Of the tree PFTs, needleleaved evergreen trees had the highest $J_{max,area}$ but the lowest $J_{max,mass}$.
 
+A key application of this study was to provide data-driven parameter estimates for Earth System Models.
+To this end, we compared our mean parameter estimates with corresponding default parameters in CLM 4.5 [@clm45_note] (Fig.\ 2).
+Our mean estimates of SLA agreed with CLM's defaults [@clm45_note, Table 8.1] only for tropical broadleaved evergreen trees, and for all other PFTs, our estimates are significantly lower.
+For $N_{mass}$, our estimates agreed reasonably well with CLM for evergreen temperate trees, needleleaved trees, and C3 arctic grasses, and were substantially different for all other PFTs.
+Our $N_{mass}$ estimates also varied much more across PFTs than CLM's parameters.
+For $N_{area}$, our estimates were significantly higher than CLM's for all PFTs, likely due to CLM's overestimates of SLA.
+Our mean estimates of $V_{c,max_area}$ (among those that were reasonably constrained by data) were lower than those of CLM for all PFTs except needleleaf evergreen trees and grasses, for which our estimates overlapped CLM's parameters.
+@kattge_2009_vcmax also found that $V_{c,max,area}$ was overestimated by Earth System models,
+but their estimates of $V_{c,max,area}$ and $N_{area}$ are generally slightly higher than ours.
+
 We observed clear differences in the relative uncertainties of mean estimates with respect to sample size.
 All of the high-latitude PFTs consistently had among the largest error bars around their mean estimates relative to other PFTs, while the traits with the largest uncertainties were dark respiration, $V_{c,max}$, and $J_{max}$.
 For many of these trait-PFT combinations, the additional constraint from trait covariance provided by the multivariate and hierarchical models substantially reduced error bars, making it possible to compare estimates against those of other PFTs.
-Our analysis of the relationship between model type, sample size, and estimate relative uncertainty found that this covariance-based constraint from the multivariate model both reduced uncertainty overall (lower intercept) and reduced the sensitivity of estimate uncertainty to sample size (lower slope) compared to the univariate model (Fig.\ \@ref(fig:civssamplesize)).
+Our analysis of the relationship between model type, sample size, and estimate relative uncertainty found that this covariance-based constraint from the multivariate model both reduced uncertainty overall (lower intercept) and reduced the sensitivity of estimate uncertainty to sample size (lower slope) compared to the univariate model (Fig.\ 3).
 However, this analysis revealed no consistent significant benefit from the hierarchical model.
 
-(ref:sscap) Relative uncertainty in PFT-level trait estimates as a function of sample size for each model type.
-Lines represent linear models ($\log(y) = b_0 + b_1 \log(x)$) fit independently for each model type.
-In general, differences in estimate uncertainty between the univariate and multivariate models were minimal at large sample sizes but increasingly important at low sample sizes.
-However, differences in estimate uncertainty between the multivariate and hierarchical models were consistently negligible.
 
 ## Trait correlation patterns among- and within-PFTs
 
-For all traits except leaf lifespan, pairwise trait correlations were generally consistent in direction both globally and within each PFT (Fig.\ \@ref(fig:stickpairs)).
+For all traits except leaf lifespan, pairwise trait correlations were generally consistent in direction both globally and within each PFT (Fig.\ 4).
 In particular, mass- and area-normalized traits were all positively correlated with each other and, respectively, positively and negatively correlated with SLA, both globally and within each PFT.
 The same was generally true of correlations of mass-based traits with leaf lifespan, but correlations of leaf lifespan with area-normalized traits were more variable.
 The correlation between $N_{area}$ and leaf lifespan was positive globally and for evergreen shrubs but negative for broadleaved deciduous trees and not significant for any other PFTs.
@@ -51,13 +57,13 @@ The correlation between leaf lifespan and $R_{d,area}$ significant and positive 
 The correlations of leaf lifespan with $V_{c,max,area}$ and $J_{max,area}$ were negative for temperate broadleaved deciduous trees, but not significant for any other PFTs or globally.
 
 A large number of pairwise trait correlations were not significant.
-In some cases, this was driven by sample size (Fig.\ \@ref(fig:samplesize)).
+In some cases, this was driven by sample size (Fig.\ 1).
 For instance, needleleaved deciduous trees were often the only PFT for which a correlation was not statistically significant.
 In other cases, though, PFTs with smaller sample sizes had significant pairwise correlations while PFTs with much larger sample sizes had none.
 For example, tropical broadleaved evergreen trees were relatively well-sampled for all traits, but none of their traits were well correlated with leaf lifespan.
 Meanwhile, temperate broadleaved evergreen trees had significant correlations between leaf lifespan and SLA, $P_{area}$, and $R_{d,area}$.
 In general, we observed fewer significant trait correlations among area-normalized traits than mass-normalized traits. 
 
-The strength of pairwise trait correlations varied substantially depending on scale, PFT, and trait (Fig.\ \@ref(fig:corrbars)).
+The strength of pairwise trait correlations varied substantially depending on scale, PFT, and trait (Fig.\ 5).
 The two pairwise trait correlations that exhibited the most consistent strength globally and within each PFT were the correlation between SLA and $N_{area}$, and between $N_{mass}$ and $P_{mass}$.
 Correlation strength was often, but not always, related to sample size, with well-sampled PFTs exhibiting stronger correlations and undersampled PFTs exhibiting weaker correlations.
