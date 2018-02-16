@@ -13,7 +13,7 @@ Among deciduous species, lifespan was generally longer in warmer biomes than col
 Across-PFT patterns in SLA and $N_{mass}$, $P_{mass}$, and $R_{d,mass}$ were similar.
 Temperate broadleaved deciduous trees and shrubs generally had among the highest values of these traits, while temperate evergreen trees and shrubs had generally among the lowest.
 However, none of these patterns were universal to all four traits.
-For example, tropical evergreen trees had relatively high $N_{mass}$ and average SLA and $R_{d,mass}$, but among the lowest $P_{mass}$.
+For example, tropical evergreen trees had relatively high $N_{mass}$ and mean SLA and $R_{d,mass}$, but among the lowest $P_{mass}$.
 Similarly, temperate and boreal shrubs had higher $N_{mass}$ and $P_{mass}$ than any of the grasses, but comparable SLA.
 
 Across-PFT patterns in $N_{area}$, $P_{area}$, and $R_{d,area}$ were different from their mass-normalized counterparts.

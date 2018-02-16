@@ -66,3 +66,12 @@ While stem and leaf hydraulic traits are correlated [@bartlett_hydraulic], a pot
 Similarly, reexamining the relationships defining wood [@chave_woodeconomics; @baraloto_decoupled_2010; @fortunel_leaf_2012] and root [@kramer-walter_root_2016; @valverde-barrantes_root_2016] economic spectra, as well as their relationship to the foliar traits, would provide useful information on possible scale-dependence of plant growth and allocation strategies.
 We emphasize that the relative difficulty of measuring hydraulic and other non-foliar traits [e.g @jansen_hydraulic_traits] further increases the value of any technique that can fully leverage the information they provide. 
 More generally, multivariate and hierarchical modeling has the potential to reveal functional trade-offs that are mutually confounding at different scales, thereby enhancing our understanding of processes driving functional diversity.
+
+## Conclusions
+
+The tremendous functional diversity of plants continues to be a major challenge for functional ecology and ecosystem modeling.
+Functional diversity research fundamentally depends on dimensionality reduction through a search for meaningful pattern that can be exploited to take reasonable guesses at average behavior. 
+The trait trade-offs comprising the leaf economic spectrum are one such pattern. 
+In this paper, we reaffirm the existence of the leaf economic spectrum both globally and, with some caveats, within plant functional types typically used in the current generation of Earth System Models.
+We also highlight how the strength of leaf economic relationships can be influenced by biotic and abiotic factors specific to certain PFTs.
+Finally, we show how patterns of trait covariance like the leaf economic spectrum can be leveraged to inform trait estimates, particularly at small sample sizes.
