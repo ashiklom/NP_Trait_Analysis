@@ -4,8 +4,8 @@ library(shiklomanov2017np)
 outdir <- here::here("output")
 hier_mass_file <- tail(dir(outdir, "hier.mass.clm45", full.names = TRUE), 1)
 hier_area_file <- tail(dir(outdir, "hier.area.clm45", full.names = TRUE), 1)
-multi_mass_file <- tail(dir(outdir, "multi.mass.clm45", full.names = TRUE), 1)
-multi_area_file <- tail(dir(outdir, "multi.area.clm45", full.names = TRUE), 1)
+multi_mass_file <- tail(dir(outdir, "multi.mass.clm45.NA", full.names = TRUE), 1)
+multi_area_file <- tail(dir(outdir, "multi.area.clm45.NA", full.names = TRUE), 1)
 
 hier_summary_mass <- readRDS(hier_mass_file)[["summary_table"]] %>%
   mutate(mass_area = "mass")
@@ -55,13 +55,11 @@ corr_bar <- function(dat, xvar, yvar, mass_area) {
   box()
 }
 
-if (!interactive()) {
-  pdf(
-    here("figures", "manuscript", "correlation_boxplot.pdf"),
-    width = 7,
-    height = 7
-  )
-}
+pdf(
+  here("figures", "manuscript", "correlation_boxplot.pdf"),
+  width = 7,
+  height = 7
+)
 
 nv <- length(mass_params)
 main_screens <- split.screen(rbind(c(0, 1, 0.2, 1), c(0, 1, 0, 0.2)))
@@ -108,6 +106,5 @@ close.screen(all.screens = TRUE)
 mtext("Mass-normalized", side = 2, cex = 0.7, line = 1)
 mtext("Mean and 95% CI of pairwise correlation", side = 2, cex = 1, line = 2)
 mtext("Area-normalized", side = 4, cex = 0.7, line = 0)
-if (!interactive()) {
-  dev.off()
-}
+
+dev.off()
