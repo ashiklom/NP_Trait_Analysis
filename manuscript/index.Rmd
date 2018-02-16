@@ -8,15 +8,14 @@ author:
     Chaeho Byun$^3$,
     Joseph Craine$^4$,
     Andrés Gonzalez-Melo$^5$,
-    Alvaro G. Gutiérrez$^6$,
-    Steven Jansen$^7$,
-    Nathan Kraft$^8$,
-    Koen Kramer$^{9}$,
-    Vanessa Minden$^{10,11}$,
-    Ülo Niinemets$^{12}$,
-    Yusuke Onoda$^{13}$,
-    Enio Egon Sosinski$^{14}$,
-    Nadejda A. Soudzilovskaia$^{15}$,
+    Steven Jansen$^6$,
+    Nathan Kraft$^7$,
+    Koen Kramer$^{8}$,
+    Vanessa Minden$^{9,10}$,
+    Ülo Niinemets$^{11}$,
+    Yusuke Onoda$^{12}$,
+    Enio Egon Sosinski$^{13}$,
+    Nadejda A. Soudzilovskaia$^{14}$,
     Michael C. Dietze$^1$
 bibliography:
   - library.bib
@@ -39,16 +38,15 @@ $^2$Institute of Ecology, University of Innsbruck, 6020 Innsbruck, Austria;
 $^3$School of Biological Sciences, Seoul National University, Gwanak-ro 1, 08826, Seoul, Seoul, South Korea;
 $^4$Jonah Ventures, Manhattan, KS 66502, USA;
 $^5$Universidad del Rosario. Facultad de Ciencias Naturales y Matemáticas. Carrera 26 #63B-48. Bogotá, Colombia;
-$^6$Departamento de Ciencias Ambientales y Recursos Naturales, Facultad de Ciencias Agronomicas, Universidad de Chile, Av. Santa Rosa 11315, La Pintana 8820808, Santiago, Chile;
-$^7$Institute of Systematic Botany and Ecology, Ulm University, Ulm, Germany;
-$^8$Department of Ecology and Evolutionary Biology, University of California Los Angeles, Los Angeles, CA 90095, USA;
-$^{9}$Vegetation, Forest, and Landscape Ecology, Wageningen Environmental Research and Wageningen University, Wageningen, Gelderland, The Netherlands;
-$^{10}$Institute for Biology and Environmental Sciences, Carl von Ossietzky-University of Oldenburg, Carl von Ossietzky Str. 9-11, 26129 Oldenburg, Germany;
-$^{11}$Department of Biology, Ecology and Evolution, Vrije Universiteit Brussel, Pleinlaan 2, 1050 Brussels;
-$^{12}$Institute of Agricultural and Environmental Sciences, Estonian University of Life Sciences, Kreutzwaldi 1, 51014 Tartu, Estonia;
-$^{13}$Graduate School of Agriculture, Kyoto University, Kyoto, 606-8502, Japan;
-$^{14}$Embrapa Temperate Agriculture, Rodovia BR 392, Km 78, CEP 96010-971 Pelotas, RS, Brazil;
-$^{15}$Conservation Biology Department, Institute of Environmental Sciences, Leiden University, Leiden, The Netherlands
+$^6$Institute of Systematic Botany and Ecology, Ulm University, Ulm, Germany;
+$^7$Department of Ecology and Evolutionary Biology, University of California Los Angeles, Los Angeles, CA 90095, USA;
+$^{8}$Vegetation, Forest, and Landscape Ecology, Wageningen Environmental Research and Wageningen University, Wageningen, Gelderland, The Netherlands;
+$^{9}$Institute for Biology and Environmental Sciences, Carl von Ossietzky-University of Oldenburg, Carl von Ossietzky Str. 9-11, 26129 Oldenburg, Germany;
+$^{10}$Department of Biology, Ecology and Evolution, Vrije Universiteit Brussel, Pleinlaan 2, 1050 Brussels;
+$^{11}$Institute of Agricultural and Environmental Sciences, Estonian University of Life Sciences, Kreutzwaldi 1, 51014 Tartu, Estonia;
+$^{12}$Graduate School of Agriculture, Kyoto University, Kyoto, 606-8502, Japan;
+$^{13}$Embrapa Temperate Agriculture, Rodovia BR 392, Km 78, CEP 96010-971 Pelotas, RS, Brazil;
+$^{14}$Conservation Biology Department, Institute of Environmental Sciences, Leiden University, Leiden, The Netherlands
 </div>
 
 <div custom-style="Single space">
