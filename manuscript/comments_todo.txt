@@ -35,8 +35,6 @@
 ====================
 4.1 Variation in trait means
 ====================
-- [ ] Move most of first paragraph to Results (Dietze)
-    - The entrance in the discussion: A key application of this study is to provide data-driven parameter estimates for Earth System Models. Gives the impression this is the central aim of the project, with in particular CLM in mind. Whereas the model application is presented in the Introduction as being derived from general insights considering constraints across PFTs so rather as a spin off. (Kramer)
 - [ ] L383-394. I think that both these studies fall short due to a different reason. We have shown in our 2015 Tansley review, in particular, that Llloyd et al did not look at herbs and is therefore completely misleading. Different traits are need to explain variations in different PFT-s. I am attaching the paper, which I think has to be included at this point. (Niinemets)
 - [ ] First sentence -- This is a weak statement for a first sentence in a discussion. Basically you say that your work does not have own value but provide the data to modellers. Please start with a startement about the ecological importance of your own work. You investigate the nature of relationships between ecolphisiological features(traits) of plants, which has a great scientific value in its own! I propose to start with a statement summarzing your findings, and to follow with your surrect second 4.3 as that is discussioning your central hypothesis. The discussion about the implications fro modelling deserves its own sub-section, in the end of the discussion paragraph. (Soudzilovskaia)
 
@@ -50,11 +48,6 @@
 =============================
 - [ ] L404-406. This is difficult to understand, perhaps reword. Why do we overestimate uncertainty? (Niinemets)
 
-========================
-Conclusions
-========================
-- [ ] Second paragraph ("We foresee tremendous potential...") -- this is about methods, and is not suitable for conclusions. Should be in an appendix, or a separate subsection of the discussion. Conclusions should be more ecological. (Soudzilovskaia)
-
 ===================
 Tables 3, 4
 ===================
@@ -66,7 +59,6 @@ Tables 3, 4
 Throughout
 ==================
 - [ ] Refer to Table 1 everywhere where PFTs are mentioned (Niinemets)
-- [ ] More ecologically meaningful names -- "independent traits model", "covarying traits model", "traits-within-PFT model" (Soudzilovskaia)
 - [ ] Consistent usage of (Kramer)
     - trait vs functional characteristics
     - mean vs average

@@ -325,8 +325,6 @@ names(dat_list) <- with(results_sub, paste(model_type, mass_area, sep = "_"))
 if (!interactive()) pdf(file.path(manuscript_fig_dir, "stick_pairs.pdf"),
                         width = 5, height = 5)
 stickplot_pairs(
-  #mu_global_lower = dat_list$hier_mass$mu_global,
-  #Sigma_global_lower = dat_list$hier_mass$Sigma_global,
   mu_global_lower = dat_list$multi_mass$mu,
   Sigma_global_lower = dat_list$multi_mass$Sigma,
   mu_group_lower = dat_list$hier_mass$mu_group,
@@ -335,8 +333,6 @@ stickplot_pairs(
   group_names = pft2abbr[-1],
   vars_label = param_labels,
   unlog_axes = TRUE,
-  #mu_global_upper = dat_list$hier_area$mu_global,
-  #Sigma_global_upper = dat_list$hier_area$Sigma_global,
   mu_global_upper = dat_list$multi_area$mu,
   Sigma_global_upper = dat_list$multi_area$Sigma,
   mu_group_upper = dat_list$hier_area$mu_group,
