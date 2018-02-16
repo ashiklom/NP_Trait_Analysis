@@ -75,3 +75,18 @@ The trait trade-offs comprising the leaf economic spectrum are one such pattern.
 In this paper, we reaffirm the existence of the leaf economic spectrum both globally and, with some caveats, within plant functional types typically used in the current generation of Earth System Models.
 We also highlight how the strength of leaf economic relationships can be influenced by biotic and abiotic factors specific to certain PFTs.
 Finally, we show how patterns of trait covariance like the leaf economic spectrum can be leveraged to inform trait estimates, particularly at small sample sizes.
+
+<div custom-style="Heading, no number">Acknowledgements</div>
+
+This project was supported by NASA grant NNX14AH65G and NSF grants 1261582 and 1458021, as well as the TRY initiative on plant traits (http://www.try-db.org).
+The TRY initiative and database is hosted, developed and maintained by J. Kattge and G. Boenisch (Max Planck Institute for Biogeochemistry, Jena, Germany).
+TRY is currently supported by DIVERSITAS/Future Earth and the German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig.
+The authors would also like to thank Christine Rollinson, Istem Fer, and Colin Averill for their valuable feedback on early drafts of this manuscript.
+
+<div custom-style="Heading, no number">Author contributions</div>
+
+ANS wrote the manuscript and implemented the analysis.
+ANS and EMC designed the analysis and figures.
+MCD conceived the original idea for the manuscript, guided its development, and provided financial support.
+MB, SJ, KK, ÜN, and NAS provided extensive feedback on multiple drafts of the manuscript, and contributed data.
+All other authors contributed data.
