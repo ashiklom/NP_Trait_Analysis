@@ -50,20 +50,12 @@ and is useful for guiding future data collection and model refinement [@dietze_q
 However, a univariate meta-analysis, like the one currently in PEcAn, is limited by its failure to account for trait correlations, therefore neglecting useful knowledge about relationships across PFTs and between traits.
 At the other extreme, existing regional and global scale analyses [e.g. @van_bodegom_going_2012; @sakschewski_leaf_2015] ignore variability within PFTs, often resulting in macroecological, evolutionary, and competitive trade-offs across PFTs being used to drive both acclimation and instantaneous responses within PFTs.
 
-**TODO:**
-Leaf economic spectrum may break down within species, but seems to hold globally.
-However, the extent to which the LES holds at the intermediate scale of PFTs -- the scale of diversity used by ecosystem models -- has not been investigated.
-((Something about bringing trait ecology to ecosystem models without violating their basic structure.))
+While the leaf economic spectrum has been investigated at the global scale, where is robust, and at the site or plot scale, where deviations from it are common, it has received less attention at the intermediate scale of PFTs.
 Thus, this paper seeks to answer the following questions:
 First, to what extent does the leaf economic spectrum hold within vs. across plant functional types?
-Second, to what extent can leaf economic relationships and other patterns of trait covariance be leveraged to constrain trait estimates, particularly under data limitation?
-
-The above discussion culminates in the following question: 
-Can the constraint on average functional characteristics across PFTs provided by the leaf economic spectrum be reconciled with trait relationships within each PFT? 
-The answer to this question has relevant implications for both functional ecology and ecosystem modelling.
-Here we hypothesize that global leaf economic relationships represent a biome-level environmental filter that regulates variability across PFTs more than trait correlations within PFTs.
-To evaluate this hypothesis, we develop a hierarchical multivariate Bayesian model that explicitly accounts for across- and within-PFT variability in trait correlations.
+Second, to what extent can the leaf economic spectrum and other patterns of trait covariance be leveraged to constrain trait estimates, particularly under data limitation?
+The answer to these question has implications for both functional ecology and ecosystem modelling.
+To evaluate these questions, we develop a hierarchical multivariate Bayesian model that explicitly accounts for across- and within-PFT variability in trait correlations.
 We then fit this model to a global database of foliar traits to estimate mean trait values and variance-covariance matrices for PFTs as defined in a major earth system model [Community Land Model, CLM, @clm45_note].
-To our knowledge, this study is unique in its treatment of within- and across-PFT variability simultaneously and with a global dataset.
 We evaluate the ability of this model to reduce uncertainties in trait estimates and reproduce observed patterns of global trait variation compared to non-hierarchical multivariate and univariate models.
 Finally, we assess the generality and scale dependence of trait trade-offs by comparing covariance estimates globally and within each PFT.
