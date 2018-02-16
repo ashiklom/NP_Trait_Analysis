@@ -47,7 +47,7 @@ Our analysis of the relationship between model type, sample size, and estimate r
 However, this analysis revealed no consistent significant benefit from the hierarchical model.
 
 
-## Trait correlation patterns among- and within-PFTs
+## Trait correlation patterns across- and within-PFTs
 
 For all traits except leaf lifespan, pairwise trait correlations were generally consistent in direction both globally and within each PFT (Fig.\ 4).
 In particular, mass- and area-normalized traits were all positively correlated with each other and, respectively, positively and negatively correlated with SLA, both globally and within each PFT.

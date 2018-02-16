@@ -68,7 +68,6 @@ Throughout
 - [ ] Refer to Table 1 everywhere where PFTs are mentioned (Niinemets)
 - [ ] More ecologically meaningful names -- "independent traits model", "covarying traits model", "traits-within-PFT model" (Soudzilovskaia)
 - [ ] Consistent usage of (Kramer)
-    - among vs across PFT
     - trait vs functional characteristics
     - mean vs average
 

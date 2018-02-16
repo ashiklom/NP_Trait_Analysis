@@ -56,13 +56,13 @@ $$\mathbf{x_i} \sim mvN(\mathbf{\mu}, \mathbf{\Sigma})$$
 where $mvN$ is the multivariate normal (Gaussian) distribution with mean vector $\mathbf{\mu}$ and variance-covariance matrix $\mathbf{\Sigma}$.
 We ran both of these models independently for each PFT as well as for the entire dataset (as if every observation belonged to the same PFT).
 
-The most complex model was the ‘hierarchical’ model, in which observed trait values were drawn from a PFT-specific multivariate normal distribution describing within-PFT variation and whose parameters were themselves sampled from a global multivariate distribution describing the variation among PFTs.
+The most complex model was the ‘hierarchical’ model, in which observed trait values were drawn from a PFT-specific multivariate normal distribution describing within-PFT variation and whose parameters were themselves sampled from a global multivariate distribution describing the variation across PFTs.
 For the observed vector of traits $\mathbf{x}_{i,p}$ for sample $i$ belonging to PFT $p$:
 
 $$\mathbf{x}_{i,p} \sim mvN(\mathbf{\mu}_p, \mathbf{\Sigma}_p)$$
 $$\mathbf{\mu}_p \sim mvN(\mathbf{\mu}_g, \mathbf{\Sigma}_g)$$
 
-where $\mathbf{\mu}_p$ and $\mathbf{\Sigma}_p$ are the mean vector and variance-covariance matrix describing variation within PFT $p$, and $\mathbf{\mu}_g$ and $\mathbf{\Sigma}_g$ are the mean vector and variance-covariance matrix describing among-PFT (global) variation.
+where $\mathbf{\mu}_p$ and $\mathbf{\Sigma}_p$ are the mean vector and variance-covariance matrix describing variation within PFT $p$, and $\mathbf{\mu}_g$ and $\mathbf{\Sigma}_g$ are the mean vector and variance-covariance matrix describing across-PFT (global) variation.
 
 
 ### Model implementation
@@ -145,7 +145,7 @@ lower intercept ($b_0$) coefficients, indicating generally lower uncertainty,
 and
 lower slope ($b_1$) coefficients, indicating a reduced sensitivity of uncertainty ($\alpha$) to sample size ($n$).
 
-To assess the consistency of among- and within-PFT trait trade-offs, we looked at covariance estimates for each trait pair and, where these values were significantly different from zero ($p < 0.05$),
+To assess the consistency of within- and across-PFT trait trade-offs, we looked at covariance estimates for each trait pair and, where these values were significantly different from zero ($p < 0.05$),
 we calculated the eigenvalues from the pairwise variance-covariance matrix for that trait pair and plotted the corresponding dominant eigenvectors centered on the mean estimates (Fig.\ 4).
 This figure provides a visual representation of relative positions of PFTs in trait space and both the direction and extent of within-PFT trait covariance, and is directly analogous to conceptual figures describing hierarchical trait variability across environmental gradients as presented in, for instance, @cornwell_community_2009 and @albert_intraspecific_2010.
 Due to the small number of points used to estimate across-PFT covariance in the hierarchical model, none of the across-PFT covariances estimated in the hierarchical model were significantly different from zero ($p < 0.05$).
