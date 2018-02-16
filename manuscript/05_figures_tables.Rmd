@@ -1,4 +1,4 @@
-# Tables {-}
+<div custom-style="Heading, no number">Tables</div>
 
 ```{r "knitr_options", echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
 library(knitr)
@@ -6,8 +6,7 @@ library(here)
 opts_chunk$set(
   echo = FALSE,
   message = FALSE,
-  warning = FALSE,
-  error = FALSE
+  warning = FALSE, error = FALSE
 )
 options(knitr.table.format = "pandoc")
 ```
@@ -26,8 +25,9 @@ knitr::read_chunk(here::here("scripts/manuscript-analyses/table_n_species.R"))
 ```{r "pfts"}
 ```
 
-# Figure captions {-}
+<div custom-style="Heading, no number">Figure captions</div>
 
+<div custom-style="No indent">
 **Figure 1**: Sample sizes for each trait-PFT pair. $y$ axis is scaled logarithmically.
 
 **Figure 2**: Mean and 95% confidence interval on best estimates of traits for each plant functional type from the univariate, multivariate, and hierarchical models.
@@ -48,5 +48,6 @@ However, many pairwise covariances are not statistically significant, particular
 **Figure 5**: Mean and 95% CI on estimates of pairwise correlation coefficients
 for all data pooled globally (dark grey) and for each PFT (colored).
 For most PFT-trait pairs, correlations are mutually consistent in magnitude but vary in strength.
+</div>
 
-# References {-}
+<div custom-style="Heading, no number">References</div>

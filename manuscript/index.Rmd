@@ -26,7 +26,7 @@ csl: new-phytologist.csl
 output:
   bookdown::word_document2:
     toc: no
-    reference_docx: ~/Projects/misc/pandoc-docx-template/academic-numbered.docx
+    reference_docx: ~/Projects/misc/pandoc-docx-template/custom.docx
   bookdown::pdf_document2:
     latex_engine: xelatex
     toc: no
@@ -68,8 +68,7 @@ fnames <- c(
   introduction = "01_introduction.md",
   methods = "02_methods.Rmd",
   results = "03_results.Rmd",
-  discussion = "04_discussion.md",
-  conclusions = "05_conclusions.md"
+  discussion = "04_discussion.md"
 )
 files <- here::here(
   "manuscript", 
@@ -95,7 +94,7 @@ rownames(wc_total)[nrow(wc_total)] <- "total"
 knitr::kable(wc_total, digits = 1)
 ```
 
-# Summary {-}
+<div custom-style="Heading, no number">Summary</div>
 
 * We investigated whether global leaf economic relationships across plant functional types (PFTs) are also present within-PFTs, and the extent to which this hierarchical structure can be used to constrain trait estimates.
 

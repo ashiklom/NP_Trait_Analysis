@@ -28,7 +28,7 @@ Following past studies [e.g. @wright_worldwide_2004; @wright_assessing_2005; @on
 We assigned each species to a unique plant functional type (PFT) following the scheme in the Community Land Model [CLM4.5, @clm45_note; Tab.\ \@ref(tab:pfts), Fig.\ 1].
 We obtained categorical data on growth form, leaf type, phenology, and photosynthetic pathway from the TRY database.
 Where species attributes disagreed between datasets (e.g., categorized as a shrub in one dataset but a tree in another), we assigned the attribute that was observed most frequently between the datasets (e.g., if five datasets say "shrub" but only one says "tree", we would classify it as a shrub).
-Where species lacked data on certain attributes, we assigned those attributes based on higher order phylogeny where appropriate (e.g., \em{Poaceae} family are usually grasses, \em{Larix spp.} are deciduous needleleaved trees) or otherwise omitted the species from our analyses.
+Where species lacked data on certain attributes, we assigned those attributes based on higher order phylogeny where appropriate (e.g., *Poaceae* family are usually grasses, *Larix spp.* are deciduous needleleaved trees) or otherwise omitted the species from our analyses.
 For biome specification, we collected all latitude and longitude data for each species,
 matched these data to 30 second ($\sim1$ km$^{2}$) mean annual temperature ($AMT$, averaged 1970-2000) data from WorldClim-2 [@worldclim],
 calculated the mean AMT for all sites at which that species was observed,
