@@ -21,12 +21,7 @@ Would the results be similar?
 If so, are we learning something about PFTs and tradeoffs, or just something about the statistical properties of breaking a large data set into small groups.
 Exploration of this question would be a useful ‘null model’ to back up this study.
 
-There were several reasons for the relatively large number of plant functional types in the original manuscript.
-For one, such a large number was necessary to explore the different drivers of trait correlation -- for instance, to compare the differences in correlations between biomes versus between growth forms and leaf types.
-Furthermore, we were interested in the ability of our hierarchical modeling approach to support efforts to improve representation of biodiversity in models by increasing the number of plant functional types [e.g. @more_pfts].
-In particular, we note that some ecosystem models are parameterized for individual species [e.g. Linkages, @linkages; LANDIS, @landis].
-
-However, we agree the number of PFTs selected and their resulting low sample sizes made it possible that many of our results were a mere statistical artifact rather than ecologically meaningful.
+We agree the number of PFTs selected and their resulting low sample sizes made it possible that many of our results were a mere statistical artifact rather than ecologically meaningful.
 To address this concern, and to make the paper more directly applicable to ecosystem modeling, we replaced our PFT scheme with the scheme used by the Community Land Model [CLM 4.5, @clm45_note].
 This brings the number of PFTs down to 14.
 We have provided additional details about how we assigned species to PFTs in the methods (Section 2.2, "Plant functional types").
@@ -67,7 +62,7 @@ The authors own introduciton to LES on lines 69-70 mentions Amax but not dark re
 An acknowledgment and justification for using dark respiration over Amax is needed.
 
 We have added a paragraph to the methods (section 2.1, "Trait data") explaining our rationale for not choosing $A_{max}$.
-However, we agree that examining traits more directly related to photosynthesis is valuable, and therefore have included both $V_{c,max}$ and $J_{max}$.
+However, we agree that examining traits directly related to photosynthesis is valuable, and therefore have included both $V_{c,max}$ and $J_{max}$.
 Leaf dark respiration appears as one of the the original traits defining the leaf economic spectrum [@wright_worldwide_2004], and has been identified as a key parameter in Earth System Models that requires additional constraint [@atkin_2014_improving; @atkin_2016_global].
 
 > 3) Line 150 forward - to interpret the methods in this area I really wanted to know how many plant functional groups there are. 
@@ -88,10 +83,13 @@ Can you show your results are robust to choices here?
 Especially to an analysis with no trait filling?
 One would think this should be possible in a Bayesian world especially.
 
-Trait filling is fundamental to the multivariate approach used in this paper -- this is precisely the mechanism by which trait observations borrow strength from each other.
+Our Bayesian approach does not use "trait filling" in the sense of an independent first step of imputing missing values followed by a separate, independent analysis of the filled trait matrix.
+Rather, it uses multiple imputation, which draws different values of the traits at random (based on the current iteration's estimate of the covariance) each algorithmic step and therefore integrates over the full distribution of missing trait uncertainty.
+Although our approach can be used for trait filling (in fact, this is an idea we may explore in a subsequent paper), that is not the main objective of this paper.
+However, multiple imputation is fundamental to the multivariate approach used in this paper -- this is precisely the mechanism by which trait observations borrow strength from each other.
 For this trait dataset, there is not a single observation that contains all seven of the traits we included.
 Therefore, we do not believe a multivariate analysis without trait filling makes sense in the context of this paper.
-However, our univariate model by definition does not include any trait filling, so it already serves as a point of comparison.
+That being said, our univariate model by definition does not include any imputation, so it serves as a point of comparison.
 
 > 6) Line 198, line 225, line 233, line 241, line 243 line 267 - several  of the places I am not sure which model is being used with which word
 
@@ -103,7 +101,7 @@ I personally was much more interested in the correlation results than the mean e
 
 We have re-written the discussion to focus more strongly on the ecological basis for the patterns in our results, both in terms of comparing PFT means and pairwise correlations.
 We agree that the ecological relevance of the correlation results may be somewhat higher, and therefore we spend more time on them in our discussion.
-However, our mean estimates and the relative constraint on them from our different models is highly relevant to ecological modelling, so we feel strongly that at least some discussion of these points is valuable as well.
+However, our mean estimates and the relative constraint on them from our different models is highly relevant to ecological modelling, so we feel that at least some discussion of these points is valuable as well.
 
 # Reviewer 2
 
@@ -121,7 +119,7 @@ What you gain are pretty pictures because mass-based correlations are tight in m
 It’s just not that interesting, in my opinion, to reproduce strong(ish) mass-based trait correlations, but I’m very interested in your results regarding LL-LMA and look forward to seeing what your straightforward statistical approach will reveal for area-based or LMA-independent trait data (see below).
 
 In the revised manuscript, we perform our analysis on both mass- and area-based traits.
-Like the editor, we disagree that mass-based correlations are tight "by mathematical necessity", and, after comparing our results for mass- and area-based traits, we conclude that analysis of both is ecologically relevant.
+After comparing our results for mass- and area-based traits, we conclude that analysis of both is ecologically relevant.
 
 > 2. Why didn’t you include photosynthetic rate as a variable in your analysis?
 You certainly don’t have to, but I was expecting it and was disappointed to discover its absence when I got to the list of your analyzed traits in the methods section.
@@ -144,7 +142,6 @@ We have revised this sentence accordingly.
 
 > b. Line 67: Perhaps specify that plant strategies are life history strategies?
 
-We disagree.
 "Life history strategies" has a narrower definition that does not encompass the scope of this work, specifically because we are modeling not just species means but observations on multiple individuals of each species.
 
 > c. Line 69: I disagree with the word “efficient” as a description of high photosynthetic rate.
