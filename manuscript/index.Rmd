@@ -1,5 +1,5 @@
 ---
-title: "Does the leaf economic spectrum hold within plant functional types? A Bayesian hierarchical meta-analysis"
+title: "Does the leaf economic spectrum hold within plant functional types? A Bayesian multivariate trait meta-analysis."
 author:
   - >
     Alexey N. Shiklomanov$^1$
@@ -64,7 +64,7 @@ Key words: Functional trade-off; hierarchical modeling; trait variation; ecologi
 Section                   Word count          
 --------                  --------------      ------------
 Introduction              1060                Figures:
-Materials and Methods     1603                6 (all colored)
+Materials and Methods     1603                5 (all colored)
 Results                   1073
 Discussion                1789                Tables:
 Acknowledgements          88                  2
