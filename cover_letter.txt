@@ -1,0 +1,20 @@
+Dear Dr. Alistair M. Hetherington and members of the editorial board,
+
+We are pleased to re-submit our manuscript entitled "Does the leaf economic spectrum hold within plant functional types? A Bayesian multivariate trait meta-analysis" as a research article to New Phytologist. Since the previous submission, this work has undergone significant revisions to address reviewer and editor concerns.
+
+What hypotheses or questions does this work address?
+
+This manuscript addresses two key research questions: First, to what extent does the leaf economic spectrum hold within vs. across plant functional types? Second, to what extent can the leaf economic spectrum and other patterns of trait covariance be leveraged to constrain trait estimates, particularly under data limitation?
+
+How does this work advance our current understanding of plant science?
+
+Previous research has demonstrated the generality of leaf economic relationships at the global scale and their inconsistency at the site scale. Our work is novel in its assessment of the intermediate plant functional type scale, which is the scale most relevant to ecological modeling efforts.
+
+Why is this work important and timely?
+
+Evaluating the scale-dependence of the leaf economic spectrum has been a key focus of recent trait ecology research. Furthermore, this study also has direct implications for the trait-based parameterization of ecosystem models, and is particularly novel in its application of the leaf economic spectrum to improving model parameter estimates.
+
+All authors contributed sufficiently to the project to be included as authors. No conflict of interest, financial or other, exists.
+
+Sincerely,
+Alexey Shiklomanov

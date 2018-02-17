@@ -54,7 +54,7 @@ In particular, mass- and area-normalized traits were all positively correlated w
 The same was generally true of correlations of mass-based traits with leaf lifespan, but correlations of leaf lifespan with area-normalized traits were more variable.
 The correlation between $N_{area}$ and leaf lifespan was positive globally and for evergreen shrubs, tropical broadleaved deciduous trees, temperate needleleaved evergreen trees but negative for temperate and boreal broadleaved deciduous trees and not significant for any other PFTs.
 Similarly, the correlation between $P_{area}$ and leaf lifespan was positive globally but negative for evergreen shrubs and not significant for any other PFTs.
-The correlation between leaf lifespan and $R_{d,area}$ significant and negative globally, but was not significant within any PFTs.
+The correlation between leaf lifespan and $R_{d,area}$ was significant and negative globally, but was not significant within any PFTs.
 The only significant correlations of leaf lifespan with $V_{c,max,area}$ and $J_{max,area}$ were negative for temperate broadleaved deciduous trees.
 
 A large number of pairwise trait correlations were not significant.

@@ -20,7 +20,7 @@ This suggests that the productivity of tropical species is generally P-limited [
 Meanwhile, our result that the $N_{area}$ - $V_{c,max,area}$ correlation is generally weaker for needleleaved than broadleaved species was also found by @kattge_2009_vcmax, and supports the lower allocation of N to photosynthesis found by @ghimire_2017_Nallocation.
 In light of this fact and considering that boreal forests, largely populated by needleleaf species, have the largest influence on global climate of any biome [@Snyder_2004; @bonan_forests_2008], we suggest that parameterization of needleleaf tree productivity based on foliar nitrogen content in Earth System Models be treated with caution.
 
-Correlations of all traits with leaf lifespan was significantly weaker (often to the point of becoming insignificant) within most PFTs than globally.
+Correlations of all traits with leaf lifespan were weaker (often to the point of becoming insignificant) within most PFTs than globally.
 This suggests that leaf economic relationships related to leaf lifespan are dominated by the fundamental differences between deciduous and evergreen PFTs, while the factors driving variability in leaf lifespan within PFTs are more complex and idiosyncratic [@Reich_2014; @wu_leaf_2016].
 That being said, much of this within-PFT variability is known to be driven by variations in shade responses, and a key limitation of our study is that we have no information about the relative canopy positions at which traits were collected [@lusk_why_2008; @keenan_global_2016].
 
