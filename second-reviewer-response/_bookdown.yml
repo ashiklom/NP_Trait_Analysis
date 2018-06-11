@@ -1,0 +1,4 @@
+rmd_files: 
+  - index.Rmd
+  - editor.md
+book_filename: "reviewer_response.Rmd"

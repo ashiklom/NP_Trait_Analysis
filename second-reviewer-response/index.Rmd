@@ -1,0 +1,32 @@
+---
+title: "Reviewer response"
+author:
+  - >
+    Alexey N. Shiklomanov,
+    Elizabeth M. Cowdery,
+    Michael Bahn,
+    Chaeho Byun,
+    Joseph Craine,
+    Andrés Gonzalez-Melo,
+    Steven Jansen,
+    Nathan Kraft,
+    Koen Kramer,
+    Vanessa Minden
+    Ülo Niinemets,
+    Yusuke Onoda,
+    Enio Egon Sosinski,
+    Nadejda A. Soudzilovskaia,
+    Michael C. Dietze
+bibliography:
+  - refs.bib
+csl: new-phytologist.csl
+output:
+  bookdown::word_document2:
+    toc: no
+    reference_docx: ~/Projects/misc/pandoc-docx-template/custom.docx
+  bookdown::pdf_document2:
+    latex_engine: xelatex
+    toc: no
+    includes:
+      in_header: preamble.tex
+---
