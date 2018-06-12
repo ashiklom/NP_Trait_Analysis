@@ -28,6 +28,7 @@ output:
     reference_docx: ~/Projects/misc/pandoc-docx-template/custom.docx
   bookdown::pdf_document2:
     latex_engine: xelatex
+    keep_tex: yes
     toc: no
     includes:
       in_header: preamble.tex

@@ -66,9 +66,11 @@ kable(
 
 ```{r pairwise_correlation_table, echo = FALSE, results = "asis"}
 kable(
-  readd(corr_processed), "latex",
+  readd(corr_processed) %>%
+    dplyr::select(pft, yvar, xvar, corr_value, present, missing),
+  "latex",
   booktabs = TRUE, longtable = TRUE, escape = FALSE,
-  col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95\\% CI)"),
+  col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95\\% CI)", "present", "missing"),
   caption = "Pairwise trait correlation values for each plant functional type. Values with asterisks indicate correlations significantly different from zero ($p < 0.05$)."
 )
 ```

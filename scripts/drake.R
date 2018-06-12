@@ -144,4 +144,9 @@ if (FALSE) {
   readd(sample_size_wide)
   readd(pairwise_missing) %>% count(pft)
   readd(corr_processed)
+
+  ggplot(readd(corr_processed)) +
+    aes(x = present, y = abs(Mean), color = pft) +
+    geom_point() +
+    scale_x_log10(breaks = c(10, 100, 1000, 10000))
 }
