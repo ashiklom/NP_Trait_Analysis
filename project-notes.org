@@ -56,13 +56,15 @@ I found the discussion on the lack of relationship of SLA and temperature (lines
 Finally the sentence starting on line 135 appears to missing a word.
 
 * NP traits tasks
-** NEXT Supplemental table of sample sizes for each trait in each functional group
-** NEXT Supplemental table of all pairwise correlations for data in figures
+** DONE Supplemental table of sample sizes for each trait in each functional group
+   SCHEDULED: <2018-06-12 Tue>
+** DONE Supplemental table of all pairwise correlations for data in figures
+   SCHEDULED: <2018-06-12 Tue>
    - Covariance
    - Correlation
    - Sample size of empirical data
    - Sample size after imputation
-** NEXT Multiple imputation vignette
+** DONE Multiple imputation vignette
 ** TODO Clarify multiple imputation in methods text
 ** TODO Clarify species selection in text
    [[file:second-reviewer-response/editor.md::>%20The%20authors%20fail%20to%20state%20how%20they%20selected%20which%20species%20to%20select%20from%20the%20TRY%20database%20for%20their%20analysis.%20I%20suspect%20is%20was%20all%20species%20for%20which%20data%20on%20at%20least%20one%20of%20the%20traits%20was%20provided,%20but%20further%20details%20on%20the%20selection%20process%20should%20be%20provided.][Response letter link]]
