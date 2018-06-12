@@ -56,3 +56,5 @@ mvtraits/tests/testthat/*.rds
 
 # Ansible files
 playbook.retry
+/.drake
+/.scratch.R

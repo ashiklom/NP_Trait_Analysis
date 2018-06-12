@@ -1,5 +1,5 @@
 ---
-title: Estimating trait means and covariances through multiple imputation
+title: Supplementary information
 author:
   - >
     Alexey N. Shiklomanov,
@@ -18,155 +18,57 @@ author:
     Nadejda A. Soudzilovskaia,
     Michael C. Dietze
 output: pdf_document
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage[table]{xcolor}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+  - \usepackage{threeparttablex}
+  - \usepackage[normalem]{ulem}
+  - \usepackage{makecell}
 ---
 
-# Introduction
-
-Under _single_ imputation, the imputation step occurs once outside of the MCMC loop.
-In _multiple_ imputation, as implemented in this paper, the imputation step is part of the MCMC loop,
-such that imputed data values are conditioned on the current state of the parameters and vice-versa.
-In the figure below, $Y$ is the original data (with missing values), $Y^*$ is the original data with missing values imputed, $\mu$ and $\Sigma$ are the estimates of the
-
-```{tikz diagram, echo = FALSE}
-\usetikzlibrary{positioning, calc, fit}
-\begin{tikzpicture}[
-	every node/.style = {shape = rectangle, draw = black},
-	scale = 1.1
-]
-\node (Y) at (-1, 3) {$Y$};
-\node (data params) at (-1, 2) {$\mu_p$, $\Sigma_p$};
-\node (Ystar) at (-1, 1) {$Y^*$};
-\node (guess params) [align = center] at (1, 1) {Initial guess\\$\mu^*_0$ $\Sigma^*_0$};
-\node (mu star) at (0, 0) {$\mu^*_t \mid Y^*, \Sigma^*_{t-1}$};
-\node (sigma star) at (0, -1) {$\Sigma^*_t \mid Y^*, \mu^*_t$};
-\path [->] (Y) edge (data params);
-\path [->] (data params) edge (Ystar);
-\path [->] (Ystar) edge (mu star);
-\path [->] (guess params) edge (mu star);
-\path [->] (mu star) edge (sigma star);
-\path [->, out = 0, in = 0] (sigma star.east) edge
-	node (t plus one) [right, draw = none, font = {\footnotesize}] {$t = t + 1$}
-	(mu star.east);
-\node (mcmc loop) [fit = (mu star)(sigma star)(t plus one), shape = rectangle, draw = black!50] {};
-\node (mcmc loop text) [align = center, anchor = west, draw = none] at (mcmc loop.east) {MCMC\\loop};
-\node (title) [anchor = north, draw = none] at (mcmc loop.south) {Single imputation};
-\end{tikzpicture}
-\hspace{3cm}
-\begin{tikzpicture}[
-	every node/.style = {shape = rectangle, draw = black},
-	scale = 1.1
-]
-\node (Y) at (-1, 1) {$Y$};
-\node (guess params) [align = center] at (1, 1) {Initial guess\\$\mu^*_0$ $\Sigma^*_0$};
-\node (Ystar) at (0, 0) {$Y^*_t \mid Y, \mu^*_{t-1}, \Sigma^*_{t-1}$};
-\node (mu star) at (0, -1) {$\mu^*_t \mid Y^*_t, \Sigma^*_{t-1}$};
-\node (sigma star) at (0, -2) {$\Sigma^*_t \mid Y^*_t, \mu^*_t$};
-\path [->] (Y) edge (Ystar);
-\path [->] (guess params) edge (Ystar);
-\path [->] (Ystar) edge (mu star);
-\path [->] (mu star) edge (sigma star);
-\path [->, out = 0, in = 0] (sigma star.east) edge
-	node (t plus one) [right, draw = none, font = {\footnotesize}] {$t = t + 1$}
-	(Ystar.east);
-\node (mcmc loop) [fit = (Ystar)(mu star)(sigma star)(t plus one), shape = rectangle, draw = black!50] {};
-\node (mcmc loop text) [align = center, anchor = west, draw = none] at (mcmc loop.east) {MCMC\\loop};
-\node (title) [anchor = north, draw = none] at (mcmc loop.south) {Multiple imputation};
-\end{tikzpicture}
+```{r libraries, include = FALSE}
+library(knitr)
+library(kableExtra)
+library(drake)
 ```
 
-# Demonstration
-
-Consider two positively correlated traits, A and B.
-
-```{r create_traits}
-library(mvtraits)
-
-true_mu <- c(0, 0)
-true_cov <- matrix(c(1, 0.8, 0.8, 1), nrow = 2)
-Y_all <- random_mvnorm(1000, true_mu, true_cov)
-colnames(Y_all) <- c("A", "B")
-plot(Y_all, pch = 19)
+```{r sample_size_table, echo = FALSE, results = "asis"}
+kable(
+  readd(sample_size_wide),
+  col.names = c(
+    "PFT", "Leaf lifespan", "SLA",
+    "$N_\\textrm{mass}$", "$N_\\textrm{area}$",
+    "$P_\\textrm{mass}$", "$P_\\textrm{area}$",
+    "$R_\\textrm{d, mass}$", "$R_\\textrm{d, area}$",
+    "$V_\\textrm{c, max, mass}$", "$V_\\textrm{c, max, area}$",
+    "$J_\\textrm{max, mass}$", "$J_\\textrm{max, area}$"
+  ),
+  format = "latex",
+  booktabs = TRUE,
+  escape = FALSE,
+  caption = "The number of non-missing (outside parentheses) and imputed (inside parentheses) observations of each trait for each plant functional type used in this analysis."
+) %>%
+  kable_styling(latex_options = c("scale_down", "hold_position")) %>%
+  group_rows("Broadleaf", 1, 5) %>%
+  group_rows("Needleleaf", 6, 8) %>%
+  group_rows("Shrub", 9, 11) %>%
+  group_rows("Grass", 12, 14)
 ```
 
-Randomly remove some values from the data.
-
-```{r remove_na}
-Y <- Y_all
-Y[sample.int(700)] <- NA
-plot(Y_all, pch = 19, col = "grey")
-points(Y, pch = 19, col = "black")
-```
-
-Set an uninformative multivariate normal prior on $\mu$...
-```{r prior_mu}
-mu_0 <- c(0, 0)
-Sigma_0 <- diag(10, 2)
-```
-
-...and an uninformative Wishart prior on $\Sigma$.
-```{r prior_sigma}
-v0 <- 2
-S0 <- diag(10, 2)
-```
-
-Take an initial guess at the mean and covariance by drawing from their priors.
-
-```{r initial}
-mu_star <- random_mvnorm(1, mu_0, Sigma_0)[1,]
-Sigma_star <- rWishart(1, v0, S0)[,,1]
-```
-
-Impute values based on this initial guess.
-
-```{r impute}
-Ystar <- mvnorm_fill_missing(Y, mu_star, Sigma_star)
-plot(Y_all, pch = 19, col = "grey")
-points(Ystar, pch = 19, col = "red")
-points(Y, pch = 19, col = "black")
-```
-
-Clearly, these initial values are a bad fit to the data.
-Nevertheless, draw $\mu$ and $\Sigma$ conditioned on this set of imputed values.
-
-```{r draw}
-mu_star <- draw_mu(Ystar, Sigma_star, mu_0, Sigma_0)
-Sigma_star <- draw_Sigma(Ystar, mu_star, v0, S0)
-```
-
-Draw a new set of imputed values, conditioned on the current $\mu^*$ and $\Sigma^*$.
-
-```{r impute_2}
-Ystar <- mvnorm_fill_missing(Y, mu_star, Sigma_star)
-plot(Y_all, pch = 19, col = "grey")
-points(Ystar, pch = 19, col = "red")
-points(Y, pch = 19, col = "black")
-```
-
-Doing this repeatedly (in a loop) gradually improves the estimates of the covariance.
-
-```{r loop}
-par(mfrow = c(5, 4), mar = c(3, 3, 2, 0.1), cex = 0.4)
-for (i in 1:20) {
-  mu_star <- draw_mu(Ystar, Sigma_star, mu_0, Sigma_0)[1,]
-  Sigma_star <- draw_Sigma(Ystar, mu_star, v0, S0)
-  Ystar <- mvnorm_fill_missing(Y, mu_star, Sigma_star)
-  title <- sprintf("iteration: %d, covariance: %.2f", i, Sigma_star[2, 1])
-  plot(Y_all, pch = 19, col = "grey", xlab = "", ylab = "", main = title)
-  points(Ystar, pch = 19, col = "red")
-  points(Y, pch = 19, col = "black")
-}
-```
-
-After a lot of MCMC samples, we can generate a distribution of covariance values, which provides an uncertainty estimate on the covariance.
-
-```{r cov_estimate}
-cov_ab <- numeric(1000)
-for (i in seq_along(cov_ab)) {
-  mu_star <- draw_mu(Ystar, Sigma_star, mu_0, Sigma_0)[1,]
-  Sigma_star <- draw_Sigma(Ystar, mu_star, v0, S0)
-  Ystar <- mvnorm_fill_missing(Y, mu_star, Sigma_star)
-  cov_ab[i] <- Sigma_star[2, 1]
-}
-hist(cov_ab, xlab = "Covariance estimate", ylab = "Count", main = "Covariance estimate")
-abline(v = true_cov[2, 1], col = "red", lwd = 2)
+```{r pairwise_correlation_table, echo = FALSE, results = "asis"}
+kable(
+  readd(corr_processed), "latex",
+  booktabs = TRUE, longtable = TRUE, escape = FALSE,
+  col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95\\% CI)"),
+  caption = "Pairwise trait correlation values for each plant functional type. Values with asterisks indicate correlations significantly different from zero ($p < 0.05$)."
+)
 ```
