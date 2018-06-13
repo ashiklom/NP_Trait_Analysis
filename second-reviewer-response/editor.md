@@ -48,11 +48,10 @@ However, we agree with the broader point that investigating the relationship bet
 
 > I know these analyses are intensive and the recommended tables may be rather large, but it should all be relatively straightforward in a fully scripted analysis. And please revise the text as appropriate to describe the outcomes of these analyses, including text appendices in supplemental material if needed.
 
-(TODO)
-
 > 3) Please provide the estimated values of the parameters for each functional group in a table, so that they are easily accessible for the DGVM modeling groups. It would also be desirable to provide scripts for the analysis so other groups could repeat your work, using different PFT designations or updated datasets.
 
 (TODO)
+
 > 4) L283 Does TRY archive the data set requested for this project? How would a user request from TRY and get the same data that you used?
 
 (TODO)

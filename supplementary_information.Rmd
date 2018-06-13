@@ -80,7 +80,7 @@ kable(
 
 correlation_scatter_cap <- paste(
   "Pairwise mean squared trait correlation values as a function of sample size.",
-  "Note that the x-axis uses a $\\log_10$ scale."
+  "Note that the x-axis uses a $\\log_{10}$ scale."
 )
 correlation_fig_cap <- paste(
   "Fraction of statistically significant ($p < 0.05$) pairwise trait correlation estimates",
