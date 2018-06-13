@@ -15,7 +15,7 @@ For $V_{c,max}$, we only used values already reported in TRY as being at 25°C.
 For $R_{d}$, we normalized the values to 25°C based on reported leaf temperature values following the same methods as @atkin_global_2015.
 For $J_{max}$, we normalized the values to 25°C based on reported leaf temperature values using the temperature response function described in @kattge_2007_temperature (Equation 1 therein).
 To avoid potential artifacts caused by different trait normalization, we performed analyses separately for both mass- and area-normalized traits [@osnas_global_2013; @lloyd_les].
-We restricted our analysis to TRY data that have been quality-controlled and for which adequate species information was provided for functional type classification [see @kattge_try_2011].
+We restricted our analysis to TRY data that have been quality-controlled, where at least one of the above traits was observed, and for which adequate species information was provided for functional type classification [see @kattge_try_2011].
 
 Although the light- and CO2-saturated photosynthetic rate ($A_{max}$) was an important trait in previous studies, we did not include it in our study for two reasons.
 First of all, data on raw photosynthetic rates are highly sensitive to measurement methodology and environmental conditions, which were generally inconsistent or unavailable in TRY.
@@ -105,7 +105,7 @@ $$\mathbf{S^*} = (\mathbf{S}_0 + \mathbf{SS})^{-1}$$
 where $n$ is the number of rows and $m$ is the number of columns in data matrix $x$. For further details on this derivation, see @gelman_bayesian.
 
 The fundamentally multivariate nature of the sampling procedure described above makes it incapable of accommodating partially missing observations.
-Therefore, our algorithm also included imputation of partially missing data, which proceeded as follows:
+Therefore, our algorithm also included multiple imputation of partially missing data, which proceeded as follows:
 For a block of data $\mathbf{x'}$ containing missing observations in columns $\mathbf{m}$ and present observations in columns $\mathbf{p}$,
 the missing values $\mathbf{x'}[m]$ are drawn randomly from a conditional multivariate normal distribution at each iteration of the sampling algorithm:
 
@@ -117,6 +117,10 @@ $$\mathbf{\mu'} =
 $$\mathbf{\Sigma'} = \mathbf{\Sigma}[m,m] - 
   \mathbf{\Sigma}[m,p]
   (\mathbf{\Sigma}[p,p]^{-1} \mathbf{\Sigma}[p,m])$$
+  
+We emphasize that the imputation of missing data is performed iteratively as parameters are being estimated, such that each set of imputed values is conditioned on the current sampled state of the parameters.
+This approach is therefore distinct from single imputation, where data are imputed first in a separate step prior to parameter estimation.
+A demonstration of this multiple imputation approach and how it is used to estimate trait covariance is provided in a literate programming vignette in the supplementary information to this manuscript.
 
 For each model fit, we ran five parallel MCMC chains, continuing the sampling until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.1 [@gelman_1992_inference].
 We implemented this sampling algorithm in an open source, publicly available R [version 3.4.3; @rstats] package (<http://github.com/ashiklom/mvtraits>).

@@ -6,15 +6,26 @@ library(kableExtra)
 import::from(here, inhere = here)
 
 get_sample_size_long <- function(try_dat) {
-  try_dat %>%
-    dplyr::select(pft, dplyr::one_of(both_params)) %>%
-    tidyr::gather(trait, value, -pft, na.rm = FALSE) %>%
-    dplyr::group_by(pft, trait) %>%
+  count_missing <- . %>%
     dplyr::summarize(
       present = sum(!is.na(value)),
       missing = sum(is.na(value))
-    ) %>%
+    )
+  try_long <- try_dat %>%
+    dplyr::select(pft, dplyr::one_of(both_params)) %>%
+    tidyr::gather(trait, value, -pft, na.rm = FALSE)
+  by_pft <- try_long %>%
+    dplyr::group_by(pft, trait) %>%
+    count_missing %>%
     dplyr::ungroup()
+  global <- try_long %>%
+    dplyr::group_by(trait) %>%
+    count_missing %>%
+    dplyr::mutate(
+      pft = factor("GLOB", pft2abbr) %>%
+        forcats::fct_recode("Across-PFT" = "GLOB")
+    )
+  dplyr::bind_rows(global, by_pft)
 }
 
 base_plan <- drake_plan(
@@ -140,13 +151,5 @@ dconfig <- drake_config(plan)
 make(plan)
 
 if (FALSE) {
-  loadd(plan)
-  readd(sample_size_wide)
-  readd(pairwise_missing) %>% count(pft)
-  readd(corr_processed)
-
-  ggplot(readd(corr_processed)) +
-    aes(x = present, y = abs(Mean), color = pft) +
-    geom_point() +
-    scale_x_log10(breaks = c(10, 100, 1000, 10000))
+  readd(sample_size_long)
 }

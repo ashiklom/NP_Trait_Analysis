@@ -39,11 +39,13 @@ header-includes:
 library(knitr)
 library(kableExtra)
 library(drake)
+library(ggplot2)
 ```
 
 ```{r sample_size_table, echo = FALSE, results = "asis"}
+ssw <- readd(sample_size_wide)
 kable(
-  readd(sample_size_wide),
+  ssw,
   col.names = c(
     "PFT", "Leaf lifespan", "SLA",
     "$N_\\textrm{mass}$", "$N_\\textrm{area}$",
@@ -58,19 +60,73 @@ kable(
   caption = "The number of non-missing (outside parentheses) and imputed (inside parentheses) observations of each trait for each plant functional type used in this analysis."
 ) %>%
   kable_styling(latex_options = c("scale_down", "hold_position")) %>%
-  group_rows("Broadleaf", 1, 5) %>%
-  group_rows("Needleleaf", 6, 8) %>%
-  group_rows("Shrub", 9, 11) %>%
-  group_rows("Grass", 12, 14)
+  group_rows("Broadleaf", 2, 6) %>%
+  group_rows("Needleleaf", 7, 9) %>%
+  group_rows("Shrub", 10, 12) %>%
+  group_rows("Grass", 13, 15) %>%
+  landscape()
 ```
 
 ```{r pairwise_correlation_table, echo = FALSE, results = "asis"}
+corr_results <- readd(corr_processed)
 kable(
-  readd(corr_processed) %>%
+  corr_results %>%
     dplyr::select(pft, yvar, xvar, corr_value, present, missing),
   "latex",
   booktabs = TRUE, longtable = TRUE, escape = FALSE,
   col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95\\% CI)", "present", "missing"),
   caption = "Pairwise trait correlation values for each plant functional type. Values with asterisks indicate correlations significantly different from zero ($p < 0.05$)."
 )
+
+correlation_scatter_cap <- paste(
+  "Pairwise mean squared trait correlation values as a function of sample size.",
+  "Note that the x-axis uses a $\\log_10$ scale."
+)
+correlation_fig_cap <- paste(
+  "Fraction of statistically significant ($p < 0.05$) pairwise trait correlation estimates",
+  "as a function of sample size for each plant functional type."
+)
+```
+
+```{r correlation_sample_size_pairs, echo = FALSE, fig.cap = correlation_scatter_cap}
+corr_results %>%
+  mutate(
+    significant = factor(significant, c("TRUE", "FALSE")) %>%
+      forcats::lvls_revalue(c("yes", "no"))
+  ) %>%
+  ggplot() +
+  aes(x = present + 0.1, y = Mean, color = significant) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  facet_wrap(~ pft) +
+  scale_x_log10() +
+  labs(x = "Sample size", y = "Correlation") +
+  theme_bw() +
+  theme(
+	legend.position = "bottom"
+  )
+```
+
+```{r correlation_sample_size_analysis, echo = FALSE, fig.cap = correlation_fig_cap}
+corr_binned <- corr_results %>%
+  dplyr::mutate(
+    ss_bin = cut(
+      present,
+      c(0, 1, 10, 25, 50, 100, 500, 1000, Inf),
+      c("0", "< 10", "< 25", "< 50", "< 100", "< 500", "< 1000", "> 1000"),
+      include.lowest = TRUE,
+      right = FALSE
+    )
+  ) %>%
+  group_by(pft, ss_bin) %>%
+  summarize(frac_significant = mean(significant))
+
+ggplot(corr_binned) +
+  aes(x = ss_bin, y = frac_significant) +
+  geom_segment(aes(xend = ss_bin, yend = 0)) +
+  geom_point() +
+  facet_wrap(~ pft) +
+  labs(x = "Sample size", y = "Fraction of significant correlations") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 0.9))
 ```

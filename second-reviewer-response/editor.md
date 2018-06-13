@@ -14,25 +14,27 @@ where data are imputed (by whatever method) in one step, and then subsequent ana
 However, our approach uses iterative _multiple_ imputation, where the algorithm alternates between drawing parameters and imputing values based on those parameters until it converges on a stable solution.
 
 To address this confusion, we have
-(TODO) revised the relevant text in the methods and
-(TODO) added a supplementary "vignette" describing in detail our multiple imputation approach and how it is used to estimate trait means and covariances with uncertainty.
+revised the relevant text in the methods and
+added a supplementary "vignette" describing in detail our multiple imputation approach and how it is used to estimate trait means and covariances with uncertainty.
 
 > I would like to see the following addressed:
 > a) a table in supplemental material that provides the sample size for each trait, in each functional group, and the number of imputed data points for each trait in each functional group, as well as across all groups (the global data).
 
-(TODO) We have included the corresponding table as Supplementary Table X. 
+(TODO) We have included the corresponding table as Supplementary Table XXX. 
 
 > b) a table listing all the pairwise correlations (again in supp material) that provides the data presented in the figures: covariance, correlation, sample size of available paired empirical data, sample size after imputation that was used in your analysis.
 
-(TODO) We have included the corresponding table as Supplementary Table X.
+(TODO) We have included the corresponding table as Supplementary Table XXX, as well as a figure summarizing this table (Supplementary Figure XXX).
 
 > c) as requested by reviewer 2, please report the correlations and/or covariance for the various analyses based only on available pairwise data and based on imputed data. A scatterplot would be interesting, across all relationships (correlations better than covariance so that the units are comparable). We need to know how much data imputation influences your results.
 
-(TODO)
+Given that multiple imputation is a fundamental aspect of our method, and the large extent of missingness (especially pairwise) in the data, we believe that an analysis on un-imputed data would not be worthwhile.
+However, we agree with the broader point that investigating the relationship between sample size and correlation significance is worth a detailed investigation.
+(TODO) We have therefore expanded our results and discussion text with specific references to Supplementary Table XXX and Figure XXX.
 
 > d) finally, unless this has been done in previous papers (in which case you could provide citation and discussion), could you do a jackknife where you leave each data point out, rerun the imputation routine and estimate that value, and then report a scatterplot of observed vs. imputed data for each point, and the RMSE? If this was done on normalized data results could be compared across all variables.
 
-(TODO)
+(TODO) Similarly to the previous comment, we believe this analysis does not make sense in the context of our methods.
 
 > 2) You have discussed verbally the influence of sample size on the correlations and significance values. In my prior decision letter I was raising a different issue - the well known behavior that when you sample a narrower range of data (not just a smaller sample), bivariate relationships will weaken.
 
