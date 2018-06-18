@@ -5,6 +5,8 @@ library(kableExtra)
 
 import::from(here, inhere = here)
 
+pkgconfig::set_config("drake::strings_in_dots" = "literals")
+
 get_sample_size_long <- function(try_dat) {
   count_missing <- . %>%
     dplyr::summarize(
@@ -43,8 +45,7 @@ base_plan <- drake_plan(
   rmarkdown::render(
     knitr_in("supplementary_information.Rmd"),
     output_file = file_out("supplementary_information.pdf")
-  ),
-  strings_in_dots = "literals"
+  )
 )
 
 corr_data <- drake_plan(
@@ -55,8 +56,7 @@ corr_data <- drake_plan(
   multi_summary_mass = readRDS(file_in("output/multi.mass.clm45.NA.2018-02-12-1127.rds"))[["summary_table"]] %>%
     mutate(mass_area = "mass", modeltype = "multi"),
   multi_summary_area = readRDS(file_in("output/multi.area.clm45.NA.2018-02-12-1146.rds"))[["summary_table"]] %>%
-    mutate(mass_area = "area", modeltype = "multi"),
-  strings_in_dots = "literals"
+    mutate(mass_area = "area", modeltype = "multi")
 )
 
 corr_proc <- function(dat) {
@@ -135,21 +135,119 @@ corr_processed_plan <- drake_plan(
       pft = forcats::fct_recode(pft, "Across-PFT" = "GLOB")
     ) %>%
     ## dplyr::select(pft, yvar, xvar, corr_value) %>%
-    dplyr::arrange(pft),
-  strings_in_dots = "literals"
+    dplyr::arrange(pft)
 )
+
+corr_plot <- function(data, ma) {
+  data %>%
+    tidyr::gather(variable, z_range_95, x_zrange, y_zrange) %>%
+    dplyr::mutate(
+      variable = stringr::str_remove(variable, "_zrange"),
+      variable = dplyr::case_when(
+        ma == "mass" & variable == "x" ~ "y",
+        ma == "mass" & variable == "y" ~ "x",
+        TRUE ~ variable
+      )
+    ) %>%
+    ggplot() +
+    aes(x = z_range_95, y = Mean2, color = pft) +
+    geom_smooth(color = NA, method = "loess") +
+    geom_point() +
+    facet_grid(variable ~ .) +
+    scale_color_manual(values = c("black", pft_colors)) +
+    theme_bw() +
+    coord_cartesian(ylim = c(0, 0.8), xlim = c(0, 6.5)) +
+    labs(color = "PFT")
+}
+
+text_plot <- function(text) {
+  ggplot() +
+    geom_text(aes(label = text, x = 0, y = 0)) +
+    theme_minimal() +
+    theme(
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank()
+    )
+}
+
+range_plan <- drake_plan(
+  try_long = try_dat %>% tidyr::gather(trait, value, -pft, na.rm = TRUE),
+  try_ranges = try_long %>%
+    dplyr::group_by(trait) %>%
+    dplyr::mutate(z_value = value / mean(value)) %>%
+    ## dplyr::mutate(z_value = (value - mean(value)) / sd(value)) %>%
+    dplyr::group_by(pft, trait) %>%
+    dplyr::summarize(
+      z_range_full = max(z_value) - min(z_value),
+      z_range_95 = quantile(z_value, 0.975) - quantile(z_value, 0.025)
+    ),
+  corr_range_data = all_corr_data %>%
+    dplyr::left_join(
+      try_ranges %>% dplyr::select(yvar = trait, pft, y_zrange = z_range_95)
+    ) %>%
+    dplyr::left_join(
+      try_ranges %>% dplyr::select(xvar = trait, pft, x_zrange = z_range_95)
+    ) %>%
+    dplyr::mutate(
+      Mean2 = Mean ^ 2,
+      xvar = factor(xvar, names(traits_latex)),
+      yvar = factor(yvar, names(traits_latex))
+    ),
+  corr_plots = corr_range_data %>%
+    dplyr::group_by(mass_area, xvar, yvar) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(
+      ma = mass_area,
+      plt = purrr::map2(data, ma, corr_plot),
+      xvar = forcats::fct_relabel(xvar, ~stringr::str_remove(., "_?(mass|area)")),
+      yvar = forcats::fct_relabel(yvar, ~stringr::str_remove(., "_?(mass|area)"))
+    ) %>%
+    dplyr::arrange(yvar, mass_area, xvar),
+  corr_plot_list = corr_plots$plt %>%
+    append(list(text_plot("Leaf lifespan")), 0) %>%
+    append(list(text_plot("SLA")), 8) %>%
+    append(list(text_plot("N")), 16) %>%
+    append(list(text_plot("P")), 24) %>%
+    append(list(text_plot("Rd")), 32) %>%
+    append(list(text_plot("Vcmax")), 40) %>%
+    append(list(text_plot("Jmax")), 48),
+  corr_range_plot_gg = GGally::ggmatrix(
+    corr_plot_list,
+    nrow = 7,
+    ncol = 7,
+    xlab = "95% CI width of Z-normalized data",
+    ylab = "Squared pairwise correlation",
+    legend = 2,
+    progress = FALSE
+  )
+)
+
+results_plan <- drake_plan(
+  results_all = readRDS(file_in("results/mvtraits_results.rds")),
+  
+  )
 
 plan <- rbind(
   base_plan,
   corr_data,
   corr_proc_plan,
   corr_gathered,
-  corr_processed_plan
+  corr_processed_plan,
+  range_plan,
+  results_plan
 )
 
 dconfig <- drake_config(plan)
 make(plan)
 
 if (FALSE) {
-  readd(sample_size_long)
+  try_long <- readd(try_long)
+  try_ranges <- readd(try_ranges)
+  readd(corr_range_data) %>% glimpse()
+  readd(corr_plots)$plt[[1]]
+
+  clean(corr_plots)
+
+  readd(corr_range_plot_gg)
 }

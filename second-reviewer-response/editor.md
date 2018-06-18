@@ -29,7 +29,7 @@ added a supplementary "vignette" describing in detail our multiple imputation ap
 > c) as requested by reviewer 2, please report the correlations and/or covariance for the various analyses based only on available pairwise data and based on imputed data. A scatterplot would be interesting, across all relationships (correlations better than covariance so that the units are comparable). We need to know how much data imputation influences your results.
 
 Given that multiple imputation is a fundamental aspect of our method, and the large extent of missingness (especially pairwise) in the data, we believe that an analysis on un-imputed data would not be worthwhile.
-However, we agree with the broader point that investigating the relationship between sample size and correlation significance is worth a detailed investigation.
+However, we agree with the broader point that the relationship between sample size and correlation significance is worth more detailed investigation.
 (TODO) We have therefore expanded our results and discussion text with specific references to Supplementary Table XXX and Figure XXX.
 
 > d) finally, unless this has been done in previous papers (in which case you could provide citation and discussion), could you do a jackknife where you leave each data point out, rerun the imputation routine and estimate that value, and then report a scatterplot of observed vs. imputed data for each point, and the RMSE? If this was done on normalized data results could be compared across all variables.
@@ -42,15 +42,34 @@ However, we agree with the broader point that investigating the relationship bet
 
 (TODO) We have included the corresponding figure as Supplementary Figure X.
 
-> ...and b) data range vs. correlation values. B is a bit trickier since you have two ranges, one for each data point. If the data were normalized you could report the average range for the two variables, vs. the correlation. These plots will look like the current Fig. 2 but apply to the question of the correlations, not just the data estimates. You report that correlations are weaker within functional groups than in the global data set. But you have not taken steps, as I suggested, to determine if they are weaker purely due to sampling and the narrower range of data, or if there is something biological beyond those sampling issues. Unless you can show that the reduced correlations go above and beyond the sampling effects, it is not clear that the weaker correlations within PFTs are biologically meaningful.
+> ...and b) data range vs. correlation values. B is a bit trickier since you have two ranges, one for each data point. If the data were normalized you could report the average range for the two variables, vs. the correlation. These plots will look like the current Fig. 2 but apply to the question of the correlations, not just the data estimates.
 
-(TODO)
+(TODO) We have included such a figure as Supplementary Figure X.
+For completeness, rather than showing the average range of the two variables, we use facets to show the relationship between correlation and data range for each value.
+
+> You report that correlations are weaker within functional groups than in the global data set. But you have not taken steps, as I suggested, to determine if they are weaker purely due to sampling and the narrower range of data, or if there is something biological beyond those sampling issues. Unless you can show that the reduced correlations go above and beyond the sampling effects, it is not clear that the weaker correlations within PFTs are biologically meaningful.
 
 > I know these analyses are intensive and the recommended tables may be rather large, but it should all be relatively straightforward in a fully scripted analysis. And please revise the text as appropriate to describe the outcomes of these analyses, including text appendices in supplemental material if needed.
 
-> 3) Please provide the estimated values of the parameters for each functional group in a table, so that they are easily accessible for the DGVM modeling groups. It would also be desirable to provide scripts for the analysis so other groups could repeat your work, using different PFT designations or updated datasets.
+(TODO) All of these supplemental analyses show that
+although the strength of our correlation estimates is not entirely independent of sample size and data range,
+there is substantial, PFT- and trait-specific variability in patterns of trait correlation that cannot be explained by either of these two variables.
+There are many instances where trait correlations are weak despite large sample sizes, and conversely instances where trait correlations are strong and significant despite low sample sizes
+(in some cases, even where no pairwise samples are available, which demonstrates the utility of fully leveraging the multidimensional trait space).
+We have revised the text in the results and discussion accordingly (lines XXX) to highlight these analyses.
 
-(TODO)
+> 3) Please provide the estimated values of the parameters for each functional group in a table, so that they are easily accessible for the DGVM modeling groups.
+
+> It would also be desirable to provide scripts for the analysis so other groups could repeat your work, using different PFT designations or updated datasets.
+
+Our implementation of the sampling algorithm used in this manuscript is available on GitHub in a standalone R package (github.com/ashiklom/mvtraits).
+This package is designed to handle any data (as long as it is in matrix form), and includes a literate programming vignette demonstrating its application to R's built in "Iris" dataset.
+This is stated in the "Methods" section of the manuscript on line XXX. (TODO)
+
+In addition, all of the code required to reproduce this specific analysis is available in a separate GitHub repository (github.com/ashiklom/np-traits-analysis).
+This is stated in the manuscript methods section on line XXX. (TODO)
+These scripts are fully functional, but not as organized or well-documented as the package.
+If and when this manuscript is accepted, I will clean up these scripts to ensure that all steps are clear to anyone wishing to exactly reproduce the analysis.
 
 > 4) L283 Does TRY archive the data set requested for this project? How would a user request from TRY and get the same data that you used?
 
@@ -58,7 +77,13 @@ However, we agree with the broader point that investigating the relationship bet
 
 > 5) Fig. 4. How did you assign the length of the lines for these correlations. It seems that the global lines should span the full data, but they are contained within the broader cluster of lines for the various PFTs.
 
-(TODO)
+(TODO) The lengths of these lines are determined by the eigenvalues of the estimated covariance matrix subset to the traits of interest (line XXX).
+The reason the global lines do not cover the full extent of the data is that the black and colored lines represent two different models:
+The black lines are a multivariate model fit to all of the data at once,
+while the colored lines are the results of the hierarchical fit.
+The much larger sample size when the data are pooled in the multivariate fit makes the covariance estimate less sensitive to extreme values,
+so when a particular PFT has relatively few observations clustered far from the global mean,
+the global line may not extend out to that PFT's mean value.
 
 # Reviewer 1
 

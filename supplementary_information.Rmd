@@ -40,6 +40,34 @@ library(knitr)
 library(kableExtra)
 library(drake)
 library(ggplot2)
+
+correlation_scatter_cap <- paste(
+  "Pairwise mean squared trait correlation values as a function of sample size.",
+  "Note that the x-axis uses a $\\log_{10}$ scale."
+)
+
+correlation_fig_cap <- paste(
+  "Fraction of statistically significant ($p < 0.05$) pairwise trait correlation estimates",
+  "as a function of sample size for each plant functional type."
+)
+
+correlation_range_cap <- paste(
+  "Relationship between pairwise correlation strength and data range for each PFT.",
+  "In each pair of sub-panels, the left panel is relationship between pairwise correlation",
+  "and the range of the variable on the x axis",
+  "while the right panel is the relationship between pairwise correlation",
+  "and the y variable",
+  "(For instance, in the two-panel figure in row 1 column 2,",
+  "the left panel is the SLA-leaf lifespan correlation as a function of the range of SLA",
+  "and the right panel is the same correlation as a function of the range of leaf lifespan).",
+  "Data range is expressed as the difference between the 2.5% and 97.5% quantiles of each normalized trait (i.e. $\\frac{X}{E[X]}$).",
+  "Grey shading is the 95% confidence interval around a local regression (LOESS).",
+  "Upper triangle is area-normalized values, and lower triangle is mass-normalized values."
+)
+```
+
+```{r mean_value_table, echo = FALSE, results = "asis"}
+vals <- readd()
 ```
 
 ```{r sample_size_table, echo = FALSE, results = "asis"}
@@ -77,15 +105,6 @@ kable(
   col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95\\% CI)", "present", "missing"),
   caption = "Pairwise trait correlation values for each plant functional type. Values with asterisks indicate correlations significantly different from zero ($p < 0.05$)."
 )
-
-correlation_scatter_cap <- paste(
-  "Pairwise mean squared trait correlation values as a function of sample size.",
-  "Note that the x-axis uses a $\\log_{10}$ scale."
-)
-correlation_fig_cap <- paste(
-  "Fraction of statistically significant ($p < 0.05$) pairwise trait correlation estimates",
-  "as a function of sample size for each plant functional type."
-)
 ```
 
 ```{r correlation_sample_size_pairs, echo = FALSE, fig.cap = correlation_scatter_cap}
@@ -107,7 +126,7 @@ corr_results %>%
   )
 ```
 
-```{r correlation_sample_size_analysis, echo = FALSE, fig.cap = correlation_fig_cap}
+```{r correlation_sample_size_analysis, echo = FALSE, include = FALSE, eval = FALSE, fig.cap = correlation_fig_cap}
 corr_binned <- corr_results %>%
   dplyr::mutate(
     ss_bin = cut(
@@ -129,4 +148,8 @@ ggplot(corr_binned) +
   labs(x = "Sample size", y = "Fraction of significant correlations") +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90, hjust = 0.9))
+```
+
+```{r correlation_range_analysis, echo = FALSE, results = "hide", warning = FALSE, fig.cap = correlation_range_cap, fig.dim = c(12, 12)}
+readd(corr_range_plot_gg)
 ```
