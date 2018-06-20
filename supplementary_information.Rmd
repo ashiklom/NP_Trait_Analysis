@@ -153,47 +153,8 @@ kable(
 )
 ```
 
-```{r correlation_sample_size_pairs, echo = FALSE, fig.cap = correlation_scatter_cap}
-corr_results %>%
-  mutate(
-    significant = factor(significant, c("TRUE", "FALSE")) %>%
-      forcats::lvls_revalue(c("yes", "no"))
-  ) %>%
-  ggplot() +
-  aes(x = present + 0.1, y = Mean, color = significant) +
-  geom_point() +
-  geom_hline(yintercept = 0, linetype = "dashed") +
-  facet_wrap(~ pft) +
-  scale_x_log10() +
-  labs(x = "Sample size", y = "Correlation") +
-  theme_bw() +
-  theme(
-	legend.position = "bottom"
-  )
-```
-
-```{r correlation_sample_size_analysis, echo = FALSE, include = FALSE, eval = FALSE, fig.cap = correlation_fig_cap}
-corr_binned <- corr_results %>%
-  dplyr::mutate(
-    ss_bin = cut(
-      present,
-      c(0, 1, 10, 25, 50, 100, 500, 1000, Inf),
-      c("0", "< 10", "< 25", "< 50", "< 100", "< 500", "< 1000", "> 1000"),
-      include.lowest = TRUE,
-      right = FALSE
-    )
-  ) %>%
-  group_by(pft, ss_bin) %>%
-  summarize(frac_significant = mean(significant))
-
-ggplot(corr_binned) +
-  aes(x = ss_bin, y = frac_significant) +
-  geom_segment(aes(xend = ss_bin, yend = 0)) +
-  geom_point() +
-  facet_wrap(~ pft) +
-  labs(x = "Sample size", y = "Fraction of significant correlations") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 0.9))
+```{r correlation_sample_size_pairs, echo = FALSE, results = "hide", warning = FALSE, fig.cap = correlation_scatter_cap, fig.dim = c(12, 12)}
+readd(corr_ss_plot_gg)
 ```
 
 ```{r correlation_range_analysis, echo = FALSE, results = "hide", warning = FALSE, fig.cap = correlation_range_cap, fig.dim = c(12, 12)}
