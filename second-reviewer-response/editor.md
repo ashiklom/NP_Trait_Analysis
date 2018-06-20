@@ -14,8 +14,8 @@ where data are imputed (by whatever method) in one step, and then subsequent ana
 However, our approach uses iterative _multiple_ imputation, where the algorithm alternates between drawing parameters and imputing values based on those parameters until it converges on a stable solution.
 
 To address this confusion, we have
-revised the relevant text in the methods and
-added a supplementary "vignette" describing in detail our multiple imputation approach and how it is used to estimate trait means and covariances with uncertainty.
+(1) revised the relevant text in the methods and
+(2) added a supplementary "vignette" describing in detail our multiple imputation approach and how it is used to estimate trait means and covariances with uncertainty.
 
 > I would like to see the following addressed:
 > a) a table in supplemental material that provides the sample size for each trait, in each functional group, and the number of imputed data points for each trait in each functional group, as well as across all groups (the global data).
@@ -30,11 +30,13 @@ added a supplementary "vignette" describing in detail our multiple imputation ap
 
 Given that multiple imputation is a fundamental aspect of our method, and the large extent of missingness (especially pairwise) in the data, we believe that an analysis on un-imputed data would not be worthwhile.
 However, we agree with the broader point that the relationship between sample size and correlation significance is worth more detailed investigation.
-(TODO) We have therefore expanded our results and discussion text with specific references to Supplementary Table XXX and Figure XXX.
+(TODO) We have expanded our results (lines XXX) and discussion (lines XXX) text accordingly, including specific references to Supplementary Table XXX and Figure XXX.
 
 > d) finally, unless this has been done in previous papers (in which case you could provide citation and discussion), could you do a jackknife where you leave each data point out, rerun the imputation routine and estimate that value, and then report a scatterplot of observed vs. imputed data for each point, and the RMSE? If this was done on normalized data results could be compared across all variables.
 
 (TODO) Similarly to the previous comment, we believe this analysis does not make sense in the context of our methods.
+Again, we are not generating a single imputation for each point, but rather re-imputing the data at each step of our sampling algorithm conditioned on the current values of the mean vector(s) and covariance matrix (or matrices).
+Although it is technically possible to calculate summary statistics on these imputations and explore their patterns, we do not believe this provides much additional value beyond that already provided by the mean vectors and covariance matrices estimated using these values.
 
 > 2) You have discussed verbally the influence of sample size on the correlations and significance values. In my prior decision letter I was raising a different issue - the well known behavior that when you sample a narrower range of data (not just a smaller sample), bivariate relationships will weaken.
 
@@ -60,20 +62,25 @@ We have revised the text in the results and discussion accordingly (lines XXX) t
 
 > 3) Please provide the estimated values of the parameters for each functional group in a table, so that they are easily accessible for the DGVM modeling groups.
 
+We have included this information in Supplementary Tables XXX and XXX.
+
 > It would also be desirable to provide scripts for the analysis so other groups could repeat your work, using different PFT designations or updated datasets.
 
 Our implementation of the sampling algorithm used in this manuscript is available on GitHub in a standalone R package (github.com/ashiklom/mvtraits).
 This package is designed to handle any data (as long as it is in matrix form), and includes a literate programming vignette demonstrating its application to R's built in "Iris" dataset.
 This is stated in the "Methods" section of the manuscript on line XXX. (TODO)
 
-In addition, all of the code required to reproduce this specific analysis is available in a separate GitHub repository (github.com/ashiklom/np-traits-analysis).
+In addition, all of the materials (including code) required to reproduce the analysis for this manuscript is available through the Open Science Framework (https://osf.io/w8y73).
 This is stated in the manuscript methods section on line XXX. (TODO)
 These scripts are fully functional, but not as organized or well-documented as the package.
-If and when this manuscript is accepted, I will clean up these scripts to ensure that all steps are clear to anyone wishing to exactly reproduce the analysis.
+Prior to final publication, I will clean up these scripts to ensure that all steps are clear to anyone wishing to exactly reproduce the analysis.
 
 > 4) L283 Does TRY archive the data set requested for this project? How would a user request from TRY and get the same data that you used?
 
-(TODO)
+We have confirmed with TRY administrator Jens Kattge that TRY data requests are archived,
+and we have expanded this text in the methods accordingly.
+In addition, we have indicated that the data can be provided directly from the lead author (Alexey Shiklomanov) on reasonable request.
+Unfortunately, because a sizable fraction of the data used are listed as "restricted" in TRY, re-publishing them in an open repository would be a violation of TRY's data use policy.
 
 > 5) Fig. 4. How did you assign the length of the lines for these correlations. It seems that the global lines should span the full data, but they are contained within the broader cluster of lines for the various PFTs.
 
@@ -94,6 +101,8 @@ the global line may not extend out to that PFT's mean value.
 > Overall the ms is well-written and executed. The methods use Bayesian hierarchical models which is necessary in this case because a hiearchical model with covariances can not be fit with simpler methods. The authors are to be commended for using conjugate priors instead of just throwing MCMC at this.
 >
 > 1) My biggest concern is that missing values are imputed. While I understand the issues of how small the sample size would be if species with missing values were ommitted. But I feel like imputing values is equally problematic. The authors make no effort to justify or verify that missing value imputation is acceptable. I would want to see this addressed and also see an analysis with no missing value imputation (however small the sample size) to confirm robustness to this.
+
+(TODO)
 >
 > Smaller comments:
 > 2) Too many results are not presented in results but in the discussion. Present all results (especially those set up in the methods) in the results section.
@@ -140,6 +149,6 @@ We have added text clarifying this to the Methods section (Line XXX).
 
 > Finally the sentence starting on line 135 appears to missing a word.
 
-(TODO)
+We have revised this accordingly.
 
 # References {-}

@@ -50,7 +50,7 @@ and is useful for guiding future data collection and model refinement [@dietze_q
 However, a univariate meta-analysis, like the one currently in PEcAn, is limited by its failure to account for trait correlations, therefore neglecting useful knowledge about relationships across PFTs and between traits.
 At the other extreme, existing regional and global scale analyses [e.g. @van_bodegom_going_2012; @sakschewski_leaf_2015] ignore variability within PFTs, often resulting in macroecological, evolutionary, and competitive trade-offs across PFTs being used to drive both acclimation and instantaneous responses within PFTs.
 
-While the leaf economic spectrum has been investigated at the global scale, where is robust, and at the site or plot scale, where deviations from it are common, it has received less attention at the intermediate scale of PFTs.
+While the leaf economic spectrum has been investigated at the global scale, where it is robust, and at the site or plot scale, where deviations from it are common, it has received less attention at the intermediate scale of PFTs.
 Thus, this paper seeks to answer the following questions:
 First, to what extent does the leaf economic spectrum hold within vs. across plant functional types?
 Second, to what extent can the leaf economic spectrum and other patterns of trait covariance be leveraged to constrain trait estimates, particularly under data limitation?

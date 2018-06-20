@@ -159,4 +159,6 @@ Besides the consistency in the direction of trait covariance globally and betwee
 To do this, we plotted the mean and 95% confidence interval of the pairwise trait correlation coefficients for the global estimate from the pooled multivariate model and PFT-level estimates from the hierarchical model (Fig.\ 5).
 
 The R code and ancillary data for running these analyses is publicly available online via the Open Science Framework (OSF) at <https://osf.io/w8y73/>.
-The TRY data used for this analysis can be requested at <http://try-db.org>.
+The TRY data request used for this analysis has been archived at <http://try-db.org>,
+and can be retrieved by providing the request ID (#1584).
+Alternatively, the exact pre-formatted data used in this analysis are available on request to Alexey Shiklomanov (ashiklom@bu.edu).
