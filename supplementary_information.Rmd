@@ -33,6 +33,8 @@ header-includes:
   - \usepackage{threeparttablex}
   - \usepackage[normalem]{ulem}
   - \usepackage{makecell}
+  - \renewcommand{\thetable}{S\arabic{table}}
+  - \renewcommand{\thefigure}{S\arabic{figure}}
 ---
 
 ```{r libraries, include = FALSE}
@@ -67,7 +69,51 @@ correlation_range_cap <- paste(
 ```
 
 ```{r mean_value_table, echo = FALSE, results = "asis"}
-vals <- readd()
+table_cap_mass <- paste(
+  "Mean and 95\\% confidence interval of trait estimates",
+  "for mass-normalized traits from the hierarchical model."
+)
+table_cap_area <- gsub("mass", "area", table_cap_mass)
+
+readd(table_dat) %>%
+  select(-matches("area")) %>%
+  kable(
+    caption = table_cap_mass,
+    format = "latex",
+    col.names = linebreak(c(
+      "PFT",
+      "Leaf lifespan\n(months)",
+      "SLA\n(kg m$^{-2}$)",
+      "$N_\\textrm{mass}$\n(mg g$^{-1}$)",
+      "$P_\\textrm{mass}$\n(mg g$^{-1}$)",
+      "$R_\\textrm{d, mass}$\n($\\mu$mol g$^{-1}$ s$^{-1}$)",
+      "$V_\\textrm{c, max, mass}$\n($\\mu$mol g$^{-1}$ s$^{-1}$)",
+      "$J_\\textrm{max, mass}$\n($\\mu$mol g$^{-1}$ s$^{-1}$)"
+    )),
+    escape = FALSE,
+    booktabs = TRUE
+  ) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+
+readd(table_dat) %>%
+  select(-matches("mass")) %>%
+  kable(
+	caption = table_cap_area,
+	format = "latex",
+    col.names = linebreak(c(
+      "PFT",
+      "Leaf lifespan\n(months)",
+      "SLA\n(kg m$^{-2}$)",
+      "$N_\\textrm{area}$\n(g m$^{-2}$)",
+      "$P_\\textrm{area}$\n(g m$^{-2}$)",
+      "$R_\\textrm{d, area}$\n($\\mu$mol m$^{-2}$ s$^{-1}$)",
+      "$V_\\textrm{c, max, area}$\n($\\mu$mol m$^{-2}$ s$^{-1}$)",
+      "$J_\\textrm{max, area}$\n($\\mu$mol m$^{-2}$ s$^{-1}$)"
+    )),
+	escape = FALSE,
+	booktabs = TRUE
+) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
 ```
 
 ```{r sample_size_table, echo = FALSE, results = "asis"}
@@ -101,8 +147,8 @@ kable(
   corr_results %>%
     dplyr::select(pft, yvar, xvar, corr_value, present, missing),
   "latex",
-  booktabs = TRUE, longtable = TRUE, escape = FALSE,
-  col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95\\% CI)", "present", "missing"),
+  booktabs = TRUE, longtable = TRUE, escape = TRUE,
+  col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95% CI)", "present", "missing"),
   caption = "Pairwise trait correlation values for each plant functional type. Values with asterisks indicate correlations significantly different from zero ($p < 0.05$)."
 )
 ```
