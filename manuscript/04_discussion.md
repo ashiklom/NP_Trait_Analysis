@@ -6,12 +6,12 @@ The canonical leaf economic spectrum is defined by a negative correlation of bet
 The first objective of this paper was to investigate the extent to which these relationships hold within and across PFTs.
 Our results indicate that the leaf economic spectrum generally still holds within PFTs, at least at the functional and phylogenetic scale of the current generation of Earth System Models.
 Within PFTs, correlations between SLA, $N_{mass}$, and $P_{mass}$ were consistently positive, and correlations of these traits with leaf lifespan were generally negative (though, for many PFTs, correlations were not significantly different from zero).
-Although we did not include maximum photosynthesis rate ($A_{max}$), $V_{c,max,mass}$ and $J_{max,mass}$ generally exhibited the expected positive correlations with SLA and negative correlations with leaf lifespan, as did $R_{d,mass}$, though many correlations were not significant, primarily due to sample size.
 
 While the direction of relationships we observed was largely consistent across different PFTs, the strength of these correlations was more variable.
-For example, the correlations of SLA with $N_{mass}$ and $P_{mass}$ were generally weaker in needleleaved PFTs than in broadleaved PFTs.
-On the other hand, relationships of SLA and $N_{area}$ were strongly negative for all PFTs (except the data-limited needleleaved deciduous trees), and temperate needleleaved species in particular had among the strongest SLA-$N_{area}$ and SLA-$P_{area}$ correlations of any PFT.
+(TODO Revise)
 Taken together with the finding that evergreen conifers are relatively unique in their consistently proportional allocation of N to cell walls and Rubisco [@onoda_physiological_2017], our results support the idea that needleleaved species primarily adapt to environmental changes through structural changes (i.e. increasing or decreasing SLA) rather than through modulating foliar biochemistry [@robakowski_2004_needle].
+
+Relationships between leaf nutrient concentrations and photosynthetic capacity (e.g. )
 
 We also found that the strength of the correlations of $N$ with photosynthetic parameters $V_{c,max}$ and $J_{max}$--often used in ecosystem modeling to parameterize photosynthesis [@clm45_note; @rogers_roadmap_2017]--varied by plant functional type, whether the traits were normalized by mass or area.
 Although trait correlations are not necessarily indicative of allocation strategies, this result generally supports the findings of @ghimire_2017_Nallocation that N allocation strategies to photosynthesis vary widely by plant functional type.

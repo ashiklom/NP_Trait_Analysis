@@ -228,7 +228,7 @@ range_plan <- drake_plan(
     yvar = yvar_grid
   ) %>%
     dplyr::mutate(
-      mass_area = factor(mass_area) %>% forcats::lvls_revalue(c("mass", "area")),
+      mass_area = factor(mass_area) %>% forcats::lvls_revalue(c("area", "mass")),
       xvar = factor(xvar, 1:7) %>% forcats::lvls_revalue(trait_names),
       yvar = factor(yvar, 1:7) %>% forcats::lvls_revalue(trait_names),
     ),
@@ -281,7 +281,7 @@ range_plan <- drake_plan(
       xvar = factor(xvar, names(traits_latex)),
       yvar = factor(yvar, names(traits_latex))
     ),
-  corr_plots = corr_range_data %>%
+  corr_plots_raw = corr_range_data %>%
     dplyr::group_by(mass_area, xvar, yvar) %>%
     tidyr::nest() %>%
     dplyr::mutate(
@@ -289,8 +289,8 @@ range_plan <- drake_plan(
       plt = purrr::map2(data, ma, corr_plot),
       xvar = forcats::fct_relabel(xvar, ~stringr::str_remove(., "_?(mass|area)")),
       yvar = forcats::fct_relabel(yvar, ~stringr::str_remove(., "_?(mass|area)"))
-    ) %>%
-    dplyr::arrange(yvar, mass_area, xvar),
+    ),
+  corr_plots = dplyr::left_join(trait_grid_table, corr_plots_raw),
   corr_plot_list = corr_plots$plt %>%
     append(list(text_plot("Leaf lifespan")), 0) %>%
     append(list(text_plot("SLA")), 8) %>%
@@ -313,10 +313,6 @@ range_plan <- drake_plan(
 censor <- function(rxp, pft, pfts, param, value) {
   if_else(grepl(rxp, param) & pfts %in% pft, "---", value)
 }
-
-## param_tex <- param_markdown
-## ## stringr::str_replace(param_markdown, " \\(", "\\\\(")
-## names(param_tex) <- names(param_markdown)
 
 results_plan <- drake_plan(
   results_all = readRDS(file_in("results/mvtraits_results.rds")),
@@ -396,11 +392,11 @@ results_plan <- drake_plan(
       lo_f = formatC(mu_lo, digits = 3),
       mid_f = formatC(mu_mean, digits = 3),
       hi_f = formatC(mu_hi, digits = 3),
-      value = sprintf("%s (%s,%s)", mid_f, lo_f, hi_f),
-      value = censor("Vcmax|Jmax", "C4G", pft, param, value),
-      value = censor("Rdmass", "ShDBo", pft, param, value),
-      value = censor("Jmax_mass", c("NlEBo", "NlD"), pft, param, value),
-      value = censor("Jmax_area", c("NlD"), pft, param, value)
+      value = sprintf("%s (%s,%s)", mid_f, lo_f, hi_f)
+      ## value = censor("Vcmax|Jmax", "C4G", pft, param, value),
+      ## value = censor("Rdmass", "ShDBo", pft, param, value),
+      ## value = censor("Jmax_mass", c("NlEBo", "NlD"), pft, param, value),
+      ## value = censor("Jmax_area", c("NlD"), pft, param, value)
     ) %>%
     dplyr::select(pft, param, value) %>%
     dplyr::mutate(

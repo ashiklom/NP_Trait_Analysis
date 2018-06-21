@@ -44,7 +44,9 @@ library(drake)
 library(ggplot2)
 
 correlation_scatter_cap <- paste(
-  "Pairwise mean squared trait correlation values as a function of sample size.",
+  "Relationship between squared pairwise correlation and sample size of pairwise observations for each PFT.",
+  "Grey shading is the 95% confidence interval around a local regression (LOESS).",
+  "Upper triangle is area-normalized values, and lower triangle is mass-normalized values.",
   "Note that the x-axis uses a $\\log_{10}$ scale."
 )
 
@@ -71,7 +73,9 @@ correlation_range_cap <- paste(
 ```{r mean_value_table, echo = FALSE, results = "asis"}
 table_cap_mass <- paste(
   "Mean and 95\\% confidence interval of trait estimates",
-  "for mass-normalized traits from the hierarchical model."
+  "for mass-normalized traits from the hierarchical model.",
+  "Note that some traits for some PFTs have effectively no constraint relative to the mostly uninformative prior (as evidenced by their very large confidence intervals),",
+  "so their values should be used with caution."
 )
 table_cap_area <- gsub("mass", "area", table_cap_mass)
 
@@ -119,7 +123,10 @@ readd(table_dat) %>%
 ```{r sample_size_table, echo = FALSE, results = "asis"}
 ssw <- readd(sample_size_wide)
 kable(
-  ssw,
+  ssw %>%
+    dplyr::select(pft, leaf_lifespan, SLA,
+                  Nmass, Narea, Pmass, Parea, Rdmass, Rdarea,
+                  Vcmax_mass, Vcmax_area, Jmax_mass, Jmax_area),
   col.names = c(
     "PFT", "Leaf lifespan", "SLA",
     "$N_\\textrm{mass}$", "$N_\\textrm{area}$",

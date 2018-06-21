@@ -158,7 +158,10 @@ For this reason, we compared within-PFT covariances as estimated by the hierarch
 Besides the consistency in the direction of trait covariance globally and between different PFTs, we also investigated the strength and predictive power of these covariances, which is represented by correlation coefficients (i.e. the pairwise covariance normalized to the variances of the component variables).
 To do this, we plotted the mean and 95% confidence interval of the pairwise trait correlation coefficients for the global estimate from the pooled multivariate model and PFT-level estimates from the hierarchical model (Fig.\ 5).
 
-The R code and ancillary data for running these analyses is publicly available online via the Open Science Framework (OSF) at <https://osf.io/w8y73/>.
+The magnitude of correlation coefficients can be strongly influenced by data sampling, particularly sample size and range (correlations are likely to be stronger when data have more samples and a larger range).
+To evaluate the contribution of uneven data sampling to our correlation predictions, we plotted the square of each pairwise correlation coefficient against pairwise sample size and normalized data range (Fig.\ S1 and S2).
+
+The R code and ancillary data for running these analyses is publicly available online via the Open Science Framework at <https://osf.io/w8y73/>.
 The TRY data request used for this analysis has been archived at <http://try-db.org>,
-and can be retrieved by providing the request ID (#1584).
+and can be retrieved by providing the TRY data request ID (#1584).
 Alternatively, the exact pre-formatted data used in this analysis are available on request to Alexey Shiklomanov (ashiklom@bu.edu).

@@ -55,15 +55,24 @@ The same was generally true of correlations of mass-based traits with leaf lifes
 The correlation between $N_{area}$ and leaf lifespan was positive globally and for evergreen shrubs, tropical broadleaved deciduous trees, temperate needleleaved evergreen trees but negative for temperate and boreal broadleaved deciduous trees and not significant for any other PFTs.
 Similarly, the correlation between $P_{area}$ and leaf lifespan was positive globally but negative for evergreen shrubs and not significant for any other PFTs.
 The correlation between leaf lifespan and $R_{d,area}$ was significant and negative globally, but was not significant within any PFTs.
-The only significant correlations of leaf lifespan with $V_{c,max,area}$ and $J_{max,area}$ were negative for temperate broadleaved deciduous trees.
-
-A large number of pairwise trait correlations were not significant.
-In some cases, this was driven by sample size (Fig.\ 1).
-For instance, needleleaved deciduous trees, the most undersampled PFT in our analysis, were often the only PFT for which a correlation was not statistically significant.
-In other cases, though, PFTs with smaller sample sizes had significant pairwise correlations while PFTs with much larger sample sizes had none.
-For example, tropical broadleaved evergreen trees were relatively well-sampled for all traits, but none of their area-normalized traits were significantly correlated with leaf lifespan.
-In general, we observed fewer significant trait correlations among area-normalized traits than mass-normalized traits. 
+Finally, although we did not include maximum photosynthesis rate ($A_{max}$)---a key trait in the canonical leaf economic spectrum (Wright et al.\ 2004)---$V_{c,max,mass}$ and $J_{max,mass}$ generally exhibited the expected positive correlations with SLA and negative correlations with leaf lifespan, as did $R_{d,mass}$, though many correlations were not significant, primarily due to sample size.
 
 The strength of pairwise trait correlations varied substantially depending on scale, PFT, and trait (Fig.\ 5).
+For example, the correlations of SLA with $N_{mass}$ and $P_{mass}$ were generally weaker in needleleaved PFTs than in broadleaved PFTs.
+On the other hand, relationships of SLA and $N_{area}$ were strongly negative for all PFTs (except the data-limited needleleaved deciduous trees), and temperate needleleaved species in particular had among the strongest SLA-$N_{area}$ and SLA-$P_{area}$ correlations of any PFT.
+
+The strength of the correlations of $N$ with photosynthetic parameters $V_{c,max}$ and $J_{max}$ varied by plant functional type, regardless of whether the traits were normalized by mass or area.
+
+(TODO Flesh out this text).
+
 The two pairwise trait correlations that exhibited the most consistent strength globally and within each PFT were the correlation between SLA and $N_{area}$, and between $N_{mass}$ and $P_{mass}$.
-Correlation strength was often, but not always, related to sample size, with well-sampled PFTs exhibiting stronger correlations and undersampled PFTs exhibiting weaker correlations.
+
+In some cases, this variability was driven by low sample sizes (Fig.\ 1, S1; Tab.\ S3, S4).
+For instance, needleleaved deciduous trees, the most undersampled PFT in our analysis, were often the only PFT for which a correlation was not statistically significant.
+Similarly, we had no observations of dark respirations for deciduous boreal shrubs, which explains why we found no significant correlations of dark respiration with any other trait for that PFT.
+That being said, the relationship between correlations strength and sample size was very inconsistent (Fig.\ S1; Tab.\ S4).
+For example, temperate needleleaf evergreen trees and C3 arctic grasses showed the strongest $N_{area}$-$P_{area}$ correlations despite having relatively average sample sizes for both traits.
+In fact, every trait pair we investigated had at least one (and often several) cases where a PFT with a larger sample size showed weaker correlations than PFTs with lower sample sizes, or where correlation strength varied significantly among PFTs with similar sample sizes (Fig.\ S1).
+Relationships between correlation strength and data range were even less consistent (Fig.\ S2).
+Based on these results, we conclude that the variation we observed in our correlation results is not driven primarily by sampling artifacts and at least partially captures some underlying ecophysiological differences between PFTs.
+
