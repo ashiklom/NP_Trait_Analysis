@@ -63,6 +63,6 @@ For instance, needleleaved deciduous trees, the most undersampled PFT in our ana
 Similarly, we had no observations of dark respirations for deciduous boreal shrubs, which explains why we found no significant correlations of dark respiration with any other trait for that PFT.
 That being said, the relationship between correlations strength and sample size was very inconsistent (Fig.\ S1; Tab.\ S4).
 For example, temperate needleleaf evergreen trees and C3 arctic grasses showed the strongest $N_{area}$-$P_{area}$ correlations despite having relatively average sample sizes for both traits.
-In fact, every trait pair we investigated had at least one (and often several) cases where a PFT with a larger sample size showed weaker correlations than PFTs with lower sample sizes, or where correlation strength varied significantly among PFTs with similar sample sizes (Fig.\ S1).
+In fact, every trait pair we investigated had at least one case (and often several cases) where a PFT with a larger sample size showed weaker correlations than PFTs with lower sample sizes, or where correlation strength varied significantly among PFTs with similar sample sizes (Fig.\ S1).
 Relationships between correlation strength and data range were even less consistent (Fig.\ S2).
 Based on these results, we conclude that the variation we observed in our correlation results is not driven primarily by sampling artifacts and at least partially captures some underlying ecophysiological differences between PFTs.
