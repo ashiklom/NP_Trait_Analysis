@@ -25,7 +25,11 @@ output: pdf_document
 Under _single_ imputation, the imputation step occurs once outside of the MCMC loop.
 In _multiple_ imputation, as implemented in this paper, the imputation step is part of the MCMC loop,
 such that imputed data values are conditioned on the current state of the parameters and vice-versa.
-In the figure below, $Y$ is the original data (with missing values), $Y^*$ is the original data with missing values imputed, $\mu$ and $\Sigma$ are the estimates of the
+In the figure below,
+$Y$ is the original data (with missing values),
+$Y^*$ is the original data with missing values imputed,
+$\mu_p$ and $\Sigma_p$ are values of the mean vector and covariance matrix (respectively) calculated only from the original data,
+and $\mu^*_t$ and $\Sigma^*_t$ are the draws of the mean vector and covariance matrix (respectively) at MCMC iteration $t$.
 
 ```{tikz diagram, echo = FALSE}
 \usetikzlibrary{positioning, calc, fit}
@@ -33,12 +37,12 @@ In the figure below, $Y$ is the original data (with missing values), $Y^*$ is th
 	every node/.style = {shape = rectangle, draw = black},
 	scale = 1.1
 ]
-\node (Y) at (-1, 3) {$Y$};
-\node (data params) at (-1, 2) {$\mu_p$, $\Sigma_p$};
-\node (Ystar) at (-1, 1) {$Y^*$};
-\node (guess params) [align = center] at (1, 1) {Initial guess\\$\mu^*_0$ $\Sigma^*_0$};
-\node (mu star) at (0, 0) {$\mu^*_t \mid Y^*, \Sigma^*_{t-1}$};
-\node (sigma star) at (0, -1) {$\Sigma^*_t \mid Y^*, \mu^*_t$};
+\node (Y) at (-1, 3) {Data $Y$};
+\node (data params) at (-1, 2) {Calculate $\mu_p, \Sigma_p$};
+\node (Ystar) at (-1, 1) {Impute $Y^* \mid \mu_p, \Sigma_p$};
+\node (guess params) [align = center, right = of Ystar] {Initial guess\\$\mu^*_0$ $\Sigma^*_0$};
+\node (mu star) at (0, 0) {Draw $\mu^*_t \mid Y^*, \Sigma^*_{t-1}$};
+\node (sigma star) at (0, -1) {Draw $\Sigma^*_t \mid Y^*, \mu^*_t$};
 \path [->] (Y) edge (data params);
 \path [->] (data params) edge (Ystar);
 \path [->] (Ystar) edge (mu star);
@@ -51,16 +55,16 @@ In the figure below, $Y$ is the original data (with missing values), $Y^*$ is th
 \node (mcmc loop text) [align = center, anchor = west, draw = none] at (mcmc loop.east) {MCMC\\loop};
 \node (title) [anchor = north, draw = none] at (mcmc loop.south) {Single imputation};
 \end{tikzpicture}
-\hspace{3cm}
+\hspace{1cm}
 \begin{tikzpicture}[
 	every node/.style = {shape = rectangle, draw = black},
 	scale = 1.1
 ]
-\node (Y) at (-1, 1) {$Y$};
+\node (Y) at (-1, 1) {Data $Y$};
 \node (guess params) [align = center] at (1, 1) {Initial guess\\$\mu^*_0$ $\Sigma^*_0$};
-\node (Ystar) at (0, 0) {$Y^*_t \mid Y, \mu^*_{t-1}, \Sigma^*_{t-1}$};
-\node (mu star) at (0, -1) {$\mu^*_t \mid Y^*_t, \Sigma^*_{t-1}$};
-\node (sigma star) at (0, -2) {$\Sigma^*_t \mid Y^*_t, \mu^*_t$};
+\node (Ystar) at (0, 0) {Impute $Y^*_t \mid Y, \mu^*_{t-1}, \Sigma^*_{t-1}$};
+\node (mu star) at (0, -1) {Draw $\mu^*_t \mid Y^*_t, \Sigma^*_{t-1}$};
+\node (sigma star) at (0, -2) {Draw $\Sigma^*_t \mid Y^*_t, \mu^*_t$};
 \path [->] (Y) edge (Ystar);
 \path [->] (guess params) edge (Ystar);
 \path [->] (Ystar) edge (mu star);
@@ -79,6 +83,7 @@ In the figure below, $Y$ is the original data (with missing values), $Y^*$ is th
 Consider two positively correlated traits, A and B.
 
 ```{r create_traits}
+set.seed(12345) # For reproducibility
 library(mvtraits)
 
 true_mu <- c(0, 0)
@@ -88,13 +93,20 @@ colnames(Y_all) <- c("A", "B")
 plot(Y_all, pch = 19)
 ```
 
-Randomly remove some values from the data.
+Simulate missingness by randomly removing half of the data.
 
 ```{r remove_na}
 Y <- Y_all
-Y[sample.int(700)] <- NA
+Y[sample.int(2000, 1000)] <- NA
 plot(Y_all, pch = 19, col = "grey")
 points(Y, pch = 19, col = "black")
+legend(
+  "topleft",
+  legend = c("True missing", "Present"),
+  col = c("grey", "black"),
+  pch = 19,
+  bg = "white"
+)
 ```
 
 Set an uninformative multivariate normal prior on $\mu$...
@@ -113,16 +125,29 @@ Take an initial guess at the mean and covariance by drawing from their priors.
 
 ```{r initial}
 mu_star <- random_mvnorm(1, mu_0, Sigma_0)[1,]
+mu_star
 Sigma_star <- rWishart(1, v0, S0)[,,1]
+Sigma_star
 ```
 
 Impute values based on this initial guess.
 
 ```{r impute}
 Ystar <- mvnorm_fill_missing(Y, mu_star, Sigma_star)
+
+mylegend <- function() {
+  legend(
+    "topleft",
+    legend = c("True missing", "Present", "Imputed"),
+    col = c("grey", "black", "red"),
+    pch = 19,
+	bg = "white"
+  )
+}
 plot(Y_all, pch = 19, col = "grey")
 points(Ystar, pch = 19, col = "red")
 points(Y, pch = 19, col = "black")
+mylegend()
 ```
 
 Clearly, these initial values are a bad fit to the data.
@@ -130,7 +155,9 @@ Nevertheless, draw $\mu$ and $\Sigma$ conditioned on this set of imputed values.
 
 ```{r draw}
 mu_star <- draw_mu(Ystar, Sigma_star, mu_0, Sigma_0)
+mu_star
 Sigma_star <- draw_Sigma(Ystar, mu_star, v0, S0)
+Sigma_star
 ```
 
 Draw a new set of imputed values, conditioned on the current $\mu^*$ and $\Sigma^*$.
@@ -140,8 +167,10 @@ Ystar <- mvnorm_fill_missing(Y, mu_star, Sigma_star)
 plot(Y_all, pch = 19, col = "grey")
 points(Ystar, pch = 19, col = "red")
 points(Y, pch = 19, col = "black")
+mylegend()
 ```
 
+This is still a bad fit to the data, but, though it is hard to tell, it has improved slightly.
 Doing this repeatedly (in a loop) gradually improves the estimates of the covariance.
 
 ```{r loop}
@@ -169,4 +198,5 @@ for (i in seq_along(cov_ab)) {
 }
 hist(cov_ab, xlab = "Covariance estimate", ylab = "Count", main = "Covariance estimate")
 abline(v = true_cov[2, 1], col = "red", lwd = 2)
+legend("topright", legend = "True cov.", lty = "solid", lwd = 2, col = "red")
 ```

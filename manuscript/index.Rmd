@@ -65,11 +65,11 @@ Key words: Functional trade-off; hierarchical modeling; trait variation; ecologi
 Section                   Word count          
 --------                  --------------      ------------
 Introduction              1060                Figures:
-Materials and Methods     1603                5 (all colored)
-Results                   1073
-Discussion                1789                Tables:
+Materials and Methods     1695                5 (all colored)
+Results                   1108
+Discussion                1907                Tables:
 Acknowledgements          88                  2
-Total                     5613
+Total                     5858
 
 <div custom-style="Heading, no number">Summary</div>
 
