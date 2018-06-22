@@ -1,7 +1,7 @@
 # Editor
 
 > Thank you for the revised manuscript on leaf economic spectrum within and among plant functional traits. I have received two reviews of your paper and the reviewers and I appreciate the work you have conducted. As you will see reviewer 1 raises several concerns, while reviewer 2 expresses satisfaction with the revision.
->j
+>
 > Improvements in this revision include the simplified designation of functional groups, the discussion of sample size issues, and further discussion of biological implications of the results. However, I concur with the concerns raised by reviewer 1. I am not able to accept the paper in its current form, but am willing to invite a further revision.
 >
 > In a revised manuscript, I would need you to address the following. Some of this could be put into supplemental material, but it needs to be available to readers, especially those who may use the results in the context of DGVMs.
@@ -28,8 +28,8 @@ We have included the corresponding tables as Supplementary Tables S3 and S4, res
 > c) as requested by reviewer 2, please report the correlations and/or covariance for the various analyses based only on available pairwise data and based on imputed data. A scatterplot would be interesting, across all relationships (correlations better than covariance so that the units are comparable). We need to know how much data imputation influences your results.
 
 Given that multiple imputation is a fundamental aspect of our method, and the large extent of missingness (especially pairwise) in the data, we believe that an analysis on un-imputed data would not be worthwhile.
-However, we agree with the broader point that the relationship between sample size and correlation significance is worth more detailed investigation.
-(TODO) We have expanded our methods (lines XXX TODO), results (lines XXX TODO) and discussion (lines XXX TODO) text accordingly, including specific references to Supplementary Table XXX and Figure XXX.
+However, we agree with the broader point that the relationship between sampling and correlation strength is worth more detailed investigation.
+We have expanded our methods (lines XXX TODO) and results (lines XXX TODO) text accordingly, including specific references to Supplementary Table XXX and Figures XXX.
 
 > d) finally, unless this has been done in previous papers (in which case you could provide citation and discussion), could you do a jackknife where you leave each data point out, rerun the imputation routine and estimate that value, and then report a scatterplot of observed vs. imputed data for each point, and the RMSE? If this was done on normalized data results could be compared across all variables.
 
@@ -52,11 +52,9 @@ For completeness, rather than showing the average range of the two variables, we
 >
 > I know these analyses are intensive and the recommended tables may be rather large, but it should all be relatively straightforward in a fully scripted analysis. And please revise the text as appropriate to describe the outcomes of these analyses, including text appendices in supplemental material if needed.
 
-(TODO) All of these supplemental analyses show that although the strength of our correlation estimates is not entirely independent of sample size and data range,
+All of these supplemental analyses show that although the strength of our correlation estimates is not entirely independent of sample size and data range,
 there is substantial, PFT- and trait-specific variability in patterns of trait correlation that cannot be explained by either of these two variables.
-There are many instances where trait correlations are weak despite large sample sizes, and conversely instances where trait correlations are strong and significant despite low sample sizes
-(in some cases, even where no pairwise samples are available, which demonstrates the utility of fully leveraging the multidimensional trait space).
-We have revised the text in the results and discussion accordingly (lines XXX) to highlight these analyses.
+We have revised the text in the results (lines XXX) to highlight these analyses.
 
 > 3) Please provide the estimated values of the parameters for each functional group in a table, so that they are easily accessible for the DGVM modeling groups.
 
@@ -80,7 +78,7 @@ Unfortunately, because a sizable fraction of the data used are listed as "restri
 
 > 5) Fig. 4. How did you assign the length of the lines for these correlations. It seems that the global lines should span the full data, but they are contained within the broader cluster of lines for the various PFTs.
 
-(TODO) The lengths of these lines are determined by the eigenvalues of the estimated covariance matrix subset to the traits of interest (line XXX).
+The lengths of these lines are determined by the eigenvalues of the estimated covariance matrix subset to the traits of interest (line XXX TODO).
 The reason the global lines do not cover the full extent of the data is that the black and colored lines represent two different models:
 The black lines are a multivariate model fit to all of the data at once,
 while the colored lines are the results of the hierarchical fit.
@@ -107,7 +105,9 @@ Please see responses to similar comments from the Editor above.
 > Smaller comments:
 > 2) Too many results are not presented in results but in the discussion. Present all results (especially those set up in the methods) in the results section.
 
-(TODO)
+All of our results figures are initially presented, and their essential details summarized, in the results section.
+We feel that highlighting specific correlations makes more sense in the context of their ecophysiological significance, which is better suited to the discussion.
+Therefore, we have left the current structure of the text as is, though we are open to reconsidering the organization of our results and discussion in future drafts if necessary.
 
 > 3) Lines 293-319 - Use a table and one paragraph summarizing biologically interesting/surprising results. Don't need to list each result in prose.
 
@@ -129,13 +129,14 @@ Yes, this additional constraint from trait covariance is a result of our multipl
 However, as discussed above (see responses to Editor comments), we believe that multiple imputation overcomes many of the limitations of single imputation, and is an appropriate technique for the goals of this manuscript.
 Notably, the iterative nature of multiple imputation is precisely the reason we are able to provide uncertainty estimates on the covariance matrix.
 
-> 6) LIne 405 - just FYI this is the first thing I thought was really biologically interesting and deserving of discussion in the discusison. The results and discussion could be greatly shortened prior to hear.
+> 6) Line 405 - just FYI this is the first thing I thought was really biologically interesting and deserving of discussion in the discusison. The results and discussion could be greatly shortened prior to here.
 
-(TODO)
+> 7) Line 426 - another important result that should be highlighted by eliminating text around it.
 
-> 7) LIne 426 - another important result that should be highlighted by eliminating text around it.
-
-(TODO)
+We respectfully disagree with both of these points.
+The first discussion paragraph provides our general answer to the question "Do leaf economic relationships hold within PFTs?", which is the primary focus of this manuscript.
+The second discussion paragraph begins our set of caveats to that answer, and is important for setting up our point about modeling needleleaf tree productivity.
+Therefore, we have chosen to keep this text in its current form, but, again, are willing to consider revision if necessary.
 
 # Reviewer 2
 
