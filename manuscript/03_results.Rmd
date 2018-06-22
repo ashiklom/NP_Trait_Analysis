@@ -61,7 +61,7 @@ The strength of pairwise trait correlations varied substantially depending on sc
 For example, the correlations of SLA with $N_{mass}$ and $P_{mass}$ were generally weaker in needleleaved PFTs than in broadleaved PFTs.
 On the other hand, relationships of SLA and $N_{area}$ were strongly negative for all PFTs (except the data-limited needleleaved deciduous trees), and temperate needleleaved species in particular had among the strongest SLA-$N_{area}$ and SLA-$P_{area}$ correlations of any PFT.
 
-The strength of the correlations of $N$ with photosynthetic parameters $V_{c,max}$ and $J_{max}$ varied by plant functional type, regardless of whether the traits were normalized by mass or area.
+The strength of the correlations of $N$ with photosynthetic parameters $V_{c,max}$ and $J_{max}$ varied by PFT, regardless of whether the traits were normalized by mass or area.
 
 (TODO Flesh out this text).
 
