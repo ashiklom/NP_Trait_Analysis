@@ -62,13 +62,13 @@ email: ashiklom\@bu.edu
 Key words: Functional trade-off; hierarchical modeling; trait variation; ecological modeling; leaf morphology; leaf biochemistry
 </div>
 
-Section                   Word count          
+Section                   Word count
 --------                  --------------      ------------
-Introduction              1060                Figures:
-Materials and Methods     1695                5 (all colored)
-Results                   1108
-Discussion                1907                Tables:
-Acknowledgements          88                  2
+Introduction              1060                Figures: 5 (all colored)
+Materials and Methods     1695                Tables: 2
+Results                   1108                Supplementary figures: 2
+Discussion                1907                Supplementary tables: 4
+Acknowledgements          88                  Supplementary methods: 1
 Total                     5858
 
 <div custom-style="Heading, no number">Summary</div>

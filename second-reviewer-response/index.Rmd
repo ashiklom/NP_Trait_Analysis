@@ -27,6 +27,5 @@ output:
   bookdown::pdf_document2:
     latex_engine: xelatex
     toc: no
-    includes:
-      in_header: preamble.tex
+    number_sections: false
 ---

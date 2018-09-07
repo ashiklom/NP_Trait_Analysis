@@ -2,7 +2,7 @@
 
 ## Estimates of PFT-level means
 
-In general, leaf trait estimates from the univariate, multivariate, and hierarchical models were similar (Fig.\ 2).
+In general, leaf trait estimates from the univariate, multivariate, and hierarchical models were similar (Fig.\ 2, Tab.\ S1 and S2).
 Where we observed differences between models, the largest were between the univariate and multivariate models, while the additional constraint from the hierarchical model tended to have a minimal effect on trait estimates.
 Significant differences in trait estimates between univariate and multivariate models occurred even for traits with relatively large sample sizes, such as leaf nitrogen content.
 

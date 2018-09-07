@@ -120,7 +120,7 @@ $$\mathbf{\Sigma'} = \mathbf{\Sigma}[m,m] -
   
 We emphasize that the imputation of missing data is performed iteratively as parameters are being estimated, such that each set of imputed values is conditioned on the current sampled state of the parameters.
 This approach is therefore distinct from single imputation, where data are imputed first in a separate step prior to parameter estimation.
-A demonstration of this multiple imputation approach and how it is used to estimate trait covariance is provided in a literate programming vignette in the supplementary information to this manuscript.
+A demonstration of this multiple imputation approach and how it is used to estimate trait covariance is provided Supporting Information Method S1.
 
 For each model fit, we ran five parallel MCMC chains, continuing the sampling until the final result achieved convergence as determined by a Gelman-Rubin potential scale reduction statistic less than 1.1 [@gelman_1992_inference].
 We implemented this sampling algorithm in an open source, publicly available R [version 3.4.3; @rstats] package (<http://github.com/ashiklom/mvtraits>).
@@ -129,7 +129,7 @@ We implemented this sampling algorithm in an open source, publicly available R [
 ### Analysis of results
 
 To assess the impact of multivariate and hierarchical constraint on trait estimates,
-we compared the mean and 95% confidence intervals of trait estimates for each PFT from each model (Fig.\ 2).
+we compared the mean and 95% confidence intervals of trait estimates for each PFT from each model (Fig.\ 2, Tab.\ S1 and S2).
 For reference, we also added the default parameter values of CLM 4.5 [Table 8.1 in @clm45_note] for SLA, $N_{mass}$, $N_{area}$, $V_{c,max,mass}$, and $V_{c,max,area}$ to Fig.\ 2.
 To convert CLM's reported C:N ratio to $N_{mass}$, we assumed a uniform leaf C fraction of 0.46.
 We then divided this calculated $N_{mass}$ by the reported SLA to obtain $N_{area}$.

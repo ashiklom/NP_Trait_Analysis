@@ -14,8 +14,8 @@ where data are imputed (by whatever method) in one step, and then subsequent ana
 However, our approach uses iterative _multiple_ imputation, where the algorithm alternates between drawing parameters and imputing values based on those parameters until it converges on a stable solution.
 
 To address this confusion, we have
-(1) revised the relevant text in the methods and
-(2) added a supplementary "vignette" describing in detail our multiple imputation approach and how it is used to estimate trait means and covariances with uncertainty.
+(1) revised the relevant text in the methods (lines 246, 253-258. Note that all lines refer to the file with track changes enabled.) and
+(2) added a supplementary literate programming document describing in detail our multiple imputation approach and how it is used to estimate trait means and covariances with uncertainty (Method S1).
 
 > I would like to see the following addressed:
 >
@@ -23,13 +23,13 @@ To address this confusion, we have
 >
 > b) a table listing all the pairwise correlations (again in supp material) that provides the data presented in the figures: covariance, correlation, sample size of available paired empirical data, sample size after imputation that was used in your analysis.
 
-We have included the corresponding tables as Supplementary Tables S3 and S4, respectively, and added text briefly describing these figures to the methods (lines XXX TODO).
+We have included the corresponding tables as Supplementary Tables S3 and S4, respectively, and added text describing these figures to the methods (lines 267, 307-311).
 
 > c) as requested by reviewer 2, please report the correlations and/or covariance for the various analyses based only on available pairwise data and based on imputed data. A scatterplot would be interesting, across all relationships (correlations better than covariance so that the units are comparable). We need to know how much data imputation influences your results.
 
-Given that multiple imputation is a fundamental aspect of our method, and the large extent of missingness (especially pairwise) in the data, we believe that an analysis on un-imputed data would not be worthwhile.
+Given that multiple imputation is a fundamental aspect of our method and the large extent of missingness (especially pairwise) in the data, we believe that an analysis on un-imputed data would not be worthwhile.
 However, we agree with the broader point that the relationship between sampling and correlation strength is worth more detailed investigation.
-We have expanded our methods (lines XXX TODO) and results (lines XXX TODO) text accordingly, including specific references to Supplementary Table XXX and Figures XXX.
+We have expanded our methods (lines 307-311) and results (lines 397-413) text accordingly.
 
 > d) finally, unless this has been done in previous papers (in which case you could provide citation and discussion), could you do a jackknife where you leave each data point out, rerun the imputation routine and estimate that value, and then report a scatterplot of observed vs. imputed data for each point, and the RMSE? If this was done on normalized data results could be compared across all variables.
 
@@ -54,7 +54,7 @@ For completeness, rather than showing the average range of the two variables, we
 
 All of these supplemental analyses show that although the strength of our correlation estimates is not entirely independent of sample size and data range,
 there is substantial, PFT- and trait-specific variability in patterns of trait correlation that cannot be explained by either of these two variables.
-We have revised the text in the results (lines XXX) to highlight these analyses.
+We have revised the text in the results (lines 397-413) to highlight these analyses.
 
 > 3) Please provide the estimated values of the parameters for each functional group in a table, so that they are easily accessible for the DGVM modeling groups.
 
@@ -64,21 +64,19 @@ We have included this information in Tables S1 and S2.
 
 Our implementation of the sampling algorithm used in this manuscript is available on GitHub in a standalone R package (github.com/ashiklom/mvtraits).
 This package is designed to handle any data (as long as it is in matrix form), and includes a literate programming vignette demonstrating its application to R's built in "Iris" dataset.
-This is stated in the "Methods" section of the manuscript on line XXX. (TODO)
-
 In addition, all of the materials (including code) required to reproduce the analysis for this manuscript is available through the Open Science Framework (https://osf.io/w8y73).
-This is stated in the manuscript "Methods" section on line XXX. (TODO)
+This is stated in the "Methods" section of the manuscript (lines 312-317).
 
 > 4) L283 Does TRY archive the data set requested for this project? How would a user request from TRY and get the same data that you used?
 
 We have confirmed with TRY administrator Jens Kattge that TRY data requests are archived,
-and we have expanded this text in the methods accordingly.
+and we have expanded this text in the methods accordingly (lines 312-317).
 In addition, we have indicated that the data can be provided directly from the lead author (Alexey Shiklomanov) on reasonable request.
 Unfortunately, because a sizable fraction of the data used are listed as "restricted" in TRY, re-publishing them in an open repository would be a violation of TRY's data use policy.
 
 > 5) Fig. 4. How did you assign the length of the lines for these correlations. It seems that the global lines should span the full data, but they are contained within the broader cluster of lines for the various PFTs.
 
-The lengths of these lines are determined by the eigenvalues of the estimated covariance matrix subset to the traits of interest (line XXX TODO).
+The lengths of these lines are determined by the eigenvalues of the estimated variance-covariance matrix subset to the traits of interest (line 286-299).
 The reason the global lines do not cover the full extent of the data is that the black and colored lines represent two different models:
 The black lines are a multivariate model fit to all of the data at once,
 while the colored lines are the results of the hierarchical fit.
@@ -101,7 +99,6 @@ Therefore, while we acknowledge that we have also devoted substantial space to t
 
 Please see responses to similar comments from the Editor above.
 
->
 > Smaller comments:
 > 2) Too many results are not presented in results but in the discussion. Present all results (especially those set up in the methods) in the results section.
 
@@ -113,13 +110,12 @@ Therefore, we have left the current structure of the text as is, though we are o
 
 If all of these were similarly structured comparisons (e.g. PFT with highest and lowest trait value), we would agree that a table would be a better way to represent this.
 However, our comparisons here are substantially varied that summarizing these results to a table would involve effectively the same text but within a table (which may actually take up more space than the current paragraph form). 
-Moreover, at 344 words, we consider these results to already be fairly concise.
 Therefore, we have decided to leave the text as is for this draft, though we would be willing to reconsider revising this section in future drafts if necessary.
 
 > 4) Line 336-337 - I dont' understand why it is not obvious, even axiomatic, that uncertainty would decrease with sample size
 
 In a univariate example, when comparing data that have comparable variances, decrease in uncertainty with increasing sample size is axiomatic.
-However, the different plant functional types here have not only unequal sample sizes, but also different data ranges, so it is possible to have different ranges of uncertainty for the same sample size (and indeed, this is the case, as evidenced by the significant scatter around the lines in Figure 3. 
+However, the different plant functional types here have not only unequal sample sizes, but also different data ranges, so it is possible to have different ranges of uncertainty for the same sample size (and indeed, this is the case, as evidenced by the significant scatter around the lines in Figure 3). 
 Furthermore, in our multivariate and hierarchical models, uncertainty is also strongly dependent on the strength of covariance between traits, which further confounds the relationship of uncertainty to sample size (as we show).
 Therefore, although the decline in uncertainty with increasing sample size is not completely surprising, we believe it is worth our brief but explicit mention.
 
@@ -146,11 +142,11 @@ Therefore, we have chosen to keep this text in its current form, but, again, are
 
 We selected species for which at least one trait measurement was available,
 _and_ for which we were able to obtain sufficient information to assign a plant functional type with reasonable confidence.
-We have added text clarifying this to the Methods section (Line XXX TODO).
+We have added text clarifying this to the Methods section (line 167).
 
 > Also in the paragraph on line 230, the authors should explicitly state the scale of the imputation --- in other words, what percentage of the matrix was populated with observed vs imputed data.
 
-We have added this information to the supplementary material, and revised the indicated text accordingly (Line XXX TODO).
+See responses to related comments from the Editor.
 
 > I found the discussion on the lack of relationship of SLA and temperature (lines 446-448) to be rather weak.  The design of this study is not appropriate for addressing such questions as you have binned a tremendous amount of variability in temperature into three bins.
 

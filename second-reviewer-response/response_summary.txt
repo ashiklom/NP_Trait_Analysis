@@ -1,0 +1,12 @@
+Dear Dr. David Ackerly,
+
+Thank you for your detailed and thoughtful review of our manuscript. We have considered all of the comments provided by you and the two reviewers, and are pleased to present a revised version of our manuscript in response. I have included a point-by-point response to all comments in a separate document, but I will summarize the two largest changes here.
+
+The primary concern expressed by you and reviewer 1 was the imputation of trait data in our analysis. We believe that these concerns stem primarily from a misunderstanding of our methods. Namely, unlike single imputation, where the imputation is a separate step in the analysis performed before the main parameter estimation, our manuscript uses multiple imputation, where imputation and parameter estimation happen simultaneously throughout the sampling procedure. We have clarified this distinction in the Methods, and included an extended demonstration of this technique in the Supporting Information (Method S1). In addition, we have provided data tables indicating the sample sizes and extent of imputation throughout our analysis as requested, but we did not perform the jackknifing analysis you requested because we did not feel it made sense in the context of multiple imputation as implemented in our manuscript.
+
+An additional concern you expressed was the confounding effect of sampling---particularly, sample size and data range---on our correlation estimates. We agree that we did not give this sufficient attention in our initial draft, and we performed all of the analyses you suggested in this revision. These analyses show that although our results are not entirely independent of sampling artifacts, there is substantial variability in trait correlations that cannot be explained by sample size and/or data range, indicating that our results are in fact biologically relevant. We present these analyses in full in the supplementary information (Tables S3 and S4, Figures S1 and S2) and discuss them in the revised "Methods" and "Results" sections.
+
+We hope that this revision is a step in the right direction in moving this manuscript towards publication at New Phytologist.
+
+Best,
+Alexey Shiklomanov

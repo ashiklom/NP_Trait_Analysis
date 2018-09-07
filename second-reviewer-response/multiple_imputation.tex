@@ -1,0 +1,344 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Estimating trait means and covariances through multiple imputation},
+            pdfauthor={Alexey N. Shiklomanov, Elizabeth M. Cowdery, Michael Bahn, Chaeho Byun, Joseph Craine, Andrés Gonzalez-Melo, Steven Jansen, Nathan Kraft, Koen Kramer, Vanessa Minden, Ülo Niinemets, Yusuke Onoda, Enio Egon Sosinski, Nadejda A. Soudzilovskaia, Michael C. Dietze},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Estimating trait means and covariances through multiple imputation}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Alexey N. Shiklomanov, Elizabeth M. Cowdery, Michael Bahn, Chaeho Byun,
+Joseph Craine, Andrés Gonzalez-Melo, Steven Jansen, Nathan Kraft, Koen
+Kramer, Vanessa Minden, Ülo Niinemets, Yusuke Onoda, Enio Egon Sosinski,
+Nadejda A. Soudzilovskaia, Michael C. Dietze}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Under \emph{single} imputation, the imputation step occurs once outside
+of the MCMC loop. In \emph{multiple} imputation, as implemented in this
+paper, the imputation step is part of the MCMC loop, such that imputed
+data values are conditioned on the current state of the parameters and
+vice-versa. In the figure below, \(Y\) is the original data (with
+missing values), \(Y^*\) is the original data with missing values
+imputed, \(\mu_p\) and \(\Sigma_p\) are values of the mean vector and
+covariance matrix (respectively) calculated only from the original data,
+and \(\mu^*_t\) and \(\Sigma^*_t\) are the draws of the mean vector and
+covariance matrix (respectively) at MCMC iteration \(t\).
+
+\includegraphics{multiple_imputation_files/figure-latex/diagram-1.pdf}
+
+\hypertarget{demonstration}{%
+\section{Demonstration}\label{demonstration}}
+
+Consider two positively correlated traits, A and B.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{) }\CommentTok{# For reproducibility}
+\KeywordTok{library}\NormalTok{(mvtraits)}
+
+\NormalTok{true_mu <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{true_cov <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\NormalTok{Y_all <-}\StringTok{ }\KeywordTok{random_mvnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, true_mu, true_cov)}
+\KeywordTok{colnames}\NormalTok{(Y_all) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(Y_all, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{multiple_imputation_files/figure-latex/create_traits-1.pdf}
+
+Simulate missingness by randomly removing half of the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Y <-}\StringTok{ }\NormalTok{Y_all}
+\NormalTok{Y[}\KeywordTok{sample.int}\NormalTok{(}\DecValTok{2000}\NormalTok{, }\DecValTok{1000}\NormalTok{)] <-}\StringTok{ }\OtherTok{NA}
+\KeywordTok{plot}\NormalTok{(Y_all, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(Y, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}
+  \StringTok{"topleft"}\NormalTok{,}
+  \DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"True missing"}\NormalTok{, }\StringTok{"Present"}\NormalTok{),}
+  \DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\StringTok{"grey"}\NormalTok{, }\StringTok{"black"}\NormalTok{),}
+  \DataTypeTok{pch =} \DecValTok{19}\NormalTok{,}
+  \DataTypeTok{bg =} \StringTok{"white"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{multiple_imputation_files/figure-latex/remove_na-1.pdf}
+
+Set an uninformative multivariate normal prior on \(\mu\)\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu_}\DecValTok{0}\NormalTok{ <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{Sigma_}\DecValTok{0}\NormalTok{ <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\ldots{}and an uninformative Wishart prior on \(\Sigma\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v0 <-}\StringTok{ }\DecValTok{2}
+\NormalTok{S0 <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Take an initial guess at the mean and covariance by drawing from their
+priors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu_star <-}\StringTok{ }\KeywordTok{random_mvnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, mu_}\DecValTok{0}\NormalTok{, Sigma_}\DecValTok{0}\NormalTok{)[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{mu_star}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -7.3409439  0.7029685
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sigma_star <-}\StringTok{ }\KeywordTok{rWishart}\NormalTok{(}\DecValTok{1}\NormalTok{, v0, S0)[,,}\DecValTok{1}\NormalTok{]}
+\NormalTok{Sigma_star}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]      [,2]
+## [1,] 81.17255 15.526650
+## [2,] 15.52665  4.779821
+\end{verbatim}
+
+Impute values based on this initial guess.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Ystar <-}\StringTok{ }\KeywordTok{mvnorm_fill_missing}\NormalTok{(Y, mu_star, Sigma_star)}
+
+\NormalTok{mylegend <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+  \KeywordTok{legend}\NormalTok{(}
+    \StringTok{"topleft"}\NormalTok{,}
+    \DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"True missing"}\NormalTok{, }\StringTok{"Present"}\NormalTok{, }\StringTok{"Imputed"}\NormalTok{),}
+    \DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\StringTok{"grey"}\NormalTok{, }\StringTok{"black"}\NormalTok{, }\StringTok{"red"}\NormalTok{),}
+    \DataTypeTok{pch =} \DecValTok{19}\NormalTok{,}
+    \DataTypeTok{bg =} \StringTok{"white"}
+\NormalTok{  )}
+\NormalTok{\}}
+\KeywordTok{plot}\NormalTok{(Y_all, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(Ystar, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(Y, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{)}
+\KeywordTok{mylegend}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{multiple_imputation_files/figure-latex/impute-1.pdf}
+
+Clearly, these initial values are a bad fit to the data. Nevertheless,
+draw \(\mu\) and \(\Sigma\) conditioned on this set of imputed values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu_star <-}\StringTok{ }\KeywordTok{draw_mu}\NormalTok{(Ystar, Sigma_star, mu_}\DecValTok{0}\NormalTok{, Sigma_}\DecValTok{0}\NormalTok{)}
+\NormalTok{mu_star}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]    [,2]
+## [1,] -2.319796 1.05317
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sigma_star <-}\StringTok{ }\KeywordTok{draw_Sigma}\NormalTok{(Ystar, mu_star, v0, S0)}
+\NormalTok{Sigma_star}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]     [,2]
+## [1,] 48.234522 6.449814
+## [2,]  6.449814 2.684697
+\end{verbatim}
+
+Draw a new set of imputed values, conditioned on the current \(\mu^*\)
+and \(\Sigma^*\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Ystar <-}\StringTok{ }\KeywordTok{mvnorm_fill_missing}\NormalTok{(Y, mu_star, Sigma_star)}
+\KeywordTok{plot}\NormalTok{(Y_all, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(Ystar, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(Y, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{)}
+\KeywordTok{mylegend}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{multiple_imputation_files/figure-latex/impute_2-1.pdf}
+
+This is still a bad fit to the data, but, though it is hard to tell, it
+has improved slightly. Doing this repeatedly (in a loop) gradually
+improves the estimates of the covariance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\DataTypeTok{cex =} \FloatTok{0.4}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{) \{}
+\NormalTok{  mu_star <-}\StringTok{ }\KeywordTok{draw_mu}\NormalTok{(Ystar, Sigma_star, mu_}\DecValTok{0}\NormalTok{, Sigma_}\DecValTok{0}\NormalTok{)[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{  Sigma_star <-}\StringTok{ }\KeywordTok{draw_Sigma}\NormalTok{(Ystar, mu_star, v0, S0)}
+\NormalTok{  Ystar <-}\StringTok{ }\KeywordTok{mvnorm_fill_missing}\NormalTok{(Y, mu_star, Sigma_star)}
+\NormalTok{  title <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"iteration: %d, covariance: %.2f"}\NormalTok{, i, Sigma_star[}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{])}
+  \KeywordTok{plot}\NormalTok{(Y_all, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{main =}\NormalTok{ title)}
+  \KeywordTok{points}\NormalTok{(Ystar, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+  \KeywordTok{points}\NormalTok{(Y, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{multiple_imputation_files/figure-latex/loop-1.pdf}
+
+After a lot of MCMC samples, we can generate a distribution of
+covariance values, which provides an uncertainty estimate on the
+covariance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cov_ab <-}\StringTok{ }\KeywordTok{numeric}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(cov_ab)) \{}
+\NormalTok{  mu_star <-}\StringTok{ }\KeywordTok{draw_mu}\NormalTok{(Ystar, Sigma_star, mu_}\DecValTok{0}\NormalTok{, Sigma_}\DecValTok{0}\NormalTok{)[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{  Sigma_star <-}\StringTok{ }\KeywordTok{draw_Sigma}\NormalTok{(Ystar, mu_star, v0, S0)}
+\NormalTok{  Ystar <-}\StringTok{ }\KeywordTok{mvnorm_fill_missing}\NormalTok{(Y, mu_star, Sigma_star)}
+\NormalTok{  cov_ab[i] <-}\StringTok{ }\NormalTok{Sigma_star[}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\NormalTok{\}}
+\KeywordTok{hist}\NormalTok{(cov_ab, }\DataTypeTok{xlab =} \StringTok{"Covariance estimate"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Count"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Covariance estimate"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v =}\NormalTok{ true_cov[}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{], }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\DataTypeTok{legend =} \StringTok{"True cov."}\NormalTok{, }\DataTypeTok{lty =} \StringTok{"solid"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{multiple_imputation_files/figure-latex/cov_estimate-1.pdf}
+
+
+\end{document}
