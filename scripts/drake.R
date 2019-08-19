@@ -1,11 +1,11 @@
 library(shiklomanov2017np)
-library(drake)
+library(drake, exclude = c("expand", "gather"))
 library(knitr)
-library(kableExtra)
+library(kableExtra, exclude = c("group_rows"))
 
 import::from(here, inhere = here)
 
-pkgconfig::set_config("drake::strings_in_dots" = "literals")
+## pkgconfig::set_config("drake::strings_in_dots" = "literals")
 
 get_sample_size_long <- function(try_dat) {
   count_missing <- . %>%
@@ -42,7 +42,7 @@ base_plan <- drake_plan(
     dplyr::mutate(display = sprintf("%d (%d)", present, missing)) %>%
     dplyr::select(pft, trait, display) %>%
     tidyr::spread(trait, display),
-  rmarkdown::render(
+  paper_pdf = rmarkdown::render(
     knitr_in("supplementary_information.Rmd"),
     output_file = file_out("supplementary_information.pdf")
   )
@@ -175,11 +175,6 @@ corr_grid <- function(data) {
     ## scale_size_manual(values = c("yes" = 3, "no" = 1)) +
     scale_color_manual(name = "PFT", values = c("black", pft_colors)) +
     theme_bw()
-}
-
-if (FALSE) {
-
-
 }
 
 text_plot <- function(text) {

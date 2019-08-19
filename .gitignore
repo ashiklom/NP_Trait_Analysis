@@ -58,3 +58,4 @@ mvtraits/tests/testthat/*.rds
 playbook.retry
 /.drake
 /.scratch.R
+/.drake_backup
