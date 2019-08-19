@@ -82,7 +82,7 @@ message('Data contains ', nrow(data_mat), ' rows and ', ncol(data_mat), ' column
 
 niter <- 2500
 nchains <- 4
-parallel <- TRUE
+parallel <- FALSE
 autofit <- TRUE
 max_attempts <- 50
 keep_samples <- 20000
