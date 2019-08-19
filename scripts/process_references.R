@@ -5,7 +5,7 @@ library(stringi)
 try_refs <- src_sqlite("../preprocess-try/try.sqlite") %>%
   tbl("orig_citations") %>%
   collect() %>%
-  right_join(read_csv("../preprocess-try/traits/references.csv"))
+  right_join(read_csv("../preprocess-try/processed/traits/references.csv"))
 
 try_refs_proc <- try_refs %>%
   mutate(
@@ -15,12 +15,14 @@ try_refs_proc <- try_refs %>%
   filter(!grepl("unpub.|Unpublished literature compilation",
                 reference_proc, ignore.case = TRUE))
 
+## write_csv(try_refs_proc, "~/Projects/phd_work/multivariate_traits/try_references.csv")
+
 crossref_results <- list()
 for (i in seq_len(nrow(try_refs_proc))) {
   message(i, " of ", nrow(try_refs_proc))
   qry <- try_refs_proc$reference_proc[i]
   result <- cr_works(query = try_refs_proc$reference_proc[i], limit = 1)
-  print(result$data$DOI)
+  print(result$data$doi)
   crossref_results[[i]] <- result
 }
 
