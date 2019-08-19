@@ -9,7 +9,6 @@ author:
     Joseph Craine,
     Andrés Gonzalez-Melo,
     Steven Jansen,
-    Nathan Kraft,
     Koen Kramer,
     Vanessa Minden,
     Ülo Niinemets,
