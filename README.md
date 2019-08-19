@@ -1,4 +1,4 @@
-Analysis code and manuscript for Shiklomanov et al. *New Phytologist*
+Analysis code and manuscript for Shiklomanov et al. *Ecological Applications*
 
 **Author:** Alexey Shiklomanov
 
