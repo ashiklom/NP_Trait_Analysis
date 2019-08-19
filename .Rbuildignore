@@ -1,3 +1,15 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^extdata/.*$
+^\.drake/
+^\.drake_backup/
+^\.git/
+^results/
+^response-letter/
+^output/
+^extdata/
+^manuscript/
+^second-reviewer-response/
+
+^.*.log$
+^.*.pdf$
