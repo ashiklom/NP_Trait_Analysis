@@ -8,10 +8,24 @@ Analysis code and manuscript for Shiklomanov et al. *Ecological Applications*
 
 ## Description of R files
 
-### Scripts
+### Manuscript analyses
 
-- `scripts/cache_output.R` -- Load results from `output/` directory. Currently reads the `stats` list.
-- `scripts/clean_output` (deprecated) -- Cleans one specific output
+Scripts for analyses and figures used in the manuscript are stored in [`scripts/manuscript-analyses`](scripts/manuscript-analyses).
+
+- [`figure_correlation_boxplot.R`](scripts/manuscript-analyses/figure_correlation_boxplot.R) -- Draw the correlation boxplot (Figure 3)
+- [`many_results.R`](scripts/manuscript-analyses/many_results.R) -- Includes code for the following analyses:
+    - Sample sizes (Figure 1; Table 1)
+    - Mean value estimates (Figure 4)
+    - Relative uncertainty analysis (Figure 5)
+    - "Stick" slope figure (Figure 2)
+- [`table_n_species.R`](scripts/manuscript-analyses/table_n_species.R) -- Table of number of species by PFT
+- [`try_ref_table.R`](scripts/manuscript-analyses/try_ref_table.R) -- Table of TRY references (deprecated?)
+- [`wordcount.R`](scripts/manuscript-analyses/wordcount.R) -- Manuscript word count (deprecated?)
+
+### Other scripts
+
+- scripts/cache_output.R -- Load results from `output/` directory. Currently reads the `stats` list.
+- scripts/clean_output (deprecated) -- Cleans one specific output
 
 # Data
 
