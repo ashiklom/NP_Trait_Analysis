@@ -86,7 +86,7 @@ readd(table_dat) %>%
     col.names = linebreak(c(
       "PFT",
       "Leaf lifespan\n(months)",
-      "SLA\n(kg m$^{-2}$)",
+      "SLA\n(m$^2$ kg$^{-1}$)",
       "$N_\\textrm{mass}$\n(mg g$^{-1}$)",
       "$P_\\textrm{mass}$\n(mg g$^{-1}$)",
       "$R_\\textrm{d, mass}$\n($\\mu$mol g$^{-1}$ s$^{-1}$)",
@@ -106,7 +106,7 @@ readd(table_dat) %>%
     col.names = linebreak(c(
       "PFT",
       "Leaf lifespan\n(months)",
-      "SLA\n(kg m$^{-2}$)",
+      "SLA\n(m$^2$ kg$^{-1}$)",
       "$N_\\textrm{area}$\n(g m$^{-2}$)",
       "$P_\\textrm{area}$\n(g m$^{-2}$)",
       "$R_\\textrm{d, area}$\n($\\mu$mol m$^{-2}$ s$^{-1}$)",
