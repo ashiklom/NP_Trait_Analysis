@@ -1,11 +1,10 @@
+#!/usr/bin/env Rscript
+
 library(shiklomanov2017np)
 library(drake, exclude = c("expand", "gather"))
 library(knitr)
 library(kableExtra, exclude = c("group_rows"))
-
-import::from(here, inhere = here)
-
-## pkgconfig::set_config("drake::strings_in_dots" = "literals")
+library(here)
 
 get_sample_size_long <- function(try_dat) {
   count_missing <- . %>%
@@ -31,7 +30,7 @@ get_sample_size_long <- function(try_dat) {
 }
 
 base_plan <- drake_plan(
-  try_data_all = readRDS(inhere("extdata/traits_analysis.rds")),
+  try_data_all = readRDS(here("extdata", "traits_analysis.rds")),
   try_dat = try_data_all %>%
     dplyr::select(pft = clm45, !!both_params) %>%
     dplyr::mutate(
@@ -42,20 +41,25 @@ base_plan <- drake_plan(
     dplyr::mutate(display = sprintf("%d (%d)", present, missing)) %>%
     dplyr::select(pft, trait, display) %>%
     tidyr::spread(trait, display),
-  paper_pdf = rmarkdown::render(
+  supplement_pdf = rmarkdown::render(
     knitr_in("supplementary_information.Rmd"),
     output_file = file_out("supplementary_information.pdf")
   )
 )
 
+hier_mass_file <- here("output", "hier.mass.clm45.NA.2018-02-12-1154.rds")
+hier_area_file <- here("output", "hier.area.clm45.NA.2018-02-12-1227.rds")
+multi_mass_file <- here("output", "multi.mass.clm45.NA.2018-02-12-1127.rds")
+multi_area_file <- here("output", "multi.area.clm45.NA.2018-02-12-1146.rds")
+
 corr_data <- drake_plan(
-  hier_summary_mass = readRDS(file_in("output/hier.mass.clm45.NA.2018-02-12-1154.rds"))[["summary_table"]] %>%
+  hier_summary_mass = readRDS(file_in(!!hier_mass_file))[["summary_table"]] %>%
     mutate(mass_area = "mass", modeltype = "hier"),
-  hier_summary_area = readRDS(file_in("output/hier.area.clm45.NA.2018-02-12-1227.rds"))[["summary_table"]] %>%
+  hier_summary_area = readRDS(file_in(!!hier_area_file))[["summary_table"]] %>%
     mutate(mass_area = "area", modeltype = "hier"),
-  multi_summary_mass = readRDS(file_in("output/multi.mass.clm45.NA.2018-02-12-1127.rds"))[["summary_table"]] %>%
+  multi_summary_mass = readRDS(file_in(!!multi_mass_file))[["summary_table"]] %>%
     mutate(mass_area = "mass", modeltype = "multi"),
-  multi_summary_area = readRDS(file_in("output/multi.area.clm45.NA.2018-02-12-1146.rds"))[["summary_table"]] %>%
+  multi_summary_area = readRDS(file_in(!!multi_area_file))[["summary_table"]] %>%
     mutate(mass_area = "area", modeltype = "multi")
 )
 
@@ -402,7 +406,7 @@ results_plan <- drake_plan(
     dplyr::arrange(pft)
 )
 
-plan <- rbind(
+plan <- bind_plans(
   base_plan,
   corr_data,
   corr_proc_plan,
@@ -414,20 +418,3 @@ plan <- rbind(
 
 dconfig <- drake_config(plan)
 make(plan)
-
-if (FALSE) {
-  try_long <- readd(try_long)
-  try_ranges <- readd(try_ranges)
-  readd(corr_range_data) %>% glimpse()
-  readd(corr_plots)$plt[[1]]
-
-  clean(corr_plots)
-
-  readd(sample_size_long)
-
-  corr_results <- readd(corr_results)
- 
-  plan$target
-
-  readd(corr_range_plot_gg)
-}
