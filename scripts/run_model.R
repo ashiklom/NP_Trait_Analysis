@@ -2,6 +2,13 @@
 library(mvtraits)
 library(tidyverse)
 
+# `future.callr::callr` provides the most reliable parallel backend of the ones
+# I've tried. But if that causes problems, this can be changed to something
+# else. For running sequentially, comment out these lines or change the second
+# line to `future::plan("sequential")
+requireNamespace("future.callr", quietly = TRUE)
+future::plan(future.callr::callr())
+
 message("Current working directory: ", getwd())
 print(sessionInfo())
 
@@ -82,7 +89,6 @@ message('Data contains ', nrow(data_mat), ' rows and ', ncol(data_mat), ' column
 
 niter <- 2500
 nchains <- 4
-parallel <- FALSE
 autofit <- TRUE
 max_attempts <- 50
 keep_samples <- 20000
@@ -106,7 +112,6 @@ if (model_type == 'hier') {
                                groups = data_groups,
                                niter = niter,
                                nchains = nchains,
-                               parallel = parallel,
                                autofit = autofit,
                                priors = prior,
                                threshold = threshold,

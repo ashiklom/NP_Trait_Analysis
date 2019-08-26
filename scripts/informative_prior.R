@@ -15,7 +15,7 @@ prior_df <- tribble(
 ) %>%
   mutate(variance = stdev ^ 2)
 
-if (exists('data_df') && exists('use_rxp') && exists('data_mat')) {
+if (exists('use_rxp') && exists('data_mat')) {
   prior_sub <- prior_df %>%
     filter(grepl(use_rxp, param)) %>%
     mutate(param = factor(param, colnames(data_mat))) %>%
