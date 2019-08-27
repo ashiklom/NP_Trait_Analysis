@@ -26,9 +26,10 @@ parse_filetag <- function(fname_list) {
   as_tibble(d)
 }
 
-outfiles <- dir(outdir) %>%
+outfiles <- dir(outdir, pattern = "clm45") %>%
   parse_filetag() %>%
   arrange(desc(date)) %>%
+  # Select most recent version of all files
   distinct(model_type, mass_area, pft_type, pft, .keep_all = TRUE) %>%
   mutate(
     fname = file.path(outdir, fname),
