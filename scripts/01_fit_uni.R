@@ -1,4 +1,4 @@
-library(runjags)
+library(runjags, exclude = "extract")
 library(shiklomanov2017np)
 
 try_data <- readRDS("extdata/traits_analysis.rds")

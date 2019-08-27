@@ -55,6 +55,7 @@ stopifnot(pft_type %in% valid_pft_types)
 message('Selected PFT scheme: ', pft_type)
 
 pft <- cmdargs[4]
+if (pft == "NA") pft <- NA
 if (model_type == 'hier' && !is.na(pft)) stop('Cannot specify PFT for hierarchical model')
 if (is.na(pft)) {
     message('PFT is NA. Running for all PFTs.')
@@ -88,7 +89,7 @@ data_mat <- data_df %>% dplyr::select(-!!pft_type_q) %>% as.matrix() %>% log10()
 message('Data contains ', nrow(data_mat), ' rows and ', ncol(data_mat), ' columns')
 
 niter <- 2500
-nchains <- 4
+nchains <- 5
 autofit <- TRUE
 max_attempts <- 50
 keep_samples <- 20000
@@ -125,7 +126,6 @@ if (model_type == 'hier') {
     raw_fit <- fit_mvnorm(dat = data_mat,
                           niter = niter,
                           nchains = nchains,
-                          parallel = parallel,
                           autofit = autofit,
                           priors = prior,
                           threshold = threshold,
