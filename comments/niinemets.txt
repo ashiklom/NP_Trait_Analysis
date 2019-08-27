@@ -1,0 +1,25 @@
+Great revision!
+I have spotted only a few minor typos, and have a few rewording and clarification suggestions too, but nothing really major.
+
+L30 - are not area
+L34, identity of TRY must be made clear. There is no single database, but multiple databases within TRY. Use of "TRY" to denote all the data is exactly what we data providers have feared and is not in accordance with the data use and citation policy. In this sentce, Table 1 is excellent, only that it might be important to mention that TRY is an umbrella database also here
+L36-37, L135 it is ribulose-1,5-bisphosphate carboxylation rate not Rubisco carboxylation rate (or rate of carboxylation by Rubisco), and also I guess you mean photosynthetic electron transport
+L39-40 suggest, constraints ... were
+L43-44, could it be possible to highlight what factors can be involved?
+L94- here you refer to LMA, but then later we use SLA
+L96. I am not sure these are trait correlations with abiotic factors. These correlations result from entire suite of factors. Perhaps "abiotic factors" is not even needed in this sentence
+L127. "is novel" looks like a response to a reviewer. Perhaps try to frame differently, e.g. "by providing novel insight" or something similar
+L132, for SLA better use m2 kg-1, which is numerically the same but SI
+
+- In acronyms, the subscripts are typically in Roman not in italics
+L156 1 km2
+
+- Fig. 1, 2,4,5-  main letter in italics
+
+- in the case of equations, you use "...". This should be replaced by a comma in most case. At any rate, "..." is should not be used
+
+- Units are needed in Tables 3 and 4. I would also define all PFTs and symbols unless you can refer to another table or figure legend
+
+- L383-394. I think that both these studies fall short due to a different reason. We have shown in our 2015 Tansley review, in particular, that Llloyd et al did not look at herbs and is therefore completely misleading. Different traits are need to explain variations in different PFT-s. I am attaching the paper, which I think has to be included at this point.
+
+- L404-406. This is difficult to understand, perhaps reword. Why do we overestimate uncertainty?

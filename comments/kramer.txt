@@ -1,0 +1,15 @@
+- It is not immediately clear how the central question posed in the Introduction: Can the constraint on average functional characteristics across PFTs provided by the leaf economic spectrum be reconciled with trait relationships within each PFT?  relates to the title: Covariance as constraint: Leveraging leaf economic relationships to constrain plant functional type trait estimates. That is also the case with the hypothesis:  (...) that leaf economic relationships represent a biome-level environmental filter that regulates variability among PFTs and has little to no bearing on trait correlations within PFTs. How is that related to the title?
+
+- Moreover, it’s a bit of a search in the Discussion and Conclusions sections to find answers to this question and hypothesis. It is currently not clear to me if the trait means across PFT are reconciled with the trait relationships within PFT.
+
+- The entrance in the discussion: A key application of this study is to provide data-driven parameter estimates for Earth System Models. Gives the impression this is the central aim of the project, with in particular CLM in mind. Whereas the model application is presented in the Introduction as being derived from general insights considering constraints across PFTs so rather as a spin off.
+
+- Overall, I feel the structure of the Discussion and Results sections do not match very well the structure of the Introduction. It would be helpful if the biological / scientific questions posed in the Introduction are presented in the same order in the Results and Discussion sections. With respect to the title it would be logical to start the discussion with the section: Covariance as constraint. However, the central question appears to place emphasis on average of functional characteristics. Furthermore, the Results section starts with PFT means; followed with among and within PFT correlation patterns. It is not clear why a the discussion follows a somewhat different structure compared to the Results section. A choice needs to be made here to make that consistent (I mean: title –> central questions -> hypothesis-> structure of Results and Discussion)
+
+- It would be more clear if in the Conclusion section only conclusions are presented that drawn from the analyses performed. Thus directly connected to the biological research questions related to within and among PFT both trait variation and -correlation structure, with respect to either analyses per unit leaf mass and per unit leaf area. Now the Conclusions are a bit of continuation of the Discussion.
+
+- Fig. 4 is very nice! It would be good to anticipate this result by having a brief presentation considering trait values per unit mass vs per unit area in the Introduction
+
+- The Introduction is heavily referenced. Up to 8 references for some statements with several references to the same author(s). That hampers the flow of the reading and you could reduce the word count somewhat by reducing the referencing per statement whilst maintaining all references
+
+- It would be helpful to have a consistent usage of: either among or across PFT, trait vs functional characteristics, mean vs average

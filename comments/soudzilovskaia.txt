@@ -1,0 +1,15 @@
+Here are my comments on the manuscript. Generally it is very clearly written, and it has improved a lot since the last version that I saw. Concerning the ecological focus, requested by the reviewers, I think that introduction is perfectly OK in this respect, while the discussion is still rather technical and Earth modeling oriented, while it could benefit from stressing the ecological aspects of your findings. I also think that re-ordering the subsections in the discussion could help to solve this. I propose to have a following order:
+
+1. Covariance as constraint (this is you central hypothesis, so it makes sense to start with it!)
+
+2. Variation in trait means among PFTs
+
+3. Trait correlations and leaf economics
+
+4. Implications for Earth system modelling (currently this is discussed in the very beginning of the discussion, which I think is a wrong place for it, because it poses your findings as being relevant only for models, diminishing own ecological value of your conclusions)  
+
+5. (possibly) methodological considerations (this one could also be placed into an Appendix to save space; please see in the text which part I consider to be too methodologically focussed)
+
+6. Conclusions (focused of ecology!)
+
+I also think that you could use more ecologically meaningful names for your models. Instead of univariate, multivariate, and hierarchical model you could name them something like “independent traits model”, “covarying traits model”, “traits-within-PFT model”.  Such names are easy to grasp for ecologists, and would give the paper a more ecological flavor.
