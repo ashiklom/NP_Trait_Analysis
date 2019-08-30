@@ -26,11 +26,11 @@ if (exists('use_rxp') && exists('data_mat')) {
   variances <- diag(prior_sub[['variance']])
   dimnames(variances) <- list(prior_names, prior_names)
   prior[['mu_global']] <- means
-  prior[['sigma_global']] <- variances
+  prior[['Sigma_global']] <- variances
   if (exists('data_groups')) {
     npft <- max(as.integer(data_groups))
     stopifnot(npft == length(unique(data_groups)))
     prior[['mu_group']] <- matrix(rep(means, npft), nrow = npft, byrow = TRUE)
-    prior[['sigma_group']] <- mvtraits::matrep(variances, npft)
+    prior[['Sigma_group']] <- mvtraits::matrep(variances, npft)
   }
 }
