@@ -1,4 +1,6 @@
 library(shiklomanov2017np)
+library(ggplot2)
+library(GGally, exclude = "nasa")
 
 manuscript_fig_dir <- here("figures", "manuscript")
 dir.create(manuscript_fig_dir, showWarnings = FALSE)
@@ -9,21 +11,22 @@ results_all <- readRDS(resultsfile)
 results_hier <- results_all %>%
   filter(model_type == "hier")
 
-rh_list <- map(results_hier[["data"]], "result")
+rh_list <- map(results_hier[["data"]], "result") %>%
+  setNames(results_hier[["mass_area"]])
 
 means <- rh_list %>%
-  pluck(2, "mu_group") %>%
-  map(~pmap(..1, .f = tibble::tibble)) %>%
-  map(bind_rows, .id = "trait") %>%
-  bind_rows(.id = "pft")
-
-library(ggplot2)
-library(GGally, exclude = "nasa")
+  map("mu_group") %>%
+  map_depth(2, ~pmap(..1, .f = tibble::tibble)) %>%
+  map_depth(2, bind_rows, .id = "trait") %>%
+  map(bind_rows, .id = "pft") %>%
+  bind_rows(.id = "mass_area")
 
 means_wide <- means %>%
-  mutate(trait = forcats::fct_inorder(trait),
-         pft = forcats::fct_inorder(pft)) %>%
-  gather(stat, value, -pft, -trait) %>%
+  mutate(trait = gsub("_?(mass|area)", "", trait) %>%
+           forcats::fct_inorder(),
+         pft = forcats::fct_inorder(pft),
+         mass_area = factor(mass_area, c("mass", "area"))) %>%
+  gather(stat, value, -pft, -trait, -mass_area) %>%
   mutate(stat = recode(stat, "2.5%" = "lo",
                        "Mean" = "mid",
                        "97.5%" = "hi") %>% factor(c("lo", "mid", "hi")),
@@ -32,14 +35,16 @@ means_wide <- means %>%
   select(-trait, -stat) %>%
   spread(variable, value)
 
-errorbar_xy <- function(xtrait, ytrait) {
+errorbar_xy <- function(xtrait, ytrait, mass_area) {
   x <- paste0(xtrait, ".mid")
   y <- paste0(ytrait, ".mid")
   xmin <- paste0(xtrait, ".lo")
   ymin <- paste0(ytrait, ".lo")
   xmax <- paste0(xtrait, ".hi")
   ymax <- paste0(ytrait, ".hi")
-  ggplot(means_wide) +
+  means_wide %>%
+    filter(mass_area == !!mass_area) %>%
+    ggplot() +
     aes_string(x = x, y = y, xmin = xmin, xmax = xmax,
                ymin = ymin, ymax = ymax, color = "pft") +
     geom_point() +
@@ -54,11 +59,16 @@ errorbar_xy <- function(xtrait, ytrait) {
     theme_bw()
 }
 
-errorbar_xy("leaf_lifespan", "SLA")
-errorbar_xy("leaf_lifespan", "Nmass")
-errorbar_xy("Nmass", "Pmass")
-errorbar_xy("Vcmax_mass", "Jmax_mass") +
-  coord_cartesian(xlim = c(0.10, 3))
+errorbar_xy("Vcmax", "Jmax", "area") +
+  geom_text(aes(label = pft))
+
+errorbar_xy("leaf_lifespan", "SLA", "mass")
+errorbar_xy("leaf_lifespan", "N", "mass")
+errorbar_xy("N", "P", "mass")
+errorbar_xy("Vcmax", "Jmax", "area") +
+  geom_text(aes(label = pft))
+
+errorbar_xy("Vcmax_area", "Jmax_area")
 
 hmg <- results_hier %>%
   filter(model_type == "hier",
