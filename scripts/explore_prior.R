@@ -42,6 +42,18 @@ ggplot(plot_df) +
 
 ##################################################
 # Plot the data (log-transformed) and prior +/- 1.96 SD (95% CI)
+library(tidyverse)
+
+try_data <- readRDS('extdata/traits_analysis.rds')
+
+# toggle this manually to control which plot we draw
+data_type <- "area"
+area_rxp <- 'leaf_lifespan|SLA|area'
+mass_rxp <- 'leaf_lifespan|SLA|mass'
+use_rxp <- switch(data_type, area = area_rxp, mass = mass_rxp)
+data_df <- try_data %>%
+    dplyr::select(clm45, matches(use_rxp)) %>%
+    dplyr::filter_at(dplyr::vars(matches(use_rxp)), dplyr::any_vars(!is.na(.)))
 data_df %>%
   gather(trait, value, -clm45) %>%
   filter(!is.na(value)) %>%
@@ -54,4 +66,5 @@ data_df %>%
   geom_hline(aes(yintercept = mean + 1.96 * stdev), linetype = "dashed") +
   geom_hline(aes(yintercept = mean - 1.96 * stdev), linetype = "dashed") +
   facet_wrap(vars(trait), scales = "free_y") +
-  theme_bw()
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))
