@@ -55,7 +55,7 @@ stopifnot(pft_type %in% valid_pft_types)
 message('Selected PFT scheme: ', pft_type)
 
 pft <- cmdargs[4]
-if (pft == "NA") pft <- NA
+if (!is.na(pft) && pft == "NA") pft <- NA
 if (model_type == 'hier' && !is.na(pft)) stop('Cannot specify PFT for hierarchical model')
 if (is.na(pft)) {
     message('PFT is NA. Running for all PFTs.')
@@ -94,7 +94,7 @@ autofit <- TRUE
 max_attempts <- 50
 keep_samples <- 20000
 save_progress <- NULL
-threshold <- 1.3
+threshold <- 1.1
 # save_progress <- file.path(progress_dir, file_tag)
 
 progress_dir <- 'progress'
