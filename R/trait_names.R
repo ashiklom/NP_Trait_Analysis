@@ -25,6 +25,18 @@ both_params <- c("leaf_lifespan", "SLA", "Nmass", "Narea", "Pmass", "Parea",
                  "Rdmass", "Rdarea", "Vcmax_mass", "Vcmax_area",
                  "Jmax_mass", "Jmax_area")
 
+#' Drop the mass/area designation from trait, and return a clean factor
+#'
+#' @param trait Character or factor of traits
+#' @return Trait vector as factor, with levels [param_labels]
+#' @author Alexey Shiklomanov
+#' @export
+drop_mass_area <- function(trait) {
+  char <- gsub("_?(mass|area)", "", as.character(trait))
+  char[char == "leaf_lifespan"] <- "Leaf lifespan"
+  factor(char, param_labels)
+}
+
 #' Trait labels
 #'
 #' Various vectors for providing formatted trait labels for figures and tables.
