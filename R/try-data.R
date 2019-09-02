@@ -15,6 +15,7 @@ try_data <- function(mass_area = NULL,
   }
   dat <- readr::read_csv(f, col_types = c("PFT" = "c",
                                           .default = "n")) %>%
+    dplyr::mutate(PFT = factor(PFT, abbr2pft[-1])) %>%
     dplyr::rename(pft = PFT)
   if (is.null(mass_area)) return(dat)
   rxp <- switch(mass_area,
