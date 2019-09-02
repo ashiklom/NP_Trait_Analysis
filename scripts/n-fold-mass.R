@@ -98,7 +98,7 @@ cross_validate <- function(data_mat, groups, nremove) {
 
   # Multivariate model -- by PFT
   mboot_means <- matrix(NA_real_, nrow(test_data), ncol(test_data))
-  for (g in levels(data_groups)) {
+  for (g in levels(groups)) {
     ig <- groups == g
     gdata <- test_data[ig, ]
     gmat <- multi_results[[g]]
@@ -135,20 +135,3 @@ cv_results <- replicate(ncv, cross_validate(data_mat, data_groups),
 
 cv_results_df <- bind_rows(cv_results, .id = "i")
 write_csv(cv_results_df, file.path(resultsdir, "cv-results-mass.csv"))
-
-## plt <- cv_results_df %>%
-##   gather(trait, value, -i, -model) %>%
-##   group_by(model, trait) %>%
-##   summarize(M = mean(value), S = sd(value)) %>%
-##   ungroup() %>%
-##   mutate(model = factor(model, c("uni", "multi_global",
-##                                  "multi_group", "hier")),
-##          trait = factor(trait, shiklomanov2017np::mass_params)) %>%
-##   ggplot() +
-##   aes(x = model, y = M) +
-##   geom_col() +
-##   facet_wrap(vars(trait), scales = "free_y") +
-##   cowplot::theme_cowplot() +
-##   theme(
-##     axis.text.x = element_text(angle = )
-##   )
