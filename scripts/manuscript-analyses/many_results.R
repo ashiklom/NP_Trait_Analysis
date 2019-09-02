@@ -4,7 +4,7 @@
 ## ----options, echo=FALSE, message=FALSE----------------------------------
 library(shiklomanov2017np)
 
-manuscript_fig_dir <- here("manuscript", "figures")
+manuscript_fig_dir <- here("figures", "manuscript")
 dir.create(manuscript_fig_dir, showWarnings = FALSE)
 
 try_sub <- try_data()

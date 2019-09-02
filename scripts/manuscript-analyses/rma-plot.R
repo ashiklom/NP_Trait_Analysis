@@ -3,8 +3,6 @@ library(shiklomanov2017np)
 outdir <- here::here("output")
 hier_mass_file <- tail(dir(outdir, "hier.mass.clm45", full.names = TRUE), 1)
 hier_area_file <- tail(dir(outdir, "hier.area.clm45", full.names = TRUE), 1)
-multi_mass_file <- tail(dir(outdir, "multi.mass.clm45.NA", full.names = TRUE), 1)
-multi_area_file <- tail(dir(outdir, "multi.area.clm45.NA", full.names = TRUE), 1)
 
 rma_slope <- function(m, pft, yvar, xvar) {
   sdy_col <- paste("Sigma", pft, yvar, yvar, sep = "..")

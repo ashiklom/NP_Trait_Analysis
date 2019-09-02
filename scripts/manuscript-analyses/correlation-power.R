@@ -94,6 +94,6 @@ plt_color <- ggplot() +
   cowplot::theme_cowplot()
 plt_color
 
-figdir <- here::here("manuscript", "figures")
+figdir <- here::here("figures", "manuscript")
 dir.create(figdir, showWarnings = FALSE, recursive = TRUE)
 ggsave(file.path(figdir, "correlation-"))
