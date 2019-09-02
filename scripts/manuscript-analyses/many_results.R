@@ -20,7 +20,7 @@ sample_size <- try_sub %>%
   mutate(param = factor(param, both_params))
 
 ## ----prepresults---------------------------------------------------------
-resultsfile <- here("results/mvtraits_results.rds")
+resultsfile <- here("results", "mvtraits_results.rds")
 results_all <- readRDS(resultsfile)
 
 max_ss <- max(sample_size$sample_size)
@@ -123,9 +123,9 @@ table_dat <- means_dat %>%
     hi_f = formatC(mu_hi, digits = 3),
     value = sprintf("%s (%s,%s)", mid_f, lo_f, hi_f),
     value = censor("Vcmax|Jmax", "C4G", pft, param, value),
-    value = censor("Rdmass", "ShDBo", pft, param, value),
-    value = censor("Jmax_mass", c("NlEBo", "NlD"), pft, param, value),
-    value = censor("Jmax_area", c("NlD"), pft, param, value)
+    ## value = censor("Rdmass", "ShDBo", pft, param, value),
+    ## value = censor("Jmax_mass", c("NlEBo", "NlD"), pft, param, value),
+    ## value = censor("Jmax_area", c("NlD"), pft, param, value)
   ) %>%
   select(pft, param, value) %>%
   mutate(
@@ -171,8 +171,24 @@ clm_dat <- clm45_table81 %>%
     mu_lo = mu_mean
   )
 
+param_fancy_2 <- c(
+  leaf_lifespan = "atop(Leaf~lifespan, (months))",
+  Nmass = "atop(N[mass], (mg ~ g ^ -1))",
+  Pmass = "atop(P[mass], (mg ~ g ^ -1))",
+  SLA = "atop(SLA, (m ^ 2 ~ kg ^ -1))",
+  Rdmass = "atop(R[list(d,mass)], (mu * mol ~ g ^ -1 ~ s ^ -1))",
+  Vcmax_mass = "atop(V[list(c, max, mass)], (mu * mol ~ g ^ -1 ~ s ^ -1))",
+  Jmax_mass = "atop(J[list(max, mass)], (mu * mol ~ g ^ -1 ~ s ^ -1))",
+  # TODO: Fix these
+  Narea = "atop(N[area], (g ~ m ^ -2))",
+  Parea = "atop(P[area], (g ~ m ^ -2))",
+  Rdarea = "atop(R[{list(d, area)}], (mu * mol ~ m ^ -2 ~ s ^ -1))",
+  Vcmax_area = "atop(V[{list(c, max, area)}], (mu * mol ~ m ^ -2 ~ s ^ -1))",
+  Jmax_area = "atop(J[{list(max, area)}], (mu * mol ~ m ^ -2 ~ s ^ -1))"
+)
 plot_dat <- means_dat %>%
   mutate(model_type = factor(model_type, model_type_levels)) %>%
+  filter(model_type == "hierarchical") %>%
   bind_rows(clm_dat) %>%
   mutate(
     # Convert Nmass and Pmass to correct units
@@ -184,49 +200,71 @@ plot_dat <- means_dat %>%
     mu_lo = if_else(irrelevant, NA_real_, mu_lo),
     mu_mean = if_else(irrelevant, NA_real_, mu_mean),
     ## TODO: Fix these in the prior and re-run
-    mu_hi = pclip(param, "Vcmax_mass", mu_hi, 2.5),
-    mu_hi = pclip(param, "Vcmax_area", mu_hi, 100),
-    mu_hi = pclip(param, "Jmax_mass", mu_hi, 1.8),
-    mu_mean = pclip(param, "Jmax_mass", mu_mean, 1.8),
-    mu_hi = pclip(param, "Jmax_area", mu_hi, 150),
-    mu_mean = pclip(param, "Jmax_area", mu_mean, 150),
-    #mu_hi = pclip(param, "Rdmass", mu_hi, 0.03),
-    #mu_mean = pclip(param, "Rdmass", mu_mean, 0.03),
-    #mu_lo = pclip(param, "Rdmass", mu_lo, 0.03),
-    #mu_hi = pclip(param, "Rdarea", mu_hi, 0.0025),
-    #mu_mean = pclip(param, "Rdarea", mu_mean, 0.0025),
-    #mu_lo = pclip(param, "Rdarea", mu_lo, 0.0025),
-    #mu_hi = pclip(param, "Parea", mu_hi, 0.285),
-    #mu_lo = pclip(param, "Jmax_area", mu_lo, 40, FALSE),
-    param = forcats::lvls_revalue(param, param_fancy_chr[both_params])
+    mu_hi = pclip(param, "Rdmass", mu_hi, 50),
+    mu_hi = pclip(param, "Rdarea", mu_hi, 4),
+    mu_hi = pclip(param, "Vcmax_mass", mu_hi, 5),
+    mu_mean = pclip(param, "Vcmax_mass", mu_mean, 5),
+    mu_hi = pclip(param, "Vcmax_area", mu_hi, 120),
+    mu_hi = pclip(param, "Jmax_mass", mu_hi, 4),
+    mu_hi = pclip(param, "Jmax_area", mu_hi, 300),
+    param = forcats::lvls_revalue(param, param_fancy_2[both_params])
   )
 p_means <- ggplot(plot_dat) +
-  aes(x = interaction(model_type, pft),
-      y = mu_mean, ymin = mu_lo, ymax = mu_hi,
-      color = pft, shape = model_type) +
+  aes(
+    ## x = interaction(model_type, pft),
+    x = pft,
+    y = mu_mean,
+    ymin = mu_lo,
+    ymax = mu_hi,
+    color = pft,
+    shape = model_type
+  ) +
   geom_pointrange(size = 0.3) +
   facet_wrap(~param, scales = "free", ncol = 2,
-              labeller = label_parsed) +
-  scale_y_continuous() +
+             labeller = label_parsed,
+             strip.position = "left") +
+  scale_y_continuous(sec.axis = dup_axis()) +
   scale_color_manual(values = pft_colors) +
+  scale_shape_manual(values = c(
+    "univariate" = 17,
+    "multivariate" = 15,
+    "hierarchical" = 20,
+    "CLM 4.5" = 4
+  )) +
   guides(
-    shape = guide_legend(title = "Model type"),
-    color = guide_legend(title = "PFT")
+    shape = guide_legend(title = "Model type",
+                         nrow = 1,
+                         override.aes = list(linetype = 0)),
+    color = guide_legend(title = "PFT",
+                         byrow = TRUE,
+                         ncol = 8,
+                         label.position = "bottom",
+                         keywidth = 2.5)
   ) +
   ylab("Trait estimate mean and 95% CI") +
-  xlab("Model type and PFT") +
+  xlab("Plant functional type") +
   theme_bw() +
   theme(
     text = element_text(size = 12),
+    axis.title.y.left = element_blank(),
+    axis.text.y.left = element_text(),
+    axis.title.y.right = element_text(),
+    axis.ticks.y.right = element_blank(),
+    axis.text.y.right = element_blank(),
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
-    panel.grid = element_blank()
+    panel.grid = element_blank(),
+    legend.position = "bottom",
+    legend.box = "vertical",
+    legend.direction = "horizontal",
+    strip.placement = "outside",
+    strip.background = element_blank(),
   )
 if (interactive()) {
   p_means
 }
 ggsave(file.path(manuscript_fig_dir, "mean_comparison.pdf"), p_means,
-       width = 7, height = 7)
+       width = 6.44, height = 8.1)
 
 ## ----"civssamplesize", fig.width=4.4, fig.height=3, fig.cap='(ref:sscap)'----
 ## Relative uncertainty
