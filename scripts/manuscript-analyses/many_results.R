@@ -3,13 +3,11 @@
 
 ## ----options, echo=FALSE, message=FALSE----------------------------------
 library(shiklomanov2017np)
-manuscript_fig_dir <- here("figures", "manuscript")
+
+manuscript_fig_dir <- here("manuscript", "figures")
 dir.create(manuscript_fig_dir, showWarnings = FALSE)
 
-try_data <- readRDS(here("extdata/traits_analysis.rds"))
-
-try_sub <- try_data %>%
-  select(pft = clm45, !!both_params)
+try_sub <- try_data()
 
 sample_size <- try_sub %>%
   select(pft, one_of(both_params)) %>%
