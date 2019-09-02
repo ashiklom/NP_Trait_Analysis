@@ -19,29 +19,6 @@ sample_size <- try_sub %>%
   gather("param", "sample_size", -pft) %>%
   mutate(param = factor(param, both_params))
 
-## ----"samplesize", fig.cap='(ref:ssfigcap)', fig.width=7, fig.height=7----
-ss_plot <- sample_size %>%
-  mutate(param = forcats::lvls_revalue(param, param_simple[both_params])) %>%
-  ggplot() +
-  aes(x = pft, y = sample_size, fill = pft) +
-  geom_col() +
-  scale_y_log10(breaks = c(10, 100, 1000, 10000)) +
-  facet_wrap(~param, ncol = 2, labeller = label_parsed) +
-  scale_fill_manual(values = pft_colors) +
-  xlab("Plant functional type") +
-  ylab("Sample size") +
-  guides(fill = guide_legend(title = "PFT")) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank()
-  )
-if (interactive()) {
-  ss_plot
-}
-ggsave(file.path(manuscript_fig_dir, "sample_size.pdf"), ss_plot,
-        width = 7, height = 7)
-
 ## ----prepresults---------------------------------------------------------
 resultsfile <- here("results/mvtraits_results.rds")
 results_all <- readRDS(resultsfile)
