@@ -99,6 +99,9 @@ seperate. See details.}
   column faceting variables and nests grouped facets.
 }
 \details{
+Adapted almost verbatim from ggnomics::facet_nested:
+`https://github.com/teunbrand/ggnomics/blob/master/R/facet_nested.R`
+
 Unlike \code{facet_grid()}, this function only automatically expands
   missing variables when they have no variables in that direction, to allow
   for unnested variables. It still requires at least one layer to have all
