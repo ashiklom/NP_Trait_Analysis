@@ -1,11 +1,25 @@
+#!/usr/bin/env Rscript
+# This script takes two command line arguments.
+#
+# The first determines if the cross validation is on "mass" or "area" normalized
+# traits. It is required.
+#
+# The second specifies the number of cross validations to do. If omitted, the
+# default is 20.
 library(shiklomanov2017np)
 library(tidyverse)
+
+argv <- commandArgs(trailingOnly = TRUE)
+stopifnot(length(argv) %in% c(1, 2))
+mass_area <- match.arg(argv[1], c("mass", "area"))
+ncv <- argv[2]
+if (is.na(ncv)) ncv <- 20
 
 outdir <- here::here("output")
 resultsdir <- here::here("results")
 dir.create(resultsdir, showWarnings = FALSE, recursive = TRUE)
 
-dat_df_all <- try_data("mass")
+dat_df_all <- try_data(mass_area)
 
 data_groups <- dat_df_all[["pft"]]
 data_mat <- dat_df_all %>%
@@ -13,7 +27,8 @@ data_mat <- dat_df_all %>%
   as.matrix() %>%
   log10()
 
-r_hm_file <- tail(list.files("output", "hier.mass.clm45", full.names = TRUE), 1)
+hier_pattern <- paste0("hier\\.", mass_area, "\\.clm45")
+r_hm_file <- tail(list.files("output", hier_pattern, full.names = TRUE), 1)
 r_hm <- readRDS(r_hm_file)
 # Remove unnecessary stuff from the hierarchical output so that
 r_hm_mat <- coda:::as.matrix.mcmc.list(
@@ -23,7 +38,8 @@ r_hm_mat <- r_hm_mat[, !grepl("^Corr", colnames(r_hm_mat))]
 r_hm_mat <- r_hm_mat[, !grepl("global", colnames(r_hm_mat))]
 
 # Multivariate results, globally
-gmulti_file <- tail(list.files(outdir, "multi.area.clm45.NA",
+gmulti_pattern <- paste0("multi\\.", mass_area, "\\.clm45\\.NA")
+gmulti_file <- tail(list.files("output", gmulti_pattern,
                                full.names = TRUE), 1)
 gmulti <- readRDS(gmulti_file)
 gmulti_mat <- coda:::as.matrix.mcmc.list(gmulti$samples)
@@ -33,7 +49,7 @@ gmulti_mat <- gmulti_mat[, !grepl("^Corr", colnames(gmulti_mat))]
 multi_results <- lapply(
   levels(data_groups),
   function(g) {
-    pattern <- paste0("multi\\.mass\\.clm45\\.", g, ".2019")
+    pattern <- paste0("multi\\.", mass_area, "\\.clm45\\.", g, ".2019")
     f <- tail(list.files("output", pattern, full.names = TRUE), 1)
     d <- readRDS(f)
     dmat <- coda:::as.matrix.mcmc.list(d$samples)
@@ -47,7 +63,7 @@ names(multi_results) <- levels(data_groups)
 uni_results <- lapply(
   levels(data_groups),
   function(g) {
-    f <- paste0("output/uni.mass.clm45.", g, ".rds")
+    f <- paste0("output/uni.", mass_area, ".clm45.", g, ".rds")
     d <- readRDS(f)
     d$stats$mu$Mean
   }
@@ -66,6 +82,12 @@ data_mat_sub <- data_mat[gt2, ]
 groups_sub <- data_groups[gt2]
 
 cross_validate <- function(data_mat, groups, nremove) {
+
+  message("Beginning cross validation")
+  if (exists("incv")) {
+    incv <<- incv + 1
+    message(incv, " of ", ncv)
+  }
 
   sample_inds <- which(!is.na(data_mat), arr.ind = TRUE)
 
@@ -87,11 +109,13 @@ cross_validate <- function(data_mat, groups, nremove) {
   }
 
   # Hierarchical model
+  message("Hierarchical model")
   boot <- mvtraits::bootstrap_missing_hier(r_hm_mat, test_data, groups)
   boot_means <- apply(boot, c(1, 2), mean)
   rmse_h <- rmse_by_trait(boot_means)
 
   # Multivariate model -- global
+  message("Global multivariate model")
   mgboot <- mvtraits::bootstrap_missing(gmulti_mat, test_data)
   mgboot_means <- apply(mgboot, c(1, 2), mean)
   rmse_mg <- rmse_by_trait(mgboot_means)
@@ -99,6 +123,7 @@ cross_validate <- function(data_mat, groups, nremove) {
   # Multivariate model -- by PFT
   mboot_means <- matrix(NA_real_, nrow(test_data), ncol(test_data))
   for (g in levels(groups)) {
+    message("PFT multivariate model for PFT: ", g)
     ig <- groups == g
     gdata <- test_data[ig, ]
     gmat <- multi_results[[g]]
@@ -109,6 +134,7 @@ cross_validate <- function(data_mat, groups, nremove) {
   rmse_m <- rmse_by_trait(mboot_means)
 
   # Univariate model
+  message("Univariate model")
   rmse_u <- vapply(
     1:7,
     function(x) {
@@ -126,12 +152,18 @@ cross_validate <- function(data_mat, groups, nremove) {
                     multi_group = rmse_m, uni = rmse_u) %>%
     as_tibble(rownames = "model")
 
+  message("Done.")
+
   rmse_all
 }
 
-ncv <- 20
+incv <- 1
 cv_results <- replicate(ncv, cross_validate(data_mat, data_groups),
                         simplify = FALSE)
 
 cv_results_df <- bind_rows(cv_results, .id = "i")
-write_csv(cv_results_df, file.path(resultsdir, "cv-results-mass.csv"))
+resultsfile <- file.path(
+  resultsdir,
+  paste0("cv-results-", mass_area, ".csv")
+)
+write_csv(cv_results_df, resultsfile)
