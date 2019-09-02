@@ -12,19 +12,18 @@ future::plan(future.callr::callr())
 message("Current working directory: ", getwd())
 print(sessionInfo())
 
-try_data <- readRDS('extdata/traits_analysis.rds')
+try_data <- read_csv("extdata/data_anonymized.csv",
+                     col_types = c("PFT" = "c", .default = "n"))
 
 # For testing
 if (FALSE) {
     # For testing
-    cmdargs <- c("hier", "mass", "clm45")
-    cmdargs <- c("hier", "area", "clm45")
-    cmdargs <- c("multi", "mass", "clm45")
-    cmdargs <- c("multi", "area", "clm45")
-    cmdargs <- c('multi', 'area', 'clm45', 'shrub_evergreen')
-    cmdargs <- c('multi', 'mass', 'jules1', 'c4_grass')
-    cmdargs <- c('hier', 'mass', 'jules2')
-    cmdargs <- c('multi', 'area', 'jules1')
+    cmdargs <- c("hier", "mass")
+    cmdargs <- c("hier", "area")
+    cmdargs <- c("multi", "mass")
+    cmdargs <- c("multi", "area")
+    cmdargs <- c('multi', 'area', 'shrub_evergreen')
+    cmdargs <- c('multi', 'mass', 'c4_grass')
 }
 
 out_dir <- "output"
@@ -49,18 +48,13 @@ data_type <- cmdargs[2]
 stopifnot(data_type %in% c('area', 'mass'))
 message('Selected data type: ', data_type)
 
-pft_type <- cmdargs[3]
-valid_pft_types <- try_data %>% select_if(is.factor) %>% colnames
-stopifnot(pft_type %in% valid_pft_types)
-message('Selected PFT scheme: ', pft_type)
-
-pft <- cmdargs[4]
+pft <- cmdargs[3]
 if (!is.na(pft) && pft == "NA") pft <- NA
 if (model_type == 'hier' && !is.na(pft)) stop('Cannot specify PFT for hierarchical model')
 if (is.na(pft)) {
     message('PFT is NA. Running for all PFTs.')
 } else {
-    valid_pfts <- try_data %>% select(one_of(pft_type)) %>% distinct %>% pull %>% levels
+    valid_pfts <- try_data %>% select(pft) %>% distinct %>% pull %>% levels
     stopifnot(pft %in% valid_pfts)
     message('Selected PFT: ', pft)
 }
@@ -70,13 +64,11 @@ mass_rxp <- 'leaf_lifespan|SLA|mass'
 use_rxp <- switch(data_type, area = area_rxp, mass = mass_rxp)
 
 data_df_all <- try_data %>%
-    dplyr::select(one_of(pft_type), matches(use_rxp)) %>%
+    dplyr::select(pft = PFT, matches(use_rxp)) %>%
     dplyr::filter_at(dplyr::vars(matches(use_rxp)), dplyr::any_vars(!is.na(.)))
 
-pft_type_q <- rlang::sym(pft_type)
-
 if (!is.na(pft)) {
-    data_df <- filter(data_df_all, UQ(pft_type_q) == pft)
+    data_df <- filter(data_df_all, pft == !!pft)
 } else {
     data_df <- data_df_all
 }
@@ -85,8 +77,8 @@ stopifnot(nrow(data_df) > 0)
 date_format <- strftime(Sys.time(), '%Y-%m-%d-%H%M')
 file_tag <- paste(model_type, data_type, pft_type, pft, date_format, 'rds', sep = '.')
 
-data_mat <- data_df %>% dplyr::select(-!!pft_type_q) %>% as.matrix() %>% log10()
-message('Data contains ', nrow(data_mat), ' rows and ', ncol(data_mat), ' columns')
+data_mat <- data_df %>% dplyr::select(-pft) %>% as.matrix() %>% log10()
+message('Data contain ', nrow(data_mat), ' rows and ', ncol(data_mat), ' columns')
 
 niter <- 2500
 nchains <- 5
@@ -106,7 +98,7 @@ dir.create(results_dir, showWarnings = FALSE)
 message('Saving final run results in directory: ', results_dir)
 
 if (model_type == 'hier') {
-    data_groups <- data_df[[pft_type]]
+    data_groups <- data_df[["pft"]]
     source('scripts/informative_prior.R')
     message('Starting hierarchical model run...')
     raw_fit <- fit_mvnorm_hier(dat = data_mat,
