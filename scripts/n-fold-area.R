@@ -1,14 +1,11 @@
+library(shiklomanov2017np)
 library(tidyverse)
 
 outdir <- here::here("output")
+resultsdir <- here::here("results")
+dir.create(resultsdir, showWarnings = FALSE, recursive = TRUE)
 
-try_data <- readRDS(here::here("extdata", "traits_analysis.rds"))
-
-use_rxp <- "leaf_lifespan|SLA|area"
-dat_df_all <- try_data %>%
-  as_tibble() %>%
-  select(pft = clm45, matches(use_rxp)) %>%
-  filter_at(vars(matches(use_rxp)), any_vars(!is.na(.)))
+dat_df_all <- try_data("area")
 
 data_groups <- dat_df_all[["pft"]]
 data_mat <- dat_df_all %>%
@@ -132,7 +129,7 @@ cross_validate <- function(data_mat, groups, nremove) {
   rmse_all
 }
 
-ncv <- 20
+ncv <- 3
 cv_results <- replicate(ncv, cross_validate(data_mat, data_groups),
                         simplify = FALSE)
 

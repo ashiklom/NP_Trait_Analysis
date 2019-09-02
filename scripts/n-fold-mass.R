@@ -1,14 +1,11 @@
+library(shiklomanov2017np)
 library(tidyverse)
 
 outdir <- here::here("output")
+resultsdir <- here::here("results")
+dir.create(resultsdir, showWarnings = FALSE, recursive = TRUE)
 
-try_data <- readRDS(here::here("extdata", "traits_analysis.rds"))
-
-use_rxp <- "leaf_lifespan|SLA|mass"
-dat_df_all <- try_data %>%
-  as_tibble() %>%
-  select(pft = clm45, matches(use_rxp)) %>%
-  filter_at(vars(matches(use_rxp)), any_vars(!is.na(.)))
+dat_df_all <- try_data("mass")
 
 data_groups <- dat_df_all[["pft"]]
 data_mat <- dat_df_all %>%
@@ -16,7 +13,8 @@ data_mat <- dat_df_all %>%
   as.matrix() %>%
   log10()
 
-r_hm <- readRDS("output/hier.mass.clm45.NA.2019-08-26-1533.rds")
+r_hm_file <- tail(list.files("output", "hier.mass.clm45", full.names = TRUE), 1)
+r_hm <- readRDS(r_hm_file)
 # Remove unnecessary stuff from the hierarchical output so that
 r_hm_mat <- coda:::as.matrix.mcmc.list(
   window(r_hm$samples, start = 10000)
@@ -25,7 +23,9 @@ r_hm_mat <- r_hm_mat[, !grepl("^Corr", colnames(r_hm_mat))]
 r_hm_mat <- r_hm_mat[, !grepl("global", colnames(r_hm_mat))]
 
 # Multivariate results, globally
-gmulti <- readRDS("output/multi.mass.clm45.NA.2019-08-26-1719.rds")
+gmulti_file <- tail(list.files(outdir, "multi.area.clm45.NA",
+                               full.names = TRUE), 1)
+gmulti <- readRDS(gmulti_file)
 gmulti_mat <- coda:::as.matrix.mcmc.list(gmulti$samples)
 gmulti_mat <- gmulti_mat[, !grepl("^Corr", colnames(gmulti_mat))]
 
@@ -134,21 +134,21 @@ cv_results <- replicate(ncv, cross_validate(data_mat, data_groups),
                         simplify = FALSE)
 
 cv_results_df <- bind_rows(cv_results, .id = "i")
-write_csv(cv_results_df, "results/cv-results-mass.csv")
+write_csv(cv_results_df, file.path(resultsdir, "cv-results-mass.csv"))
 
-plt <- cv_results_df %>%
-  gather(trait, value, -i, -model) %>%
-  group_by(model, trait) %>%
-  summarize(M = mean(value), S = sd(value)) %>%
-  ungroup() %>%
-  mutate(model = factor(model, c("uni", "multi_global",
-                                 "multi_group", "hier")),
-         trait = factor(trait, shiklomanov2017np::mass_params)) %>%
-  ggplot() +
-  aes(x = model, y = M) +
-  geom_col() +
-  facet_wrap(vars(trait), scales = "free_y") +
-  cowplot::theme_cowplot() +
-  theme(
-    axis.text.x = element_text(angle = )
-  )
+## plt <- cv_results_df %>%
+##   gather(trait, value, -i, -model) %>%
+##   group_by(model, trait) %>%
+##   summarize(M = mean(value), S = sd(value)) %>%
+##   ungroup() %>%
+##   mutate(model = factor(model, c("uni", "multi_global",
+##                                  "multi_group", "hier")),
+##          trait = factor(trait, shiklomanov2017np::mass_params)) %>%
+##   ggplot() +
+##   aes(x = model, y = M) +
+##   geom_col() +
+##   facet_wrap(vars(trait), scales = "free_y") +
+##   cowplot::theme_cowplot() +
+##   theme(
+##     axis.text.x = element_text(angle = )
+##   )
