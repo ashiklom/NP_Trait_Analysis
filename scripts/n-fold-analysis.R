@@ -9,10 +9,16 @@
 library(shiklomanov2017np)
 library(tidyverse)
 
-argv <- commandArgs(trailingOnly = TRUE)
+if (FALSE) {
+  # For interactive testing
+  argv <- c("area", 3)
+  argv <- c("mass", 3)
+}
+
+if (!exists("argv")) argv <- commandArgs(trailingOnly = TRUE)
 stopifnot(length(argv) %in% c(1, 2))
 mass_area <- match.arg(argv[1], c("mass", "area"))
-ncv <- argv[2]
+ncv <- as.numeric(argv[2])
 if (is.na(ncv)) ncv <- 20
 
 outdir <- here::here("output")
@@ -74,14 +80,7 @@ names(uni_results) <- levels(data_groups)
 # Begin cross-validation
 ##################################################
 
-# Create a matrix of indices (which I will eventually sample) where at least 2
-# traits are present
-present <- !is.na(data_mat)
-gt2 <- rowSums(present) >= 2
-data_mat_sub <- data_mat[gt2, ]
-groups_sub <- data_groups[gt2]
-
-cross_validate <- function(data_mat, groups, nremove) {
+cross_validate <- function(data_mat, groups, nremove = 1000) {
 
   message("Beginning cross validation")
   if (exists("incv")) {
@@ -157,8 +156,13 @@ cross_validate <- function(data_mat, groups, nremove) {
   rmse_all
 }
 
-incv <- 1
-cv_results <- replicate(ncv, cross_validate(data_mat, data_groups),
+# Create a matrix of indices (which I will eventually sample) where at least 2
+# traits are present
+present <- !is.na(data_mat)
+gtx <- rowSums(present) >= 1
+
+incv <- 0
+cv_results <- replicate(ncv, cross_validate(data_mat[gtx, ], data_groups[gtx]),
                         simplify = FALSE)
 
 cv_results_df <- bind_rows(cv_results, .id = "i")

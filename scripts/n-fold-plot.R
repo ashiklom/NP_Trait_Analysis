@@ -1,3 +1,4 @@
+library(shiklomanov2017np)
 library(tidyverse)
 library(here)
 
