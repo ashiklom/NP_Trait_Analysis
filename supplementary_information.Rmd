@@ -129,34 +129,6 @@ with_clm %>%
 
 ```
 
-```{r sample_size_table, echo = FALSE, results = "asis"}
-## ssw <- readd(sample_size_wide)
-## kable(
-##   ssw %>%
-##     dplyr::select(pft, leaf_lifespan, SLA,
-##                   Nmass, Narea, Pmass, Parea, Rdmass, Rdarea,
-##                   Vcmax_mass, Vcmax_area, Jmax_mass, Jmax_area),
-##   col.names = c(
-##     "PFT", "Leaf lifespan", "SLA",
-##     "$N_\\textrm{mass}$", "$N_\\textrm{area}$",
-##     "$P_\\textrm{mass}$", "$P_\\textrm{area}$",
-##     "$R_\\textrm{d, mass}$", "$R_\\textrm{d, area}$",
-##     "$V_\\textrm{c, max, mass}$", "$V_\\textrm{c, max, area}$",
-##     "$J_\\textrm{max, mass}$", "$J_\\textrm{max, area}$"
-##   ),
-##   format = "latex",
-##   booktabs = TRUE,
-##   escape = FALSE,
-##   caption = "The number of non-missing (outside parentheses) and imputed (inside parentheses) observations of each trait for each plant functional type used in this analysis."
-## ) %>%
-##   kable_styling(latex_options = c("scale_down", "hold_position")) %>%
-##   group_rows("Broadleaf", 2, 6) %>%
-##   group_rows("Needleleaf", 7, 9) %>%
-##   group_rows("Shrub", 10, 12) %>%
-##   group_rows("Grass", 13, 15) %>%
-##   landscape()
-```
-
 ```{r pairwise_correlation_table, echo = FALSE, results = "asis"}
 rma_display <- readRDS(here::here("extdata", "rma-display.rds"))
 kable(
