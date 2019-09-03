@@ -186,9 +186,13 @@ param_fancy_2 <- c(
   Vcmax_area = "atop(V[{list(c, max, area)}], (mu * mol ~ m ^ -2 ~ s ^ -1))",
   Jmax_area = "atop(J[{list(max, area)}], (mu * mol ~ m ^ -2 ~ s ^ -1))"
 )
-plot_dat <- means_dat %>%
+with_clm <- means_dat %>%
   mutate(model_type = factor(model_type, model_type_levels)) %>%
-  bind_rows(clm_dat) %>%
+  bind_rows(clm_dat)
+
+saveRDS(with_clm, here::here("extdata", "tidy-means.rds"))
+
+plot_dat <- with_clm %>%
   mutate(
     # Convert Nmass and Pmass to correct units
     mu_mean = if_else(param %in% c("Nmass", "Pmass"), mu_mean * 1000, mu_mean),

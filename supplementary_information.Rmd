@@ -39,33 +39,13 @@ header-includes:
 ```{r libraries, include = FALSE}
 library(knitr)
 library(kableExtra)
-library(drake)
-library(ggplot2)
-
-correlation_scatter_cap <- paste(
-  "Relationship between squared pairwise correlation and sample size of pairwise observations for each PFT.",
-  "Grey shading is the 95% confidence interval around a local regression (LOESS).",
-  "Upper triangle is area-normalized values, and lower triangle is mass-normalized values.",
-  "Note that the x-axis uses a $\\log_{10}$ scale."
-)
+## library(drake)
+library(dplyr, exclude = "group_rows")
+library(tidyverse)
 
 correlation_fig_cap <- paste(
   "Fraction of statistically significant ($p < 0.05$) pairwise trait correlation estimates",
   "as a function of sample size for each plant functional type."
-)
-
-correlation_range_cap <- paste(
-  "Relationship between pairwise correlation strength and data range for each PFT.",
-  "In each pair of sub-panels, the left panel is relationship between pairwise correlation",
-  "and the range of the variable on the x axis",
-  "while the right panel is the relationship between pairwise correlation",
-  "and the y variable",
-  "(For instance, in the two-panel figure in row 1 column 2,",
-  "the left panel is the SLA-leaf lifespan correlation as a function of the range of SLA",
-  "and the right panel is the same correlation as a function of the range of leaf lifespan).",
-  "Data range is expressed as the difference between the 2.5% and 97.5% quantiles of each normalized trait (i.e. $\\frac{X}{E[X]}$).",
-  "Grey shading is the 95% confidence interval around a local regression (LOESS).",
-  "Upper triangle is area-normalized values, and lower triangle is mass-normalized values."
 )
 ```
 
@@ -76,10 +56,32 @@ table_cap_mass <- paste(
   "Note that some traits for some PFTs have effectively no constraint relative to the mostly uninformative prior (as evidenced by their very large confidence intervals),",
   "so their values should be used with caution."
 )
-table_cap_area <- gsub("mass", "area", table_cap_mass)
 
-readd(table_dat) %>%
-  select(-matches("area")) %>%
+table_cap_area <- paste(
+  "Mean and 95\\% confidence interval of trait estimates",
+  "for area-normalized traits from the hierarchical model.",
+  "Note that some traits for some PFTs have effectively no constraint relative to the mostly uninformative prior (as evidenced by their very large confidence intervals),",
+  "so their values should be used with caution.",
+  "See mass-normalized table for SLA and leaf lifespan estimates."
+)
+
+with_clm <- readRDS(here::here("extdata", "tidy-means.rds"))
+
+# Mass-normalized table
+with_clm %>%
+  filter(mass_area == "mass",
+         model_type == "hierarchical") %>%
+  select(pft, param, mu_hi, mu_lo, mu_mean) %>%
+  # Fix units
+  mutate_at(
+    vars(starts_with("mu")),
+    ~if_else(param %in% c("Nmass", "Pmass"), . * 1000, .)
+  ) %>%
+  mutate(string = sprintf("%.2f (%.2f, %.2f)",
+                          mu_mean, mu_lo, mu_hi)) %>%
+  select(pft, param, string) %>%
+  spread(param, string) %>%
+  arrange(pft) %>%
   kable(
     caption = table_cap_mass,
     format = "latex",
@@ -98,15 +100,22 @@ readd(table_dat) %>%
   ) %>%
   kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
 
-readd(table_dat) %>%
-  select(-matches("mass")) %>%
+with_clm %>%
+  filter(mass_area == "area",
+         model_type == "hierarchical") %>%
+  select(pft, param, mu_hi, mu_lo, mu_mean) %>%
+  mutate(string = sprintf("%.2f (%.2f, %.2f)",
+                          mu_mean, mu_lo, mu_hi)) %>%
+  select(pft, param, string) %>%
+  spread(param, string) %>%
+  arrange(pft) %>%
   kable(
 	caption = table_cap_area,
 	format = "latex",
     col.names = linebreak(c(
       "PFT",
-      "Leaf lifespan\n(months)",
-      "SLA\n(m$^2$ kg$^{-1}$)",
+      ## "Leaf lifespan\n(months)",
+      ## "SLA\n(m$^2$ kg$^{-1}$)",
       "$N_\\textrm{area}$\n(g m$^{-2}$)",
       "$P_\\textrm{area}$\n(g m$^{-2}$)",
       "$R_\\textrm{d, area}$\n($\\mu$mol m$^{-2}$ s$^{-1}$)",
@@ -117,54 +126,64 @@ readd(table_dat) %>%
 	booktabs = TRUE
 ) %>%
   kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+
 ```
 
 ```{r sample_size_table, echo = FALSE, results = "asis"}
-ssw <- readd(sample_size_wide)
-kable(
-  ssw %>%
-    dplyr::select(pft, leaf_lifespan, SLA,
-                  Nmass, Narea, Pmass, Parea, Rdmass, Rdarea,
-                  Vcmax_mass, Vcmax_area, Jmax_mass, Jmax_area),
-  col.names = c(
-    "PFT", "Leaf lifespan", "SLA",
-    "$N_\\textrm{mass}$", "$N_\\textrm{area}$",
-    "$P_\\textrm{mass}$", "$P_\\textrm{area}$",
-    "$R_\\textrm{d, mass}$", "$R_\\textrm{d, area}$",
-    "$V_\\textrm{c, max, mass}$", "$V_\\textrm{c, max, area}$",
-    "$J_\\textrm{max, mass}$", "$J_\\textrm{max, area}$"
-  ),
-  format = "latex",
-  booktabs = TRUE,
-  escape = FALSE,
-  caption = "The number of non-missing (outside parentheses) and imputed (inside parentheses) observations of each trait for each plant functional type used in this analysis."
-) %>%
-  kable_styling(latex_options = c("scale_down", "hold_position")) %>%
-  group_rows("Broadleaf", 2, 6) %>%
-  group_rows("Needleleaf", 7, 9) %>%
-  group_rows("Shrub", 10, 12) %>%
-  group_rows("Grass", 13, 15) %>%
-  landscape()
+## ssw <- readd(sample_size_wide)
+## kable(
+##   ssw %>%
+##     dplyr::select(pft, leaf_lifespan, SLA,
+##                   Nmass, Narea, Pmass, Parea, Rdmass, Rdarea,
+##                   Vcmax_mass, Vcmax_area, Jmax_mass, Jmax_area),
+##   col.names = c(
+##     "PFT", "Leaf lifespan", "SLA",
+##     "$N_\\textrm{mass}$", "$N_\\textrm{area}$",
+##     "$P_\\textrm{mass}$", "$P_\\textrm{area}$",
+##     "$R_\\textrm{d, mass}$", "$R_\\textrm{d, area}$",
+##     "$V_\\textrm{c, max, mass}$", "$V_\\textrm{c, max, area}$",
+##     "$J_\\textrm{max, mass}$", "$J_\\textrm{max, area}$"
+##   ),
+##   format = "latex",
+##   booktabs = TRUE,
+##   escape = FALSE,
+##   caption = "The number of non-missing (outside parentheses) and imputed (inside parentheses) observations of each trait for each plant functional type used in this analysis."
+## ) %>%
+##   kable_styling(latex_options = c("scale_down", "hold_position")) %>%
+##   group_rows("Broadleaf", 2, 6) %>%
+##   group_rows("Needleleaf", 7, 9) %>%
+##   group_rows("Shrub", 10, 12) %>%
+##   group_rows("Grass", 13, 15) %>%
+##   landscape()
 ```
 
 ```{r pairwise_correlation_table, echo = FALSE, results = "asis"}
-corr_results <- readd(corr_processed)
+rma_display <- readRDS(here::here("extdata", "rma-display.rds"))
 kable(
-  corr_results %>%
-    dplyr::select(pft, yvar, xvar, corr_value, present, missing),
+  rma_display,
   "latex",
-  booktabs = TRUE, longtable = TRUE, escape = TRUE,
-  col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95% CI)", "present", "missing"),
-  caption = "Pairwise trait correlation values for each plant functional type. Values with asterisks indicate correlations significantly different from zero ($p < 0.05$)."
+  booktabs = TRUE, longtable = TRUE,
+  caption = paste("Pairwise reduced major axis (RMA) slope values",
+                  "(Mean and 95pct credible interval)",
+                  "for each plant functional type.",
+                  "Values with asterisks indicate slopes",
+                  "with credible intervals that don't intersect zero.")
 )
-```
-
-```{r correlation_sample_size_pairs, echo = FALSE, results = "hide", warning = FALSE, fig.cap = correlation_scatter_cap, fig.dim = c(12, 12)}
-readd(corr_ss_plot_gg)
-```
-
-```{r correlation_range_analysis, echo = FALSE, results = "hide", warning = FALSE, fig.cap = correlation_range_cap, fig.dim = c(12, 12)}
-readd(corr_range_plot_gg)
+  
+## corr_results <- readd(corr_processed)
+## kable(
+##   corr_results %>%
+##     dplyr::select(pft, yvar, xvar, corr_value, present, missing),
+##   "latex",
+##   booktabs = TRUE, longtable = TRUE, escape = TRUE,
+##   col.names = c("PFT", "Trait 1", "Trait 2", "Correlation (95% CI)", "present", "missing"),
+##   caption = paste(
+##     "Pairwise trait correlation values (Mean and 95% credible interval)",
+##     "for each plant functional type.",
+##     "Values with asterisks indicate correlations",
+##     "with credible intervals that do not intersect zero."
+##   )
+## )
 ```
 
 \clearpage

@@ -34,8 +34,7 @@ dat_mass <- try_data("mass")
 pm_mass <- dat_mass %>% pm_missing
 
 dat_area <- try_data("area")
-pm_area <- dat_area %>%
-  pm_missing
+pm_area <- dat_area %>% pm_missing
 
 lvl <- c("LL", "SLA", "N", "P", "Rd", "Vcmax", "Jmax")
 pm_both <- bind_rows(mass = pm_mass, area = pm_area,
