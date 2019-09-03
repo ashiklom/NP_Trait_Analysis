@@ -137,7 +137,7 @@ cross_validate <- function(data_mat, groups, nremove = 1000) {
   rmse_u <- vapply(
     1:7,
     function(x) {
-      ii <- imissing[imissing[, "col"] == x, ]
+      ii <- imissing[imissing[, "col"] == x, , drop = FALSE]
       obs <- data_mat[ii]
       uni_vec <- vapply(uni_results, "[[", numeric(1), x = x)
       pred <- uni_vec[groups[ii[, "row"]]]

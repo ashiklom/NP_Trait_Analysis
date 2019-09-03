@@ -30,6 +30,7 @@ cv_long <- cv_results %>%
 plt <- cv_long %>%
   group_by(mass_area, trait) %>%
   mutate(Mnorm = M / max(M)) %>%
+  ungroup() %>%
   ggplot() +
   aes(x = model, y = Mnorm, group = 1) +
   geom_point() +
