@@ -68,7 +68,8 @@ rma_both <- bind_rows(rma_mass, rma_area) %>%
       forcats::fct_inorder(),
     pft = forcats::fct_recode(pft, !!!abbr2pft),
     significant = sign(lo) == sign(hi),
-    sigstar = if_else(significant, "*", NA_character_)
+    sigstar = if_else(significant, "*", NA_character_),
+    mass_area = factor(mass_area, c("mass", "area"))
   )
 
 plt <- ggplot(rma_both) +
