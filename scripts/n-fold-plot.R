@@ -14,7 +14,9 @@ cv_results_area <- here("results", "cv-results-area.csv") %>%
   read_csv(col_types = cols) %>%
   rename_all(~gsub("_?area", "", .))
 cv_results <- bind_rows("mass" = cv_results_mass, "area" = cv_results_area,
-                        .id = "mass_area")
+                        .id = "mass_area") %>%
+  filter(model != "multi_global") %>%
+  mutate(model = fct_recode(model, "multi" = "multi_group"))
 
 cv_long <- cv_results %>%
   gather(trait, value, -i, -model, -mass_area) %>%
