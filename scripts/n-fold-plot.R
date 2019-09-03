@@ -36,9 +36,10 @@ plt <- cv_long %>%
   labs(y = "Normalized mean RMSE", x = "Model") +
   theme_cowplot()
 if (interactive()) plt
+
 figdir <- here("figures", "manuscript")
 dir.create(figdir, showWarnings = FALSE, recursive = TRUE)
-ggsave(file.path(figdir, "n-fold-rmse.png"), plt,
+ggsave(file.path(figdir, "n-fold-rmse.pdf"), plt,
        width = 8.78, height = 8.54)
 
 ## # GGmatrix

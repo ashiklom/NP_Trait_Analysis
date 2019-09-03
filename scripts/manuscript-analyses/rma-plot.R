@@ -90,5 +90,5 @@ plt <- ggplot(rma_both) +
     strip.text.y = element_text(angle = 180)
   )
 
-ggsave("figures/manuscript/rma-slope-tiles.png", plt,
+ggsave("figures/manuscript/rma-slope-tiles.pdf", plt,
        width = 13.5, height = 7.9)
