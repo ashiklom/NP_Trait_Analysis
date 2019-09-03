@@ -93,3 +93,46 @@ plt <- ggplot(rma_both) +
 
 ggsave("figures/manuscript/rma-slope-tiles.pdf", plt,
        width = 13.5, height = 7.9)
+
+saveRDS(rma_both, "extdata/rma-results.rds")
+
+pm_missing <- . %>%
+  group_by(pft) %>%
+  nest() %>%
+  mutate(miss = map(data, get_all_pairwise_missing)) %>%
+  unnest(miss)
+
+dat_mass <- try_data("mass")
+pm_mass <- dat_mass %>% pm_missing
+
+dat_area <- try_data("area")
+pm_area <- dat_area %>% pm_missing
+
+pm_both <- bind_rows(mass = pm_mass, area = pm_area,
+                     .id = "mass_area") %>%
+  mutate(
+    yvar = drop_mass_area(yvar),
+    xvar = drop_mass_area(xvar),
+    mass_area = factor(mass_area, c("mass", "area")),
+    pft = factor(pft, abbr2pft) %>% fct_recode(!!!abbr2pft)
+  )
+
+rma_pm <- rma_both %>%
+  select(-xvar, -yvar) %>%
+  rename(xvar = xvar2, yvar = yvar2) %>%
+  mutate(yvar = as.character(yvar) %>%
+           if_else(. == "leaf_lifespan", "Leaf lifespan", .),
+         yvar = factor(yvar, levels(pm_both$yvar)),
+         xvar = factor(xvar, levels(yvar))) %>%
+  left_join(pm_both, c("xvar", "yvar", "mass_area", "pft"))
+
+rma_display <- rma_pm %>%
+  mutate(
+    present = if_else(pft == "GLOB", 14L, present),
+    sigstar = if_else(is.na(sigstar), "", "*"),
+    RMA = sprintf("%.2f (%.2f, %.2f)%s", Mean, lo, hi, sigstar)
+  ) %>%
+  select(PFT = pft, Normalization = mass_area,
+         `Trait 1` = yvar, `Trait 2` = xvar,
+         `Present` = present, RMA)
+saveRDS(rma_display, "extdata/rma-display.rds")
