@@ -202,7 +202,7 @@ plot_dat <- with_clm %>%
     mu_hi = if_else(irrelevant, NA_real_, mu_hi),
     mu_lo = if_else(irrelevant, NA_real_, mu_lo),
     mu_mean = if_else(irrelevant, NA_real_, mu_mean),
-    ## TODO: Fix these in the prior and re-run
+    ## TODO: Check the limits on these, especially Vcmax_mass
     mu_hi = pclip(param, "Rdmass", mu_hi, 50),
     mu_hi = pclip(param, "Rdarea", mu_hi, 4),
     mu_hi = pclip(param, "Vcmax_mass", mu_hi, 5),
