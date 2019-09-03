@@ -188,7 +188,6 @@ param_fancy_2 <- c(
 )
 plot_dat <- means_dat %>%
   mutate(model_type = factor(model_type, model_type_levels)) %>%
-  filter(model_type == "hierarchical") %>%
   bind_rows(clm_dat) %>%
   mutate(
     # Convert Nmass and Pmass to correct units
@@ -209,9 +208,8 @@ plot_dat <- means_dat %>%
     mu_hi = pclip(param, "Jmax_area", mu_hi, 300),
     param = forcats::lvls_revalue(param, param_fancy_2[both_params])
   )
-p_means <- ggplot(plot_dat) +
+p_means <- ggplot(filter(plot_dat, model_type %in% c("hierarchical", "CLM 4.5"))) +
   aes(
-    ## x = interaction(model_type, pft),
     x = pft,
     y = mu_mean,
     ymin = mu_lo,
@@ -265,6 +263,60 @@ if (interactive()) {
 }
 ggsave(file.path(manuscript_fig_dir, "mean_comparison.pdf"), p_means,
        width = 6.44, height = 8.1)
+
+p_means_all <- ggplot(plot_dat) +
+  aes(
+    x = interaction(model_type, pft),
+    y = mu_mean,
+    ymin = mu_lo,
+    ymax = mu_hi,
+    color = pft,
+    shape = model_type
+  ) +
+  geom_pointrange(size = 0.3) +
+  facet_wrap(~param, scales = "free", ncol = 2,
+             labeller = label_parsed,
+             strip.position = "left") +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  scale_color_manual(values = pft_colors) +
+  scale_shape_manual(values = c(
+    "univariate" = 17,
+    "multivariate" = 15,
+    "hierarchical" = 20,
+    "CLM 4.5" = 4
+  )) +
+  guides(
+    shape = guide_legend(title = "Model type",
+                         nrow = 1,
+                         override.aes = list(linetype = 0)),
+    color = guide_legend(title = "PFT",
+                         byrow = TRUE,
+                         ncol = 8,
+                         label.position = "bottom",
+                         keywidth = 2.5)
+  ) +
+  ylab("Trait estimate mean and 95% CI") +
+  xlab("Plant functional type and model type") +
+  theme_bw() +
+  theme(
+    text = element_text(size = 12),
+    axis.title.y.left = element_blank(),
+    axis.text.y.left = element_text(),
+    axis.title.y.right = element_text(),
+    axis.ticks.y.right = element_blank(),
+    axis.text.y.right = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "bottom",
+    legend.box = "vertical",
+    legend.direction = "horizontal",
+    strip.placement = "outside",
+    strip.background = element_blank(),
+  )
+if (interactive()) p_means_all
+ggsave(file.path(manuscript_fig_dir, "mean_comparison_all.pdf"), p_means_all,
+       width = 8.9, height = 9.375)
 
 ## ----"civssamplesize", fig.width=4.4, fig.height=3, fig.cap='(ref:sscap)'----
 ## Relative uncertainty
